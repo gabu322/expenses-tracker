@@ -1,11 +1,20 @@
 'use client';
 
 import Button from "@/components/Button";
-import Card from "@/components/Card";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Card } from "./components";
+import { useRouter } from "next/navigation";
 
+const cardColors = [
+    "#0033a0",
+    "#9108db",
+    "#21c25e",
+    "#21c25e",
+]
 export default function Home() {
+    const router = useRouter();
     const [cardList, setCardList] = useState([]);
 
     useEffect(() => {
@@ -14,10 +23,15 @@ export default function Home() {
             .catch(err => console.error(err));
     }, []);
 
-    return <main className="min-h-screen ">
-        <Button href="/cards">Criar novo cartão</Button>
-        <Card className="bg-[#8612d2]" />
-        <Card className={"bg-blue-400"}></Card>
+    return <main className="min-h-screen p-5 flex flex-col gap-5">
+        <div className="flex flex-row justify-between">
+            <h1>Seus cartões</h1>
+            <Button onClick={() => router.push("/cards")}>Add cartão</Button>
+
+        </div>
+        {cardList.map((card, index) =>
+            <Card key={card.id} cardName={card.name} backgroundColor={cardColors[index]} card={card} />
+        )}
     </main>
 
 }

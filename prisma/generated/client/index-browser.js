@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.19.1
- * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
+ * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
  */
 Prisma.prismaVersion = {
   client: "5.19.1",
-  engine: "4c784e32044a8a016d99474bd02a3b6123742169"
+  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -130,9 +130,10 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  type: 'type',
-  balance: 'balance',
-  acceptsPix: 'acceptsPix',
+  number: 'number',
+  expiration: 'expiration',
+  cvv: 'cvv',
+  description: 'description',
   acceptsDebit: 'acceptsDebit',
   acceptsCredit: 'acceptsCredit',
   createdAt: 'createdAt',
@@ -144,6 +145,14 @@ exports.Prisma.CreditCardScalarFieldEnum = {
   cardId: 'cardId',
   creditLimit: 'creditLimit',
   currentCredit: 'currentCredit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DebitCardScalarFieldEnum = {
+  id: 'id',
+  cardId: 'cardId',
+  balance: 'balance',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -179,9 +188,10 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User',
-  Card: 'Card',
+  user: 'user',
+  card: 'card',
   CreditCard: 'CreditCard',
+  DebitCard: 'DebitCard',
   Transaction: 'Transaction'
 };
 

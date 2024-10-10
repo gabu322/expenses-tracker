@@ -6,7 +6,8 @@
 
 generator client {
     provider = "prisma-client-js"
-    output   = "./generated/client"
+    // output   = "./generated/client"
+    previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -29,26 +30,27 @@ model User {
 model Card {
     id          Int     @id @default(autoincrement())
     name        String // e.g., "Visa", "MasterCard"
-    type        Int
+    number      String? @unique
+    expiration  String?
+    cvv         String?
     description String? // e.g., "Gold", "Platinum"
-
-    // Boolean fields for accepted methods
     acceptsDebit  Boolean @default(false)
     acceptsCredit Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
 
     // Relationships
     transactions Transaction[]
     creditCard   CreditCard? // Optional relationship for credit cards
-    debitCard    DebitCard?  // Optional relationship for debit cards
-
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
+    debitCard    DebitCard? // Optional relationship for debit cards
 
 }
 
 model CreditCard {
     id            Int   @id @default(autoincrement())
-    cardId        Int   @unique // One-to-one relation with Card
+    cardId        Int   @unique // One-to-one relation with card
     creditLimit   Float // Total credit limit
     currentCredit Float @default(0.0) // Current credit used
 
@@ -61,7 +63,7 @@ model CreditCard {
 
 model DebitCard {
     id      Int   @id @default(autoincrement())
-    cardId  Int   @unique // One-to-one relation with Card
+    cardId  Int   @unique // One-to-one relation with card
     balance Float @default(0.0) // Current balance
 
     // Relationships

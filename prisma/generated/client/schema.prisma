@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model user {
   id    Int    @id @default(autoincrement())
   name  String
   email String @unique
@@ -26,20 +26,22 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Card {
-  id      Int    @id @default(autoincrement())
-  name    String // e.g., "Visa", "MasterCard"
-  type    String // Card type (e.g., "credit", "debit")
-  balance Float  @default(0.0) // Current stored value on the card
+model card {
+  id          Int     @id @default(autoincrement())
+  name        String // e.g., "Visa", "MasterCard"
+  number      String? @unique
+  expiration  String?
+  cvv         String?
+  description String? // e.g., "Gold", "Platinum"
 
   // Boolean fields for accepted methods
-  acceptsPix    Boolean @default(false)
   acceptsDebit  Boolean @default(false)
   acceptsCredit Boolean @default(false)
 
   // Relationships
   transactions Transaction[]
   creditCard   CreditCard? // Optional relationship for credit cards
+  debitCard    DebitCard? // Optional relationship for debit cards
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,12 +49,24 @@ model Card {
 
 model CreditCard {
   id            Int   @id @default(autoincrement())
-  cardId        Int   @unique // One-to-one relation with Card
+  cardId        Int   @unique // One-to-one relation with card
   creditLimit   Float // Total credit limit
   currentCredit Float @default(0.0) // Current credit used
 
   // Relationships
-  card Card @relation(fields: [cardId], references: [id])
+  card card @relation(fields: [cardId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DebitCard {
+  id      Int   @id @default(autoincrement())
+  cardId  Int   @unique // One-to-one relation with card
+  balance Float @default(0.0) // Current balance
+
+  // Relationships
+  card card @relation(fields: [cardId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,8 +84,8 @@ model Transaction {
   userId      Int
 
   // Relationships
-  card Card @relation(fields: [cardId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  card card @relation(fields: [cardId], references: [id])
+  user user @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

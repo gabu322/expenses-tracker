@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
+
 const sizeConfig = {
     sm: {
         base: "h-8 text-sm",
@@ -49,9 +50,9 @@ export default function Input({
     underText,
     required,
     validationMessage = "Este campo é obrigatório",
-    size = "md"
+    size = "md",
+    mask // Add the mask prop
 }) {
-
     const [valid, setValid] = useState(true);
     const [value, setValue] = useState(initialValue);
     const [isFocused, setIsFocused] = useState(false);
@@ -62,14 +63,37 @@ export default function Input({
         setValue(initialValue);
     }, [initialValue]);
 
+    const applyMask = (value, mask) => {
+        const numbersOnly = value.replace(/\D/g, ''); // Remove all non-numeric characters
+        let formattedValue = '';
+        let maskIndex = 0;
+
+        for (let i = 0; i < numbersOnly.length && maskIndex < mask.length; i++) {
+            if (mask[maskIndex] === '_') {
+                formattedValue += numbersOnly[i];
+            } else {
+                formattedValue += mask[maskIndex];
+                i--; // Stay at the same number
+            }
+            maskIndex++;
+        }
+
+        return formattedValue;
+    };
+
     const handleInputChange = (e) => {
         let newValue = e.target.value;
+        // Apply mask if provided
+        if (mask) newValue = applyMask(newValue, mask);
+
         setValue(newValue);
+
         if (onChange) onChange({ target: { name, value: newValue } });
     };
 
     const handleInvalid = (e) => {
         if (value) return;
+        console.log("invalid" + name);
         e.target.setCustomValidity(validationMessage);
         setValid(false);
     };
@@ -79,48 +103,54 @@ export default function Input({
         setValid(true);
     };
 
-    return <div
-        className={`flex items-center relative box-border outline outline-offset-[-1px] rounded transition text-black ${sizes.base}
-            ${isFocused ? " outline-blue-500 outline-2 " : "outline-gray-300 outline-1"}
-            ${!valid ? "invalid:border-red-300" : ""}
-            ${underText ? sizes.underTextMargin : ""}
-            ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white  hover:outline-blue-500"}
-            ${className || ""}
-        `}
-        name={value}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onClick={() => document.getElementById(htmlFor).focus()}
-    >
-
-        <input
-            id={htmlFor}
-            className={`outline-none w-full ${sizes.inputMargin} ${(!valid ? " invalid:border-red-300" : "")}`}
-            type={type}
-            name={name}
-            value={value}
-            onChange={handleInputChange}
-            onInvalid={handleInvalid}
-            onInput={handleInput}
-            disabled={disabled}
-            required={required}
-            aria-invalid={!valid}
-            aria-required={required}
-        />
-
-        {label && <label
-            htmlFor={htmlFor}
-            className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-10
-                    ${isFocused || value || type == "date" ? (sizes.labelSelected) + " px-1 cursor-default" : sizes.labelUnselected + " cursor-text"}
-                    ${isFocused ? 'text-blue-500' : 'text-gray-400'}
-                    ${disabled ? 'bg-gray-200' : 'bg-white'}
-                `}
+    return (
+        <div
+            className={`flex items-center relative box-border outline outline-offset-[-1px] rounded transition text-black ${sizes.base}
+                ${isFocused ? " outline-blue-500 outline-2 " : "outline-gray-300 outline-1"}
+                ${underText ? sizes.underTextMargin : ""}
+                ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white  hover:outline-blue-500"}
+                ${className || ""}
+                ${!valid ? "outline-red-300 hover:outline-red-300" : ""}
+            `}
+            name={value}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onClick={() => document.getElementById(htmlFor).focus()}
         >
-            {label}
-        </label>}
 
-        {underText &&
-            <div className={`absolute left-1.5 ${sizes.underText} text-left text-gray-400`}>{underText}</div>
-        }
-    </div>;
+            <input
+                id={htmlFor}
+                className={`outline-none w-full ${sizes.inputMargin} ${(!valid ? " invalid:border-red-300" : "")}`}
+                type={type}
+                name={name}
+                value={value}
+                onChange={handleInputChange}
+                onInvalid={handleInvalid}
+                onInput={handleInput}
+                disabled={disabled}
+                required={required}
+                aria-invalid={!valid}
+                aria-required={required}
+            />
+
+            {label && (
+                <label
+                    htmlFor={htmlFor}
+                    className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-10
+                        ${isFocused || value || type == "date" ? (sizes.labelSelected) + " px-1 cursor-default" : sizes.labelUnselected + " cursor-text"}
+                        ${isFocused ? 'text-blue-500' : 'text-gray-400'}
+                        ${disabled ? 'bg-gray-200' : 'bg-white'}
+                    `}
+                >
+                    {label}
+                </label>
+            )}
+
+            {underText && (
+                <div className={`absolute left-1.5 ${sizes.underText} text-left text-gray-400`}>
+                    {underText}
+                </div>
+            )}
+        </div>
+    );
 }

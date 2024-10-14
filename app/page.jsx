@@ -23,7 +23,7 @@ export default function Home() {
             .catch(err => console.error(err));
     }, []);
 
-    return <main className="min-h-screen p-5 flex flex-col gap-5">
+    return <main className="min-h-screen flex flex-col gap-5">
         <div className="flex flex-row justify-between">
             <h1>Seus cartões</h1>
             <Button onClick={() => router.push("/cards")}>Add cartão</Button>

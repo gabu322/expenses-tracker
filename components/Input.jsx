@@ -136,7 +136,7 @@ export default function Input({
             {label && (
                 <label
                     htmlFor={htmlFor}
-                    className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-10
+                    className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2
                         ${isFocused || value || type == "date" ? (sizes.labelSelected) + " px-1 cursor-default" : sizes.labelUnselected + " cursor-text"}
                         ${isFocused ? 'text-blue-500' : 'text-gray-400'}
                         ${disabled ? 'bg-gray-200' : 'bg-white'}

@@ -27,6 +27,11 @@ body {
     line-height: 1;
 }
 
+main {
+    @apply min-h-screen p-5 pb-16;
+}
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

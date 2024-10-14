@@ -5,9 +5,6 @@ export default function Button({
     href,
     type,
     onClick,
-    width,
-    height,
-    square,
     className,
     transparent,
     blank,
@@ -52,19 +49,27 @@ export default function Button({
         color = "bg-black hover:bg-gray-800";
     }
 
-    return <button
-        type={type ?? "button"}
-        className={`px-3 rounded drop-shadow transition-all duration-200 cursor-pointer font-semibold text-sm flex-r-2 items-center justify-center ${color} ${textColor} ${className}`}
-        style={{
-            whiteSpace: " nowrap",
-            height: height ?? "40px",
-            flex: "0 0 auto"
-        }}
-        onClick={onClick}
-        disabled={disabled}
-    >
-        {children || text}
+    const buttonContent = (
+        <button
+            type={type ?? "button"}
+            className={`px-3 rounded drop-shadow transition-all duration-200 cursor-pointer font-semibold text-sm flex-r-2 items-center justify-center ${color} ${textColor} ${className} h-10`}
+            onClick={onClick}
+            disabled={disabled}
+        >
+            {children || text}
+        </button>
+    );
 
-        {href && (<Link href={href} target={blank ? "_blank" : ""} className='top-0 left-0 absolute w-full h-full' />)}
-    </button>
+    if (href) {
+        return (
+
+
+
+            <Link href={href} target={blank ? "_blank" : ""} className={className}>
+                {buttonContent}
+            </Link>
+        );
+    }
+
+    return buttonContent;
 }

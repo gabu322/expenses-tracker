@@ -26,7 +26,6 @@ export async function POST(req, res) {
     try {
         // Get data from request
         const requestData = await req.json();
-        console.log(requestData)
 
 
         // Create new card with nested credit and debit card data (if provided)

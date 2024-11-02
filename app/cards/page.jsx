@@ -77,7 +77,7 @@ export default function Page({ }) {
                     name="expiration"
                     label="Data de expiração"
                     onChange={handleChange}
-                    type="date"
+                    type="month"
                 />
 
                 <div className="flex justify-between">
@@ -123,6 +123,7 @@ export default function Page({ }) {
                 />
             </div>}
             <Button type={"submit"} className={"text-white"} >Adicionar</Button>
+            <Button onClick={() => console.log(cardData)} className={"text-white"} >Log</Button>
         </form>
     </main>;
 }

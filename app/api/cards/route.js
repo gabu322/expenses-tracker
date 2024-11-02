@@ -6,11 +6,8 @@ export async function GET(req, res) {
         // Get all cards
         const cards = await prisma.card.findMany({
             include: {
-                creditCard: true,
-                debitCard: true
-            },
-            omit: {
-                id: true
+                CreditCard: true,
+                DebitCard: true
             }
         });
 
@@ -27,7 +24,6 @@ export async function POST(req, res) {
         // Get data from request
         const requestData = await req.json();
 
-
         // Create new card with nested credit and debit card data (if provided)
         const newCard = await prisma.card.create({
             data: {
@@ -40,7 +36,7 @@ export async function POST(req, res) {
                 cvv: requestData.cvv,
 
                 // Conditionally create CreditCard if credit info is provided
-                creditCard: requestData.acceptsCredit && requestData.creditLimit ? {
+                CreditCard: requestData.acceptsCredit && requestData.creditLimit ? {
                     create: {
                         creditLimit: requestData.creditLimit,
                         currentCredit: requestData.currentCredit || 0.0
@@ -48,7 +44,7 @@ export async function POST(req, res) {
                 } : undefined,
 
                 // Conditionally create DebitCard if debit info is provided
-                debitCard: requestData.acceptsDebit && requestData.balance ? {
+                DebitCard: requestData.acceptsDebit && requestData.balance ? {
                     create: {
                         balance: requestData.balance
                     }

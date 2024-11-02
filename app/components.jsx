@@ -10,7 +10,7 @@ export function Card({
     backgroundColor = "#abcabc"
 }) {
     return <div
-        className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col ${className || ""} text-white ` }
+        className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col ${className || ""} text-white `}
         style={{ backgroundColor: backgroundColor }}
     >
         <div className="flex flex-row justify-between">
@@ -26,8 +26,8 @@ export function Card({
             {card.acceptsDebit ? <h3 className="leading-none">$ {card.debitCard.balance}</h3> : <div />}
 
             {card.acceptsCredit && <div className="flex flex-col mb-1">
-                <h6 className="text-gray-300 leading-none">Used credit: (of ${card.creditCard.creditLimit} limit)</h6>
-                <h3 className="">$ {card.creditCard.currentCredit}</h3>
+                <h6 className="text-gray-300 leading-none">Used credit: (of ${card.CreditCard?.creditLimit} limit)</h6>
+                <h3 className="">$ {card.CreditCard?.currentCredit}</h3>
             </div>}
         </div>
         <div className="w-full flex flex-row justify-between">
@@ -42,7 +42,7 @@ export function Card({
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                     <circle cx="10" cy="10" r="4" />
                 </svg>
-                </div>
+            </div>
         </div>
     </div>;
 };

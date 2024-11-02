@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 
-export default function Page(params) {
+export default function Page({ }) {
     return <main className="flex flex-col gap-5 p-5">
         <Button
             text="Wallet"
@@ -10,10 +10,17 @@ export default function Page(params) {
         <Button
             text="Criar novo cartão"
             href={"/cards"}
+            className={"w-full"}
         />
         <Button
-            text="Issuer"
-            href={"/dev/issuer"}
+            text="Adicionar Banco"
+            href={"/dev/issuers"}
+            className={"w-full"}
+        />
+        <Button
+            text="Listagem de Bancos"
+            href={"/dev/issuers/list"}
+            className={"w-full"}
         />
     </main>
 };

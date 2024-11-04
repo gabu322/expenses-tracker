@@ -3,18 +3,26 @@
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
+import Select from "@/components/Select";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page({ }) {
     const router = useRouter();
+    const [issuers, setIssuers] = useState([]);
     const [cardData, setCardData] = useState({
         name: "",
         description: "",
         acceptsCredit: false,
         acceptsDebit: false,
     });
+
+    useEffect(() => {
+        axios.get("/api/issuers")
+            .then(response => setIssuers(response.data))
+            .catch(console.error);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -79,6 +87,12 @@ export default function Page({ }) {
                     onChange={handleChange}
                     type="month"
                 />
+                <Select
+                    name="issuer"
+                    label="Banco"
+                    options={issuers}
+                />
+
 
                 <div className="flex justify-between">
                     <div>Tipo do cartão</div>

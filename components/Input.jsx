@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-
 const sizeConfig = {
     sm: {
         base: "h-8 text-sm",
@@ -40,7 +39,7 @@ const sizeConfig = {
 
 export default function Input({
     id,
-    className,
+    className = "",
     name,
     type = "text",
     label,
@@ -53,11 +52,10 @@ export default function Input({
     size = "md",
     mask // Add the mask prop
 }) {
-    const [valid, setValid] = useState(true);
     const [value, setValue] = useState(initialValue);
+    const [valid, setValid] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
-    const htmlFor = id || name;
-    let sizes = sizeConfig[size] || sizeConfig["md"];
+    let sizes = sizeConfig[size];
 
     useEffect(() => {
         setValue(initialValue);
@@ -103,54 +101,51 @@ export default function Input({
         setValid(true);
     };
 
-    return (
-        <div
-            className={`flex items-center relative box-border outline outline-offset-[-1px] rounded transition text-black ${sizes.base}
+    return <div
+        className={`flex items-center relative box-border outline outline-offset-[-1px] rounded transition text-black ${sizes.base} ${className}
                 ${isFocused ? " outline-blue-500 outline-2 " : "outline-gray-300 outline-1"}
                 ${underText ? sizes.underTextMargin : ""}
                 ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white  hover:outline-blue-500"}
-                ${className || ""}
                 ${!valid ? "outline-red-300 hover:outline-red-300" : ""}
             `}
-            name={value}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onClick={() => document.getElementById(htmlFor).focus()}
-        >
+        name={value}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onClick={() => document.getElementById(htmlFor).focus()}
+    >
 
-            <input
-                id={htmlFor}
-                className={`outline-none w-full ${sizes.inputMargin} ${(!valid ? " invalid:border-red-300" : "")}`}
-                type={type}
-                name={name}
-                value={value}
-                onChange={handleInputChange}
-                onInvalid={handleInvalid}
-                onInput={handleInput}
-                disabled={disabled}
-                required={required}
-                aria-invalid={!valid}
-                aria-required={required}
-            />
+        <input
+            id={id || name}
+            className={`outline-none w-full ${sizes.inputMargin} ${(!valid ? " invalid:border-red-300" : "")}`}
+            type={type}
+            name={name}
+            value={value}
+            onChange={handleInputChange}
+            onInvalid={handleInvalid}
+            onInput={handleInput}
+            disabled={disabled}
+            required={required}
+            aria-invalid={!valid}
+            aria-required={required}
+        />
 
-            {label && (
-                <label
-                    htmlFor={htmlFor}
-                    className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2
+        {label && (
+            <label
+                htmlFor={id || name}
+                className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2
                         ${isFocused || value || type == "date" ? (sizes.labelSelected) + " px-1 cursor-default" : sizes.labelUnselected + " cursor-text"}
                         ${isFocused ? 'text-blue-500' : 'text-gray-400'}
                         ${disabled ? 'bg-gray-200' : 'bg-white'}
                     `}
-                >
-                    {label}
-                </label>
-            )}
+            >
+                {label}
+            </label>
+        )}
 
-            {underText && (
-                <div className={`absolute left-1.5 ${sizes.underText} text-left text-gray-400`}>
-                    {underText}
-                </div>
-            )}
-        </div>
-    );
+        {underText && (
+            <div className={`absolute left-1.5 ${sizes.underText} text-left text-gray-400`}>
+                {underText}
+            </div>
+        )}
+    </div>;
 }

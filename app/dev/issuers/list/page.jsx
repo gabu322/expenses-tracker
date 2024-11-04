@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@/components/Button";
 import Image from "next/image";
-import Select from "@/components/Options";
+import Select from "@/components/Select";
 import Input from "@/components/Input";
 
 export default function Page({ }) {

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
+import Image from 'next/image';
+import { useState, useEffect, useTransition } from 'react';
 
 const sizeConfig = {
     sm: {
@@ -42,73 +42,91 @@ export default function Select({
     id,
     className = "",
     name,
+    onChange,
     options,
+    getOptionInfo,
     label,
     disabled,
     required,
     size = "md",
+    showOptionId = false,
 }) {
     const [value, setValue] = useState("");
-    const [valid, setValid] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
+    const [infoColor, setInfoColor] = useState({ outline: "#d1d5db", text: "#9ca3af" });
     const sizes = sizeConfig[size];
+
+    useEffect(() => {
+        if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });
+    }, [isFocused])
 
     const handleInputChange = (e) => {
         let newValue = e.target.value;
-        if (type === "currency") {
-            newValue = newValue.replace(/[^0-9.]/g, '');
-        }
         setValue(newValue);
-        onChange({ target: { name, value: newValue } });
+        if (onChange) onChange({ target: { name, value: newValue } });
     };
 
     const handleOptionClick = (option) => {
         setValue(option.name);
-        setIsFocused(false);
+        setTimeout(() => setIsFocused(false), 0);
+        setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
         if (getOptionInfo) getOptionInfo(option);
     };
 
-    const commonAttributes = {
-        id: id || name,
-        name: name,
-        onChange: handleInputChange,
-        onInvalid: (e) => {
-            e.target.setCustomValidity("Este campo é obrigatório");
-            setValid(false);
-        },
-        onInput: (e) => {
-            e.target.setCustomValidity("");
-            setValid(true);
-        },
-        outline: "none",
-        disabled: disabled,
-        required: required
-    };
-
-    return <div className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? " outline-blue-500 outline-2 " : "outline-gray-300 outline-1"}`}
-        onMouseLeave={() => setIsFocused(false)}
+    return <div className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? "outline-2" : "outline-1"} hover:outline-2 ${disabled ? "bg-gray-100" : "bg-white"}`}
+        onMouseLeave={() => {
+            setIsFocused(false);
+            setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
+        }}
         onClick={() => setIsFocused(true)}
+        style={{ outlineColor: infoColor.outline }}
+
     >
-        <input {...commonAttributes} autoComplete="off" />
-        {isFocused}
-        <div className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-            }`}>
-            {options.filter(option => option.name.toLowerCase().includes((value || '').toLowerCase())).map(option => (
-                <div
-                    key={option.id}
-                    className={`p-2 transition cursor-pointer ${option.disabled ? "opacity-60 bg-gray-100" : "hover:bg-gray-200"
-                        }`}
-                    onClick={() => !option.disabled && handleOptionClick(option)}
-                >
-                    {option.id} - {option.name}
-                </div>
-            ))}
-        </div>
-        <div className='absolute right-1 top-1 p-2 bg-white z-2' onClick={() => setValue("")}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 2L8 8L2 2" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M2 14L8 8L14 14" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+        <input
+            id={id || name}
+            name={name}
+            className={`outline-none w-full ${sizes.inputMargin}`}
+            type='text'
+            value={value}
+            onChange={handleInputChange}
+            onInvalid={() => setInfoColor({ outline: "#fca5a5", text: "#f87171" })}
+            autoComplete="off"
+            disabled={disabled}
+            required={required}
+        />
+
+        {label && <label
+            htmlFor={id || name}
+            className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? 'bg-gray-200' : 'bg-white'} color`}
+            style={{ color: infoColor.text }}
+        >
+            {label}
+        </label>}
+
+        {isFocused && <div
+            className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        >
+            {options.filter(option =>
+                option.name.toLowerCase().includes((value || '').toLowerCase())).map(option =>
+                    <div
+                        key={option.id}
+                        className={`p-2 transition cursor-pointer ${option.disabled ? "opacity-60 bg-gray-100" : "hover:bg-gray-200"}`}
+                        onClick={() => !option.disabled && handleOptionClick(option)}
+                    >
+                        {showOptionId && `${option.id} - `}{option.name}
+                    </div>
+                )}
+        </div>}
+        <div
+            className='absolute right-1 top-1 p-2 bg-white z-2'
+            onClick={() => {
+                setValue("");
+                console.log("clicked");
+                setTimeout(() => setIsFocused(false), 0);
+            }}
+        >
+
+            <Image src="/icons/black/x.svg" width={16} height={16} />
         </div>
     </div>;
 }

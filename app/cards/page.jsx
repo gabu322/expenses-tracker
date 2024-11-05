@@ -71,14 +71,14 @@ export default function Page({ }) {
                     name="cardNumber"
                     label="Número do cartão*"
                     onChange={handleChange}
-                    mask="____ ____ ____ ____"
+                    mask="0000 0000 0000 0000"
                     required
                 />
                 <Input
                     name="cvv"
                     label="CVV"
                     onChange={handleChange}
-                    mask="___"
+                    mask="000"
                     type="number"
                 />
                 <Input

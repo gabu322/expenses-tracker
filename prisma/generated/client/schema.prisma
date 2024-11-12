@@ -4,8 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
-  url      = env("DATABASE_URL")
+  provider          = "sqlserver"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Card {
@@ -15,12 +16,15 @@ model Card {
   expiration    String?
   cvv           String?
   description   String?
+  issuerId      Int
   acceptsDebit  Boolean @default(false)
   acceptsCredit Boolean @default(false)
 
   // Relations
-  CreditCard  CreditCard?
-  DebitCard   DebitCard?
+  Issuer     Issuer      @relation(fields: [issuerId], references: [id])
+  CreditCard CreditCard?
+  DebitCard  DebitCard?
+
   Transaction Transaction[]
 
   // Timestamps
@@ -60,6 +64,9 @@ model Issuer {
   name  String
   color String
   icon  String?
+
+  // Relations
+  Card Card[]
 
   // Timestamps
   createdAt DateTime @default(now())

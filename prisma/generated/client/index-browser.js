@@ -130,6 +130,7 @@ exports.Prisma.CardScalarFieldEnum = {
   expiration: 'expiration',
   cvv: 'cvv',
   description: 'description',
+  issuerId: 'issuerId',
   acceptsDebit: 'acceptsDebit',
   acceptsCredit: 'acceptsCredit',
   createdAt: 'createdAt',

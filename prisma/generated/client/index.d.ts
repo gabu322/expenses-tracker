@@ -1276,6 +1276,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type IssuerCountOutputType
+   */
+
+  export type IssuerCountOutputType = {
+    Card: number
+  }
+
+  export type IssuerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Card?: boolean | IssuerCountOutputTypeCountCardArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * IssuerCountOutputType without action
+   */
+  export type IssuerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IssuerCountOutputType
+     */
+    select?: IssuerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * IssuerCountOutputType without action
+   */
+  export type IssuerCountOutputTypeCountCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CardWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -1324,10 +1355,12 @@ export namespace Prisma {
 
   export type CardAvgAggregateOutputType = {
     id: number | null
+    issuerId: number | null
   }
 
   export type CardSumAggregateOutputType = {
     id: number | null
+    issuerId: number | null
   }
 
   export type CardMinAggregateOutputType = {
@@ -1337,6 +1370,7 @@ export namespace Prisma {
     expiration: string | null
     cvv: string | null
     description: string | null
+    issuerId: number | null
     acceptsDebit: boolean | null
     acceptsCredit: boolean | null
     createdAt: Date | null
@@ -1350,6 +1384,7 @@ export namespace Prisma {
     expiration: string | null
     cvv: string | null
     description: string | null
+    issuerId: number | null
     acceptsDebit: boolean | null
     acceptsCredit: boolean | null
     createdAt: Date | null
@@ -1363,6 +1398,7 @@ export namespace Prisma {
     expiration: number
     cvv: number
     description: number
+    issuerId: number
     acceptsDebit: number
     acceptsCredit: number
     createdAt: number
@@ -1373,10 +1409,12 @@ export namespace Prisma {
 
   export type CardAvgAggregateInputType = {
     id?: true
+    issuerId?: true
   }
 
   export type CardSumAggregateInputType = {
     id?: true
+    issuerId?: true
   }
 
   export type CardMinAggregateInputType = {
@@ -1386,6 +1424,7 @@ export namespace Prisma {
     expiration?: true
     cvv?: true
     description?: true
+    issuerId?: true
     acceptsDebit?: true
     acceptsCredit?: true
     createdAt?: true
@@ -1399,6 +1438,7 @@ export namespace Prisma {
     expiration?: true
     cvv?: true
     description?: true
+    issuerId?: true
     acceptsDebit?: true
     acceptsCredit?: true
     createdAt?: true
@@ -1412,6 +1452,7 @@ export namespace Prisma {
     expiration?: true
     cvv?: true
     description?: true
+    issuerId?: true
     acceptsDebit?: true
     acceptsCredit?: true
     createdAt?: true
@@ -1512,6 +1553,7 @@ export namespace Prisma {
     expiration: string | null
     cvv: string | null
     description: string | null
+    issuerId: number
     acceptsDebit: boolean
     acceptsCredit: boolean
     createdAt: Date
@@ -1544,10 +1586,12 @@ export namespace Prisma {
     expiration?: boolean
     cvv?: boolean
     description?: boolean
+    issuerId?: boolean
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Issuer?: boolean | IssuerDefaultArgs<ExtArgs>
     CreditCard?: boolean | Card$CreditCardArgs<ExtArgs>
     DebitCard?: boolean | Card$DebitCardArgs<ExtArgs>
     Transaction?: boolean | Card$TransactionArgs<ExtArgs>
@@ -1562,6 +1606,7 @@ export namespace Prisma {
     expiration?: boolean
     cvv?: boolean
     description?: boolean
+    issuerId?: boolean
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: boolean
@@ -1569,6 +1614,7 @@ export namespace Prisma {
   }
 
   export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Issuer?: boolean | IssuerDefaultArgs<ExtArgs>
     CreditCard?: boolean | Card$CreditCardArgs<ExtArgs>
     DebitCard?: boolean | Card$DebitCardArgs<ExtArgs>
     Transaction?: boolean | Card$TransactionArgs<ExtArgs>
@@ -1578,6 +1624,7 @@ export namespace Prisma {
   export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Card"
     objects: {
+      Issuer: Prisma.$IssuerPayload<ExtArgs>
       CreditCard: Prisma.$CreditCardPayload<ExtArgs> | null
       DebitCard: Prisma.$DebitCardPayload<ExtArgs> | null
       Transaction: Prisma.$TransactionPayload<ExtArgs>[]
@@ -1589,6 +1636,7 @@ export namespace Prisma {
       expiration: string | null
       cvv: string | null
       description: string | null
+      issuerId: number
       acceptsDebit: boolean
       acceptsCredit: boolean
       createdAt: Date
@@ -1933,6 +1981,7 @@ export namespace Prisma {
    */
   export interface Prisma__CardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Issuer<T extends IssuerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IssuerDefaultArgs<ExtArgs>>): Prisma__IssuerClient<$Result.GetResult<Prisma.$IssuerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     CreditCard<T extends Card$CreditCardArgs<ExtArgs> = {}>(args?: Subset<T, Card$CreditCardArgs<ExtArgs>>): Prisma__CreditCardClient<$Result.GetResult<Prisma.$CreditCardPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     DebitCard<T extends Card$DebitCardArgs<ExtArgs> = {}>(args?: Subset<T, Card$DebitCardArgs<ExtArgs>>): Prisma__DebitCardClient<$Result.GetResult<Prisma.$DebitCardPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     Transaction<T extends Card$TransactionArgs<ExtArgs> = {}>(args?: Subset<T, Card$TransactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany"> | Null>
@@ -1971,6 +2020,7 @@ export namespace Prisma {
     readonly expiration: FieldRef<"Card", 'String'>
     readonly cvv: FieldRef<"Card", 'String'>
     readonly description: FieldRef<"Card", 'String'>
+    readonly issuerId: FieldRef<"Card", 'Int'>
     readonly acceptsDebit: FieldRef<"Card", 'Boolean'>
     readonly acceptsCredit: FieldRef<"Card", 'Boolean'>
     readonly createdAt: FieldRef<"Card", 'DateTime'>
@@ -4398,6 +4448,8 @@ export namespace Prisma {
     icon?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Card?: boolean | Issuer$CardArgs<ExtArgs>
+    _count?: boolean | IssuerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["issuer"]>
 
 
@@ -4410,10 +4462,16 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
+  export type IssuerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Card?: boolean | Issuer$CardArgs<ExtArgs>
+    _count?: boolean | IssuerCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $IssuerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Issuer"
-    objects: {}
+    objects: {
+      Card: Prisma.$CardPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -4761,6 +4819,7 @@ export namespace Prisma {
    */
   export interface Prisma__IssuerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Card<T extends Issuer$CardArgs<ExtArgs> = {}>(args?: Subset<T, Issuer$CardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4809,6 +4868,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * Filter, which Issuer to fetch.
      */
     where: IssuerWhereUniqueInput
@@ -4823,6 +4886,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * Filter, which Issuer to fetch.
      */
     where: IssuerWhereUniqueInput
@@ -4836,6 +4903,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Issuer
      */
     select?: IssuerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
     /**
      * Filter, which Issuer to fetch.
      */
@@ -4881,6 +4952,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * Filter, which Issuer to fetch.
      */
     where?: IssuerWhereInput
@@ -4925,6 +5000,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * Filter, which Issuers to fetch.
      */
     where?: IssuerWhereInput
@@ -4964,6 +5043,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * The data needed to create a Issuer.
      */
     data: XOR<IssuerCreateInput, IssuerUncheckedCreateInput>
@@ -4987,6 +5070,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Issuer
      */
     select?: IssuerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
     /**
      * The data needed to update a Issuer.
      */
@@ -5020,6 +5107,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * The filter to search for the Issuer to update in case it exists.
      */
     where: IssuerWhereUniqueInput
@@ -5042,6 +5133,10 @@ export namespace Prisma {
      */
     select?: IssuerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
+    /**
      * Filter which Issuer to delete.
      */
     where: IssuerWhereUniqueInput
@@ -5058,6 +5153,26 @@ export namespace Prisma {
   }
 
   /**
+   * Issuer.Card
+   */
+  export type Issuer$CardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardInclude<ExtArgs> | null
+    where?: CardWhereInput
+    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
+    cursor?: CardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
+  }
+
+  /**
    * Issuer without action
    */
   export type IssuerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5065,6 +5180,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Issuer
      */
     select?: IssuerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IssuerInclude<ExtArgs> | null
   }
 
 
@@ -7029,6 +7148,7 @@ export namespace Prisma {
     expiration: 'expiration',
     cvv: 'cvv',
     description: 'description',
+    issuerId: 'issuerId',
     acceptsDebit: 'acceptsDebit',
     acceptsCredit: 'acceptsCredit',
     createdAt: 'createdAt',
@@ -7171,10 +7291,12 @@ export namespace Prisma {
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
     description?: StringNullableFilter<"Card"> | string | null
+    issuerId?: IntFilter<"Card"> | number
     acceptsDebit?: BoolFilter<"Card"> | boolean
     acceptsCredit?: BoolFilter<"Card"> | boolean
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
+    Issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
     CreditCard?: XOR<CreditCardNullableRelationFilter, CreditCardWhereInput> | null
     DebitCard?: XOR<DebitCardNullableRelationFilter, DebitCardWhereInput> | null
     Transaction?: TransactionListRelationFilter
@@ -7187,10 +7309,12 @@ export namespace Prisma {
     expiration?: SortOrderInput | SortOrder
     cvv?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    issuerId?: SortOrder
     acceptsDebit?: SortOrder
     acceptsCredit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Issuer?: IssuerOrderByWithRelationInput
     CreditCard?: CreditCardOrderByWithRelationInput
     DebitCard?: DebitCardOrderByWithRelationInput
     Transaction?: TransactionOrderByRelationAggregateInput
@@ -7206,10 +7330,12 @@ export namespace Prisma {
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
     description?: StringNullableFilter<"Card"> | string | null
+    issuerId?: IntFilter<"Card"> | number
     acceptsDebit?: BoolFilter<"Card"> | boolean
     acceptsCredit?: BoolFilter<"Card"> | boolean
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
+    Issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
     CreditCard?: XOR<CreditCardNullableRelationFilter, CreditCardWhereInput> | null
     DebitCard?: XOR<DebitCardNullableRelationFilter, DebitCardWhereInput> | null
     Transaction?: TransactionListRelationFilter
@@ -7222,6 +7348,7 @@ export namespace Prisma {
     expiration?: SortOrderInput | SortOrder
     cvv?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    issuerId?: SortOrder
     acceptsDebit?: SortOrder
     acceptsCredit?: SortOrder
     createdAt?: SortOrder
@@ -7243,6 +7370,7 @@ export namespace Prisma {
     expiration?: StringNullableWithAggregatesFilter<"Card"> | string | null
     cvv?: StringNullableWithAggregatesFilter<"Card"> | string | null
     description?: StringNullableWithAggregatesFilter<"Card"> | string | null
+    issuerId?: IntWithAggregatesFilter<"Card"> | number
     acceptsDebit?: BoolWithAggregatesFilter<"Card"> | boolean
     acceptsCredit?: BoolWithAggregatesFilter<"Card"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
@@ -7378,6 +7506,7 @@ export namespace Prisma {
     icon?: StringNullableFilter<"Issuer"> | string | null
     createdAt?: DateTimeFilter<"Issuer"> | Date | string
     updatedAt?: DateTimeFilter<"Issuer"> | Date | string
+    Card?: CardListRelationFilter
   }
 
   export type IssuerOrderByWithRelationInput = {
@@ -7387,6 +7516,7 @@ export namespace Prisma {
     icon?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Card?: CardOrderByRelationAggregateInput
   }
 
   export type IssuerWhereUniqueInput = Prisma.AtLeast<{
@@ -7399,6 +7529,7 @@ export namespace Prisma {
     icon?: StringNullableFilter<"Issuer"> | string | null
     createdAt?: DateTimeFilter<"Issuer"> | Date | string
     updatedAt?: DateTimeFilter<"Issuer"> | Date | string
+    Card?: CardListRelationFilter
   }, "id">
 
   export type IssuerOrderByWithAggregationInput = {
@@ -7589,6 +7720,7 @@ export namespace Prisma {
     acceptsCredit?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Issuer: IssuerCreateNestedOneWithoutCardInput
     CreditCard?: CreditCardCreateNestedOneWithoutCardInput
     DebitCard?: DebitCardCreateNestedOneWithoutCardInput
     Transaction?: TransactionCreateNestedManyWithoutCardInput
@@ -7601,6 +7733,7 @@ export namespace Prisma {
     expiration?: string | null
     cvv?: string | null
     description?: string | null
+    issuerId: number
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: Date | string
@@ -7620,6 +7753,7 @@ export namespace Prisma {
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
     CreditCard?: CreditCardUpdateOneWithoutCardNestedInput
     DebitCard?: DebitCardUpdateOneWithoutCardNestedInput
     Transaction?: TransactionUpdateManyWithoutCardNestedInput
@@ -7632,6 +7766,7 @@ export namespace Prisma {
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    issuerId?: IntFieldUpdateOperationsInput | number
     acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7647,6 +7782,7 @@ export namespace Prisma {
     expiration?: string | null
     cvv?: string | null
     description?: string | null
+    issuerId: number
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: Date | string
@@ -7672,6 +7808,7 @@ export namespace Prisma {
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    issuerId?: IntFieldUpdateOperationsInput | number
     acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7793,6 +7930,7 @@ export namespace Prisma {
     icon?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    Card?: CardCreateNestedManyWithoutIssuerInput
   }
 
   export type IssuerUncheckedCreateInput = {
@@ -7802,6 +7940,7 @@ export namespace Prisma {
     icon?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    Card?: CardUncheckedCreateNestedManyWithoutIssuerInput
   }
 
   export type IssuerUpdateInput = {
@@ -7810,6 +7949,7 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Card?: CardUpdateManyWithoutIssuerNestedInput
   }
 
   export type IssuerUncheckedUpdateInput = {
@@ -7819,6 +7959,7 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Card?: CardUncheckedUpdateManyWithoutIssuerNestedInput
   }
 
   export type IssuerCreateManyInput = {
@@ -8056,6 +8197,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type IssuerRelationFilter = {
+    is?: IssuerWhereInput
+    isNot?: IssuerWhereInput
+  }
+
   export type CreditCardNullableRelationFilter = {
     is?: CreditCardWhereInput | null
     isNot?: CreditCardWhereInput | null
@@ -8088,6 +8234,7 @@ export namespace Prisma {
     expiration?: SortOrder
     cvv?: SortOrder
     description?: SortOrder
+    issuerId?: SortOrder
     acceptsDebit?: SortOrder
     acceptsCredit?: SortOrder
     createdAt?: SortOrder
@@ -8096,6 +8243,7 @@ export namespace Prisma {
 
   export type CardAvgOrderByAggregateInput = {
     id?: SortOrder
+    issuerId?: SortOrder
   }
 
   export type CardMaxOrderByAggregateInput = {
@@ -8105,6 +8253,7 @@ export namespace Prisma {
     expiration?: SortOrder
     cvv?: SortOrder
     description?: SortOrder
+    issuerId?: SortOrder
     acceptsDebit?: SortOrder
     acceptsCredit?: SortOrder
     createdAt?: SortOrder
@@ -8118,6 +8267,7 @@ export namespace Prisma {
     expiration?: SortOrder
     cvv?: SortOrder
     description?: SortOrder
+    issuerId?: SortOrder
     acceptsDebit?: SortOrder
     acceptsCredit?: SortOrder
     createdAt?: SortOrder
@@ -8126,6 +8276,7 @@ export namespace Prisma {
 
   export type CardSumOrderByAggregateInput = {
     id?: SortOrder
+    issuerId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8309,6 +8460,16 @@ export namespace Prisma {
     cardId?: SortOrder
   }
 
+  export type CardListRelationFilter = {
+    every?: CardWhereInput
+    some?: CardWhereInput
+    none?: CardWhereInput
+  }
+
+  export type CardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type IssuerCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -8440,6 +8601,12 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type IssuerCreateNestedOneWithoutCardInput = {
+    create?: XOR<IssuerCreateWithoutCardInput, IssuerUncheckedCreateWithoutCardInput>
+    connectOrCreate?: IssuerCreateOrConnectWithoutCardInput
+    connect?: IssuerWhereUniqueInput
+  }
+
   export type CreditCardCreateNestedOneWithoutCardInput = {
     create?: XOR<CreditCardCreateWithoutCardInput, CreditCardUncheckedCreateWithoutCardInput>
     connectOrCreate?: CreditCardCreateOrConnectWithoutCardInput
@@ -8492,6 +8659,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type IssuerUpdateOneRequiredWithoutCardNestedInput = {
+    create?: XOR<IssuerCreateWithoutCardInput, IssuerUncheckedCreateWithoutCardInput>
+    connectOrCreate?: IssuerCreateOrConnectWithoutCardInput
+    upsert?: IssuerUpsertWithoutCardInput
+    connect?: IssuerWhereUniqueInput
+    update?: XOR<XOR<IssuerUpdateToOneWithWhereWithoutCardInput, IssuerUpdateWithoutCardInput>, IssuerUncheckedUpdateWithoutCardInput>
   }
 
   export type CreditCardUpdateOneWithoutCardNestedInput = {
@@ -8604,6 +8779,48 @@ export namespace Prisma {
     upsert?: CardUpsertWithoutDebitCardInput
     connect?: CardWhereUniqueInput
     update?: XOR<XOR<CardUpdateToOneWithWhereWithoutDebitCardInput, CardUpdateWithoutDebitCardInput>, CardUncheckedUpdateWithoutDebitCardInput>
+  }
+
+  export type CardCreateNestedManyWithoutIssuerInput = {
+    create?: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput> | CardCreateWithoutIssuerInput[] | CardUncheckedCreateWithoutIssuerInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutIssuerInput | CardCreateOrConnectWithoutIssuerInput[]
+    createMany?: CardCreateManyIssuerInputEnvelope
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+  }
+
+  export type CardUncheckedCreateNestedManyWithoutIssuerInput = {
+    create?: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput> | CardCreateWithoutIssuerInput[] | CardUncheckedCreateWithoutIssuerInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutIssuerInput | CardCreateOrConnectWithoutIssuerInput[]
+    createMany?: CardCreateManyIssuerInputEnvelope
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+  }
+
+  export type CardUpdateManyWithoutIssuerNestedInput = {
+    create?: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput> | CardCreateWithoutIssuerInput[] | CardUncheckedCreateWithoutIssuerInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutIssuerInput | CardCreateOrConnectWithoutIssuerInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutIssuerInput | CardUpsertWithWhereUniqueWithoutIssuerInput[]
+    createMany?: CardCreateManyIssuerInputEnvelope
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutIssuerInput | CardUpdateWithWhereUniqueWithoutIssuerInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutIssuerInput | CardUpdateManyWithWhereWithoutIssuerInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
+  }
+
+  export type CardUncheckedUpdateManyWithoutIssuerNestedInput = {
+    create?: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput> | CardCreateWithoutIssuerInput[] | CardUncheckedCreateWithoutIssuerInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutIssuerInput | CardCreateOrConnectWithoutIssuerInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutIssuerInput | CardUpsertWithWhereUniqueWithoutIssuerInput[]
+    createMany?: CardCreateManyIssuerInputEnvelope
+    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
+    update?: CardUpdateWithWhereUniqueWithoutIssuerInput | CardUpdateWithWhereUniqueWithoutIssuerInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutIssuerInput | CardUpdateManyWithWhereWithoutIssuerInput[]
+    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
   }
 
   export type CardCreateNestedOneWithoutTransactionInput = {
@@ -8841,6 +9058,28 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type IssuerCreateWithoutCardInput = {
+    name: string
+    color: string
+    icon?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IssuerUncheckedCreateWithoutCardInput = {
+    id?: number
+    name: string
+    color: string
+    icon?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IssuerCreateOrConnectWithoutCardInput = {
+    where: IssuerWhereUniqueInput
+    create: XOR<IssuerCreateWithoutCardInput, IssuerUncheckedCreateWithoutCardInput>
+  }
+
   export type CreditCardCreateWithoutCardInput = {
     creditLimit: number
     currentCredit?: number
@@ -8909,6 +9148,34 @@ export namespace Prisma {
 
   export type TransactionCreateManyCardInputEnvelope = {
     data: TransactionCreateManyCardInput | TransactionCreateManyCardInput[]
+  }
+
+  export type IssuerUpsertWithoutCardInput = {
+    update: XOR<IssuerUpdateWithoutCardInput, IssuerUncheckedUpdateWithoutCardInput>
+    create: XOR<IssuerCreateWithoutCardInput, IssuerUncheckedCreateWithoutCardInput>
+    where?: IssuerWhereInput
+  }
+
+  export type IssuerUpdateToOneWithWhereWithoutCardInput = {
+    where?: IssuerWhereInput
+    data: XOR<IssuerUpdateWithoutCardInput, IssuerUncheckedUpdateWithoutCardInput>
+  }
+
+  export type IssuerUpdateWithoutCardInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IssuerUncheckedUpdateWithoutCardInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreditCardUpsertWithoutCardInput = {
@@ -9003,6 +9270,7 @@ export namespace Prisma {
     acceptsCredit?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Issuer: IssuerCreateNestedOneWithoutCardInput
     DebitCard?: DebitCardCreateNestedOneWithoutCardInput
     Transaction?: TransactionCreateNestedManyWithoutCardInput
   }
@@ -9014,6 +9282,7 @@ export namespace Prisma {
     expiration?: string | null
     cvv?: string | null
     description?: string | null
+    issuerId: number
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: Date | string
@@ -9048,6 +9317,7 @@ export namespace Prisma {
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
     DebitCard?: DebitCardUpdateOneWithoutCardNestedInput
     Transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
@@ -9059,6 +9329,7 @@ export namespace Prisma {
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    issuerId?: IntFieldUpdateOperationsInput | number
     acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9077,6 +9348,7 @@ export namespace Prisma {
     acceptsCredit?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Issuer: IssuerCreateNestedOneWithoutCardInput
     CreditCard?: CreditCardCreateNestedOneWithoutCardInput
     Transaction?: TransactionCreateNestedManyWithoutCardInput
   }
@@ -9088,6 +9360,7 @@ export namespace Prisma {
     expiration?: string | null
     cvv?: string | null
     description?: string | null
+    issuerId: number
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: Date | string
@@ -9122,6 +9395,7 @@ export namespace Prisma {
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
     CreditCard?: CreditCardUpdateOneWithoutCardNestedInput
     Transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
@@ -9133,12 +9407,86 @@ export namespace Prisma {
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    issuerId?: IntFieldUpdateOperationsInput | number
     acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
     Transaction?: TransactionUncheckedUpdateManyWithoutCardNestedInput
+  }
+
+  export type CardCreateWithoutIssuerInput = {
+    name: string
+    number?: string | null
+    expiration?: string | null
+    cvv?: string | null
+    description?: string | null
+    acceptsDebit?: boolean
+    acceptsCredit?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreditCard?: CreditCardCreateNestedOneWithoutCardInput
+    DebitCard?: DebitCardCreateNestedOneWithoutCardInput
+    Transaction?: TransactionCreateNestedManyWithoutCardInput
+  }
+
+  export type CardUncheckedCreateWithoutIssuerInput = {
+    id?: number
+    name: string
+    number?: string | null
+    expiration?: string | null
+    cvv?: string | null
+    description?: string | null
+    acceptsDebit?: boolean
+    acceptsCredit?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
+    DebitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutCardInput
+  }
+
+  export type CardCreateOrConnectWithoutIssuerInput = {
+    where: CardWhereUniqueInput
+    create: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput>
+  }
+
+  export type CardCreateManyIssuerInputEnvelope = {
+    data: CardCreateManyIssuerInput | CardCreateManyIssuerInput[]
+  }
+
+  export type CardUpsertWithWhereUniqueWithoutIssuerInput = {
+    where: CardWhereUniqueInput
+    update: XOR<CardUpdateWithoutIssuerInput, CardUncheckedUpdateWithoutIssuerInput>
+    create: XOR<CardCreateWithoutIssuerInput, CardUncheckedCreateWithoutIssuerInput>
+  }
+
+  export type CardUpdateWithWhereUniqueWithoutIssuerInput = {
+    where: CardWhereUniqueInput
+    data: XOR<CardUpdateWithoutIssuerInput, CardUncheckedUpdateWithoutIssuerInput>
+  }
+
+  export type CardUpdateManyWithWhereWithoutIssuerInput = {
+    where: CardScalarWhereInput
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutIssuerInput>
+  }
+
+  export type CardScalarWhereInput = {
+    AND?: CardScalarWhereInput | CardScalarWhereInput[]
+    OR?: CardScalarWhereInput[]
+    NOT?: CardScalarWhereInput | CardScalarWhereInput[]
+    id?: IntFilter<"Card"> | number
+    name?: StringFilter<"Card"> | string
+    number?: StringNullableFilter<"Card"> | string | null
+    expiration?: StringNullableFilter<"Card"> | string | null
+    cvv?: StringNullableFilter<"Card"> | string | null
+    description?: StringNullableFilter<"Card"> | string | null
+    issuerId?: IntFilter<"Card"> | number
+    acceptsDebit?: BoolFilter<"Card"> | boolean
+    acceptsCredit?: BoolFilter<"Card"> | boolean
+    createdAt?: DateTimeFilter<"Card"> | Date | string
+    updatedAt?: DateTimeFilter<"Card"> | Date | string
   }
 
   export type CardCreateWithoutTransactionInput = {
@@ -9151,6 +9499,7 @@ export namespace Prisma {
     acceptsCredit?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    Issuer: IssuerCreateNestedOneWithoutCardInput
     CreditCard?: CreditCardCreateNestedOneWithoutCardInput
     DebitCard?: DebitCardCreateNestedOneWithoutCardInput
   }
@@ -9162,6 +9511,7 @@ export namespace Prisma {
     expiration?: string | null
     cvv?: string | null
     description?: string | null
+    issuerId: number
     acceptsDebit?: boolean
     acceptsCredit?: boolean
     createdAt?: Date | string
@@ -9220,6 +9570,7 @@ export namespace Prisma {
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
     CreditCard?: CreditCardUpdateOneWithoutCardNestedInput
     DebitCard?: DebitCardUpdateOneWithoutCardNestedInput
   }
@@ -9231,6 +9582,7 @@ export namespace Prisma {
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    issuerId?: IntFieldUpdateOperationsInput | number
     acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
     acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9363,6 +9715,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CardCreateManyIssuerInput = {
+    name: string
+    number?: string | null
+    expiration?: string | null
+    cvv?: string | null
+    description?: string | null
+    acceptsDebit?: boolean
+    acceptsCredit?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CardUpdateWithoutIssuerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    expiration?: NullableStringFieldUpdateOperationsInput | string | null
+    cvv?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
+    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditCard?: CreditCardUpdateOneWithoutCardNestedInput
+    DebitCard?: DebitCardUpdateOneWithoutCardNestedInput
+    Transaction?: TransactionUpdateManyWithoutCardNestedInput
+  }
+
+  export type CardUncheckedUpdateWithoutIssuerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    expiration?: NullableStringFieldUpdateOperationsInput | string | null
+    cvv?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
+    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
+    DebitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutCardNestedInput
+  }
+
+  export type CardUncheckedUpdateManyWithoutIssuerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    number?: NullableStringFieldUpdateOperationsInput | string | null
+    expiration?: NullableStringFieldUpdateOperationsInput | string | null
+    cvv?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
+    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionCreateManyUserInput = {
     isEarning: boolean
     amount: number
@@ -9418,6 +9826,10 @@ export namespace Prisma {
      * @deprecated Use CardCountOutputTypeDefaultArgs instead
      */
     export type CardCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CardCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use IssuerCountOutputTypeDefaultArgs instead
+     */
+    export type IssuerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IssuerCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserCountOutputTypeDefaultArgs instead
      */

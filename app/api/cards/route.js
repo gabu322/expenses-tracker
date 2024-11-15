@@ -23,68 +23,41 @@ export async function POST(req, res) {
       const newCard = await prisma.card.create({
          data: {
             name: requestData.name,
-            description: requestData.description,
-            acceptsCredit: requestData.acceptsCredit,
-            acceptsDebit: requestData.acceptsDebit,
+            description: requestData.description || null,
             number: requestData.cardNumber,
-            expiration: requestData.expiration,
-            cvv: requestData.cvv,
+            expiration: requestData.expiration || null,
+            cvv: requestData.cvv || null,
 
-            Issuer: { connect: { id: requestData.issuer } },
-            CreditCard:
-               requestData.acceptsCredit && requestData.creditLimit
-                  ? {
-                       create: {
-                          creditLimit: requestData.creditLimit,
-                          currentCredit: requestData.currentCredit || 0.0,
-                       },
-                    }
-                  : undefined,
-            DebitCard:
-               requestData.acceptsDebit && requestData.balance
-                  ? {
-                       create: {
-                          balance: requestData.balance,
-                       },
-                    }
-                  : undefined,
+            Issuer: {
+               connect: {
+                  id: requestData.issuer,
+               },
+            },
+
+            acceptsCredit: requestData.acceptsCredit,
+            CreditCard: requestData.acceptsCredit
+               ? {
+                    create: {
+                       creditLimit: requestData.creditLimit,
+                       currentCredit: requestData.currentCredit || 0.0,
+                    },
+                 }
+               : undefined,
+
+            acceptsDebit: requestData.acceptsDebit,
+            DebitCard: requestData.acceptsDebit
+               ? {
+                    create: {
+                       balance: requestData.balance,
+                    },
+                 }
+               : undefined,
          },
       });
 
       return new Response(JSON.stringify(newCard), { status: 201 });
    } catch (error) {
-      // Log detailed error to the console
-      console.error("Error creating card:", error);
-
-      // Detailed logging for debugging
-      console.error("Error details:", error.message);
-      console.error("Error stack:", error.stack);
-
-      // Return the error message and stack trace to the client (for debugging purposes)
-      return new Response(
-         JSON.stringify({
-            error: "Error creating card",
-            message: error.message,
-            stack: error.stack,
-         }),
-         { status: 500 }
-      );
-   }
-}
-
-export async function DELETE(req, res) {
-   try {
-      const { id } = req.params;
-
-      const deletedCard = await prisma.card.delete({
-         where: {
-            id: parseInt(id),
-         },
-      });
-
-      return new Response(JSON.stringify(deletedCard), { status: 200 });
-   } catch (error) {
-      console.error("Error deleting card:", error);
+      console.log(error);
       return new Response(JSON.stringify(error), { status: 500 });
    }
 }

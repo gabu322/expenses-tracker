@@ -47,7 +47,6 @@ export default function Select({
    onChange,
    size = "md",
    searchable = true,
-   getOptionText = false,
    showOptionId = false,
    required,
    disabled,
@@ -55,7 +54,6 @@ export default function Select({
    const [value, setValue] = useState("");
    const [isFocused, setIsFocused] = useState(false);
    const [infoColor, setInfoColor] = useState({ outline: "#d1d5db", text: "#9ca3af" });
-   const [isValid, setIsValid] = useState(false); // Add state for validity
    const sizes = sizeConfig[size];
 
    useEffect(() => {
@@ -64,12 +62,14 @@ export default function Select({
 
    const handleOptionClick = (option) => {
       if (option.disabled) return;
-      const syntheticEvent = {
+
+      handleInputChange({
          target: {
-            value: option.name, id: option.id || option.text, option: true
+            option: true,
+            value: option.name,
+            id: option.id || option.text,
          }
-      };
-      handleInputChange(syntheticEvent);
+      });
 
       setTimeout(() => setIsFocused(false), 0);
       setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
@@ -78,6 +78,7 @@ export default function Select({
    const handleInputChange = (e) => {
       let newValue = e.target.value;
       setValue(newValue);
+
       if (onChange) onChange({
          target: {
             name,
@@ -86,15 +87,22 @@ export default function Select({
       });
    };
 
-   return <div className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? "outline-2" : "outline-1"} hover:outline-2 ${disabled ? "bg-gray-100" : "bg-white"}`}
+   const handleErase = () => {
+      setValue("");
+      if (onChange) onChange({ target: { name, value: null } });
+      setIsFocused(false);
+   }
+
+   return <div
+      className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? "outline-2" : "outline-1"} hover:outline-2 ${disabled ? "bg-gray-100" : "bg-white"}`}
       onMouseLeave={() => {
          setIsFocused(false);
          setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
       }}
       onClick={() => setIsFocused(true)}
       style={{ outlineColor: infoColor.outline }}
-
    >
+
       <input
          id={id || name}
          name={name}
@@ -117,7 +125,6 @@ export default function Select({
          {label}{required && "*"}
       </label>}
 
-
       {isFocused && <div
          className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
@@ -132,16 +139,11 @@ export default function Select({
                </div>
             )}
       </div>}
+
       <div
          className='absolute right-1 top-1 p-2 bg-white z-2'
-         onClick={() => {
-            setValue("");
-            if (onChange) onChange({ target: { name, value: null } });
-            setIsValid(false);
-            setTimeout(() => setIsFocused(false), 0);
-         }}
+         onClick={handleErase}
       >
-
          <svg className="w-4 h-4" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 3L12 12L3 3" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M3 21L12 12L21 21" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -37,9 +37,8 @@ export default function Page({ }) {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      // Send data to API
       try {
-         const response = await axios.post("/api/cards", {
+         await axios.post("/api/cards", {
             ...cardData,
             creditLimit: +cardData.creditLimit || undefined,
             currentCredit: +cardData.currentCredit || undefined,

@@ -1,7 +1,6 @@
 'use client';
 
-import Button from "@/components/Button";
-import Input from "@/components/Input";
+import { lighten, darken } from "polished";
 
 export function Card({
    cardName,
@@ -9,9 +8,12 @@ export function Card({
    card,
    backgroundColor = "#abcabc"
 }) {
+   const lightenedColor = lighten(0.1, backgroundColor);
+   const darkenedColor = darken(0.1, backgroundColor);
+
    return <div
       className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col ${className || ""} text-white `}
-      style={{ backgroundColor: backgroundColor }}
+      style={{ background: `linear-gradient(to bottom, ${darkenedColor}, ${lightenedColor})` }}
    >
       <div className="flex flex-row justify-between">
          <h2 className="">{cardName}</h2>

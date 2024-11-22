@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
-   const { id } = res.params;
+   const { id } = await res.params;
 
    try {
       const card = await prisma.issuer.findUnique({
@@ -18,7 +18,7 @@ export async function GET(req, res) {
 }
 
 export async function PUT(req, res) {
-   const { id } = res.params;
+   const { id } = await res.params;
 
    try {
       const requestData = await req.json();
@@ -42,7 +42,7 @@ export async function PUT(req, res) {
 }
 
 export async function DELETE(req, res) {
-   const { id } = res.params;
+   const { id } = await res.params;
 
    try {
       await prisma.issuer.delete({

@@ -50,7 +50,7 @@ export default function Input({
    const sizes = sizeConfig[size];
 
    useEffect(() => {
-      let formattedValue = initialValue;
+      let formattedValue = initialValue || "";
 
       if (currency) {
          formattedValue = initialValue

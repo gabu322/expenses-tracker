@@ -8,8 +8,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Page({ }) {
-   const router = useRouter();
-   const [issuerList, setIssuerList] = useState([]);
+   const [issuers, setIssuers] = useState([]);
    const [filter, setFilter] = useState("");
    const [newIssuer, setNewIssuer] = useState({
       name: "",
@@ -19,7 +18,7 @@ export default function Page({ }) {
 
    useEffect(() => {
       axios.get("/api/issuers")
-         .then(response => setIssuerList(response.data))
+         .then(response => setIssuers(response.data))
          .catch(err => console.error(err));
    }, []);
 
@@ -30,11 +29,11 @@ export default function Page({ }) {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      // Send data to API
+
       try {
          const response = await axios.post("/api/issuers", { ...newIssuer, });
          const newAddedIssuer = response.data;
-         setIssuerList([...issuerList, newAddedIssuer]);
+         setIssuers([...issuers, newAddedIssuer]);
       } catch (error) {
          console.error(error);
       }
@@ -43,7 +42,7 @@ export default function Page({ }) {
    const handleDelete = async (id) => {
       try {
          await axios.delete(`/api/issuers/${id}`);
-         setIssuerList(issuerList.filter(issuer => issuer.id !== id));
+         setIssuers(issuers.filter(issuer => issuer.id !== id));
       } catch (error) {
          console.error(error);
       }
@@ -54,7 +53,7 @@ export default function Page({ }) {
          <h1>Bancos</h1>
          <Button
             text={"cl"}
-            onClick={() => console.log(issuerList)}
+            onClick={() => console.log(issuers)}
          />
       </div>
 
@@ -95,25 +94,42 @@ export default function Page({ }) {
          initialValue=""
          onChange={(e) => setFilter(e.target.value)}
       />
-      {issuerList.map(issuer =>
-         <div
-            key={issuer.id}
-            className="flex flex-row items-center justify-between rounded p-4 text-white font-bold"
-            style={{ backgroundColor: issuer.color }}
-         >
-            <div className="flex-col-3">
-               {issuer.icon && <Image src={issuer.icon} width={50} height={50} />}
-               <p>{issuer.name}</p>
-            </div>
-            <Image
-               onClick={() => handleDelete(issuer.id)}
-               className="cursor-pointer"
-               src={"/icons/white/x.svg"}
-               alt="x"
-               width={16}
-               height={16}
-            />
-         </div>
-      )}
+      {issuers.map((issuer) => (
+         <Issuer key={issuer.id} issuer={issuer} handleDelete={handleDelete} />
+      ))}
    </main>
+};
+
+export function Issuer({ issuer, handleDelete }) {
+   const router = useRouter();
+
+   return <div
+      className="flex flex-row items-center justify-between rounded p-4 text-white font-bold"
+      style={{ backgroundColor: issuer.color }}
+   >
+      <div className="flex-row-3">
+         {issuer.icon && <Image src={issuer.icon} alt="icon" width={32} height={128} />}
+         <p>{issuer.name}</p>
+      </div>
+
+      <div className="flex flex-row gap-4">
+         <Image
+            onClick={() => router.push(`/dev/issuers/${issuer.id}`)}
+            className="cursor-pointer"
+            src={"/icons/white/edit.svg"}
+            alt="edit"
+            width={16}
+            height={16}
+         />
+
+         <Image
+            onClick={() => handleDelete(issuer.id)}
+            className="cursor-pointer"
+            src={"/icons/white/x.svg"}
+            alt="x"
+            width={16}
+            height={16}
+         />
+      </div>
+   </div>
 };

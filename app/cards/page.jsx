@@ -1,12 +1,13 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function Page({ }) {
    const router = useRouter();
@@ -62,11 +63,13 @@ export default function Page({ }) {
                onChange={handleChange}
                required
             />
+
             <Input
                name="description"
                label="Descrição"
                onChange={handleChange}
             />
+
             <Input
                name="cardNumber"
                label="Número do cartão"
@@ -75,6 +78,7 @@ export default function Page({ }) {
                initialValue="**** **** **** "
                required
             />
+
             <Input
                name="cvv"
                label="CVV"
@@ -82,12 +86,14 @@ export default function Page({ }) {
                mask="000"
                type="number"
             />
+
             <Input
                name="expiration"
                label="Data de expiração"
                onChange={handleChange}
                type="month"
             />
+
             <Select
                name="issuer"
                label="Banco"
@@ -98,12 +104,14 @@ export default function Page({ }) {
 
             <div className="flex justify-between">
                <div>Tipo do cartão</div>
+
                <div className="flex gap-4">
                   <Checkbox
                      name="acceptsCredit"
                      onChange={handleCheckboxChange}
                      label={"Crédito"}
                   />
+
                   <Checkbox
                      name="acceptsDebit"
                      onChange={handleCheckboxChange}
@@ -115,6 +123,7 @@ export default function Page({ }) {
 
          {cardData.acceptsCredit && <div className="flex flex-col gap-4">
             <h2>Informações de crédito</h2>
+
             <Input
                name="creditLimit"
                label="Limite de crédito"
@@ -122,6 +131,7 @@ export default function Page({ }) {
                currency={"R$"}
                required={cardData.acceptsCredit}
             />
+
             <Input
                name="currentCredit"
                label="Crédito atual"
@@ -133,6 +143,7 @@ export default function Page({ }) {
 
          {cardData.acceptsDebit && <div className="flex flex-col gap-4">
             <h2>Informações de débito</h2>
+
             <Input
                name="balance"
                label="Saldo da conta"
@@ -141,7 +152,9 @@ export default function Page({ }) {
                required={cardData.acceptsDebit}
             />
          </div>}
+
          <Button type={"submit"} className={"text-white"} >Adicionar</Button>
+
          <Button onClick={() => console.log(cardData)} className={"text-white"} >Log</Button>
       </form>
    </main>;

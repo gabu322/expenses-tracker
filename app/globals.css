@@ -23,7 +23,7 @@ body {
 }
 
 main {
-   @apply min-h-screen p-8 pb-20 bg-slate-100;
+   @apply min-h-screen p-4 pb-20 bg-slate-100;
 }
 
 @layer utilities {

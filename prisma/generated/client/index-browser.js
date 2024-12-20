@@ -119,8 +119,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
   RepeatableRead: 'RepeatableRead',
-  Serializable: 'Serializable',
-  Snapshot: 'Snapshot'
+  Serializable: 'Serializable'
 });
 
 exports.Prisma.CardScalarFieldEnum = {
@@ -129,10 +128,9 @@ exports.Prisma.CardScalarFieldEnum = {
   number: 'number',
   expiration: 'expiration',
   cvv: 'cvv',
-  description: 'description',
+  nickname: 'nickname',
   issuerId: 'issuerId',
-  acceptsDebit: 'acceptsDebit',
-  acceptsCredit: 'acceptsCredit',
+  cardType: 'cardType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -165,13 +163,14 @@ exports.Prisma.IssuerScalarFieldEnum = {
 
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
-  isEarning: 'isEarning',
+  type: 'type',
   amount: 'amount',
   date: 'date',
   method: 'method',
   description: 'description',
   cardId: 'cardId',
   userId: 'userId',
+  currency: 'currency',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -191,11 +190,33 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.CardType = exports.$Enums.CardType = {
+  CREDIT: 'CREDIT',
+  DEBIT: 'DEBIT',
+  BOTH: 'BOTH',
+  NONE: 'NONE'
+};
 
+exports.TransactionType = exports.$Enums.TransactionType = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE'
+};
+
+exports.TransactionMethod = exports.$Enums.TransactionMethod = {
+  PIX: 'PIX',
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+  CASH: 'CASH'
+};
 
 exports.Prisma.ModelName = {
   Card: 'Card',

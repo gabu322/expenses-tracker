@@ -4,21 +4,38 @@ generator client {
 }
 
 datasource db {
-   provider          = "sqlserver"
-   url               = env("DATABASE_URL")
-   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+   provider = "postgresql"
+   url      = env("PSQL_DATABASE_URL")
+}
+
+enum CardType {
+   CREDIT
+   DEBIT
+   BOTH
+   NONE
+}
+
+enum TransactionType {
+   INCOME
+   EXPENSE
+}
+
+enum TransactionMethod {
+   PIX
+   DEBIT
+   CREDIT
+   CASH
 }
 
 model Card {
-   id            Int     @id @default(autoincrement())
-   name          String
-   number        String? @unique
-   expiration    String?
-   cvv           String?
-   description   String?
-   issuerId      Int
-   acceptsDebit  Boolean @default(false)
-   acceptsCredit Boolean @default(false)
+   id         Int      @id @default(autoincrement())
+   name       String
+   number     String?  @unique
+   expiration String?
+   cvv        String?
+   nickname   String?
+   issuerId   Int
+   cardType   CardType @default(CREDIT)
 
    // Relations
    Issuer     Issuer      @relation(fields: [issuerId], references: [id])
@@ -74,14 +91,15 @@ model Issuer {
 }
 
 model Transaction {
-   id          Int      @id @default(autoincrement())
-   isEarning   Boolean
+   id          Int               @id @default(autoincrement())
+   type        TransactionType
    amount      Float
    date        DateTime
-   method      String
+   method      TransactionMethod
    description String?
    cardId      Int
    userId      Int
+   currency    String            @default("USD") // Multi-currency support
 
    // Relations
    Card Card @relation(fields: [cardId], references: [id])

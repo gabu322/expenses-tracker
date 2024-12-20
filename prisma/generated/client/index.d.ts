@@ -45,6 +45,51 @@ export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const CardType: {
+  CREDIT: 'CREDIT',
+  DEBIT: 'DEBIT',
+  BOTH: 'BOTH',
+  NONE: 'NONE'
+};
+
+export type CardType = (typeof CardType)[keyof typeof CardType]
+
+
+export const TransactionType: {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE'
+};
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const TransactionMethod: {
+  PIX: 'PIX',
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+  CASH: 'CASH'
+};
+
+export type TransactionMethod = (typeof TransactionMethod)[keyof typeof TransactionMethod]
+
+}
+
+export type CardType = $Enums.CardType
+
+export const CardType: typeof $Enums.CardType
+
+export type TransactionType = $Enums.TransactionType
+
+export const TransactionType: typeof $Enums.TransactionType
+
+export type TransactionMethod = $Enums.TransactionMethod
+
+export const TransactionMethod: typeof $Enums.TransactionMethod
+
+/**
  * ##  Prisma Client ʲˢ
  * 
  * Type-safe database client for TypeScript & Node.js
@@ -724,6 +769,10 @@ export namespace Prisma {
             args: Prisma.CardCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.CardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CardPayload>[]
+          }
           delete: {
             args: Prisma.CardDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$CardPayload>
@@ -789,6 +838,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.CreditCardCreateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreditCardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditCardPayload>[]
           }
           delete: {
             args: Prisma.CreditCardDeleteArgs<ExtArgs>
@@ -856,6 +909,10 @@ export namespace Prisma {
             args: Prisma.DebitCardCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.DebitCardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DebitCardPayload>[]
+          }
           delete: {
             args: Prisma.DebitCardDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DebitCardPayload>
@@ -921,6 +978,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.IssuerCreateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IssuerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IssuerPayload>[]
           }
           delete: {
             args: Prisma.IssuerDeleteArgs<ExtArgs>
@@ -988,6 +1049,10 @@ export namespace Prisma {
             args: Prisma.TransactionCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.TransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+          }
           delete: {
             args: Prisma.TransactionDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
@@ -1053,6 +1118,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
@@ -1369,10 +1438,9 @@ export namespace Prisma {
     number: string | null
     expiration: string | null
     cvv: string | null
-    description: string | null
+    nickname: string | null
     issuerId: number | null
-    acceptsDebit: boolean | null
-    acceptsCredit: boolean | null
+    cardType: $Enums.CardType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1383,10 +1451,9 @@ export namespace Prisma {
     number: string | null
     expiration: string | null
     cvv: string | null
-    description: string | null
+    nickname: string | null
     issuerId: number | null
-    acceptsDebit: boolean | null
-    acceptsCredit: boolean | null
+    cardType: $Enums.CardType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1397,10 +1464,9 @@ export namespace Prisma {
     number: number
     expiration: number
     cvv: number
-    description: number
+    nickname: number
     issuerId: number
-    acceptsDebit: number
-    acceptsCredit: number
+    cardType: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1423,10 +1489,9 @@ export namespace Prisma {
     number?: true
     expiration?: true
     cvv?: true
-    description?: true
+    nickname?: true
     issuerId?: true
-    acceptsDebit?: true
-    acceptsCredit?: true
+    cardType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1437,10 +1502,9 @@ export namespace Prisma {
     number?: true
     expiration?: true
     cvv?: true
-    description?: true
+    nickname?: true
     issuerId?: true
-    acceptsDebit?: true
-    acceptsCredit?: true
+    cardType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1451,10 +1515,9 @@ export namespace Prisma {
     number?: true
     expiration?: true
     cvv?: true
-    description?: true
+    nickname?: true
     issuerId?: true
-    acceptsDebit?: true
-    acceptsCredit?: true
+    cardType?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1552,10 +1615,9 @@ export namespace Prisma {
     number: string | null
     expiration: string | null
     cvv: string | null
-    description: string | null
+    nickname: string | null
     issuerId: number
-    acceptsDebit: boolean
-    acceptsCredit: boolean
+    cardType: $Enums.CardType
     createdAt: Date
     updatedAt: Date
     _count: CardCountAggregateOutputType | null
@@ -1585,10 +1647,9 @@ export namespace Prisma {
     number?: boolean
     expiration?: boolean
     cvv?: boolean
-    description?: boolean
+    nickname?: boolean
     issuerId?: boolean
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Issuer?: boolean | IssuerDefaultArgs<ExtArgs>
@@ -1598,6 +1659,19 @@ export namespace Prisma {
     _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
+  export type CardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    number?: boolean
+    expiration?: boolean
+    cvv?: boolean
+    nickname?: boolean
+    issuerId?: boolean
+    cardType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Issuer?: boolean | IssuerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["card"]>
 
   export type CardSelectScalar = {
     id?: boolean
@@ -1605,10 +1679,9 @@ export namespace Prisma {
     number?: boolean
     expiration?: boolean
     cvv?: boolean
-    description?: boolean
+    nickname?: boolean
     issuerId?: boolean
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -1619,6 +1692,9 @@ export namespace Prisma {
     DebitCard?: boolean | Card$DebitCardArgs<ExtArgs>
     Transaction?: boolean | Card$TransactionArgs<ExtArgs>
     _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Issuer?: boolean | IssuerDefaultArgs<ExtArgs>
   }
 
   export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1635,10 +1711,9 @@ export namespace Prisma {
       number: string | null
       expiration: string | null
       cvv: string | null
-      description: string | null
+      nickname: string | null
       issuerId: number
-      acceptsDebit: boolean
-      acceptsCredit: boolean
+      cardType: $Enums.CardType
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["card"]>
@@ -1757,6 +1832,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends CardCreateManyArgs>(args?: SelectSubset<T, CardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cards and returns the data saved in the database.
+     * @param {CardCreateManyAndReturnArgs} args - Arguments to create many Cards.
+     * @example
+     * // Create many Cards
+     * const card = await prisma.card.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cards and only return the `id`
+     * const cardWithIdOnly = await prisma.card.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CardCreateManyAndReturnArgs>(args?: SelectSubset<T, CardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Card.
@@ -2019,10 +2118,9 @@ export namespace Prisma {
     readonly number: FieldRef<"Card", 'String'>
     readonly expiration: FieldRef<"Card", 'String'>
     readonly cvv: FieldRef<"Card", 'String'>
-    readonly description: FieldRef<"Card", 'String'>
+    readonly nickname: FieldRef<"Card", 'String'>
     readonly issuerId: FieldRef<"Card", 'Int'>
-    readonly acceptsDebit: FieldRef<"Card", 'Boolean'>
-    readonly acceptsCredit: FieldRef<"Card", 'Boolean'>
+    readonly cardType: FieldRef<"Card", 'CardType'>
     readonly createdAt: FieldRef<"Card", 'DateTime'>
     readonly updatedAt: FieldRef<"Card", 'DateTime'>
   }
@@ -2230,6 +2328,26 @@ export namespace Prisma {
      * The data used to create many Cards.
      */
     data: CardCreateManyInput | CardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Card createManyAndReturn
+   */
+  export type CardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Card
+     */
+    select?: CardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Cards.
+     */
+    data: CardCreateManyInput | CardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2608,6 +2726,15 @@ export namespace Prisma {
     Card?: boolean | CardDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["creditCard"]>
 
+  export type CreditCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creditLimit?: boolean
+    currentCredit?: boolean
+    cardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditCard"]>
 
   export type CreditCardSelectScalar = {
     id?: boolean
@@ -2619,6 +2746,9 @@ export namespace Prisma {
   }
 
   export type CreditCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+  }
+  export type CreditCardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Card?: boolean | CardDefaultArgs<ExtArgs>
   }
 
@@ -2750,6 +2880,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends CreditCardCreateManyArgs>(args?: SelectSubset<T, CreditCardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreditCards and returns the data saved in the database.
+     * @param {CreditCardCreateManyAndReturnArgs} args - Arguments to create many CreditCards.
+     * @example
+     * // Create many CreditCards
+     * const creditCard = await prisma.creditCard.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreditCards and only return the `id`
+     * const creditCardWithIdOnly = await prisma.creditCard.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreditCardCreateManyAndReturnArgs>(args?: SelectSubset<T, CreditCardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditCardPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a CreditCard.
@@ -3215,6 +3369,26 @@ export namespace Prisma {
      * The data used to create many CreditCards.
      */
     data: CreditCardCreateManyInput | CreditCardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreditCard createManyAndReturn
+   */
+  export type CreditCardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditCard
+     */
+    select?: CreditCardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CreditCards.
+     */
+    data: CreditCardCreateManyInput | CreditCardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditCardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3531,6 +3705,14 @@ export namespace Prisma {
     Card?: boolean | CardDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["debitCard"]>
 
+  export type DebitCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    balance?: boolean
+    cardId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["debitCard"]>
 
   export type DebitCardSelectScalar = {
     id?: boolean
@@ -3541,6 +3723,9 @@ export namespace Prisma {
   }
 
   export type DebitCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+  }
+  export type DebitCardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Card?: boolean | CardDefaultArgs<ExtArgs>
   }
 
@@ -3671,6 +3856,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends DebitCardCreateManyArgs>(args?: SelectSubset<T, DebitCardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DebitCards and returns the data saved in the database.
+     * @param {DebitCardCreateManyAndReturnArgs} args - Arguments to create many DebitCards.
+     * @example
+     * // Create many DebitCards
+     * const debitCard = await prisma.debitCard.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DebitCards and only return the `id`
+     * const debitCardWithIdOnly = await prisma.debitCard.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DebitCardCreateManyAndReturnArgs>(args?: SelectSubset<T, DebitCardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DebitCardPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a DebitCard.
@@ -4135,6 +4344,26 @@ export namespace Prisma {
      * The data used to create many DebitCards.
      */
     data: DebitCardCreateManyInput | DebitCardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DebitCard createManyAndReturn
+   */
+  export type DebitCardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DebitCard
+     */
+    select?: DebitCardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DebitCards.
+     */
+    data: DebitCardCreateManyInput | DebitCardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DebitCardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4452,6 +4681,14 @@ export namespace Prisma {
     _count?: boolean | IssuerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["issuer"]>
 
+  export type IssuerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    color?: boolean
+    icon?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["issuer"]>
 
   export type IssuerSelectScalar = {
     id?: boolean
@@ -4466,6 +4703,7 @@ export namespace Prisma {
     Card?: boolean | Issuer$CardArgs<ExtArgs>
     _count?: boolean | IssuerCountOutputTypeDefaultArgs<ExtArgs>
   }
+  export type IssuerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $IssuerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Issuer"
@@ -4595,6 +4833,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends IssuerCreateManyArgs>(args?: SelectSubset<T, IssuerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Issuers and returns the data saved in the database.
+     * @param {IssuerCreateManyAndReturnArgs} args - Arguments to create many Issuers.
+     * @example
+     * // Create many Issuers
+     * const issuer = await prisma.issuer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Issuers and only return the `id`
+     * const issuerWithIdOnly = await prisma.issuer.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IssuerCreateManyAndReturnArgs>(args?: SelectSubset<T, IssuerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IssuerPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Issuer.
@@ -5060,6 +5322,22 @@ export namespace Prisma {
      * The data used to create many Issuers.
      */
     data: IssuerCreateManyInput | IssuerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Issuer createManyAndReturn
+   */
+  export type IssuerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Issuer
+     */
+    select?: IssuerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Issuers.
+     */
+    data: IssuerCreateManyInput | IssuerCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -5215,39 +5493,42 @@ export namespace Prisma {
 
   export type TransactionMinAggregateOutputType = {
     id: number | null
-    isEarning: boolean | null
+    type: $Enums.TransactionType | null
     amount: number | null
     date: Date | null
-    method: string | null
+    method: $Enums.TransactionMethod | null
     description: string | null
     cardId: number | null
     userId: number | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type TransactionMaxAggregateOutputType = {
     id: number | null
-    isEarning: boolean | null
+    type: $Enums.TransactionType | null
     amount: number | null
     date: Date | null
-    method: string | null
+    method: $Enums.TransactionMethod | null
     description: string | null
     cardId: number | null
     userId: number | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type TransactionCountAggregateOutputType = {
     id: number
-    isEarning: number
+    type: number
     amount: number
     date: number
     method: number
     description: number
     cardId: number
     userId: number
+    currency: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5270,39 +5551,42 @@ export namespace Prisma {
 
   export type TransactionMinAggregateInputType = {
     id?: true
-    isEarning?: true
+    type?: true
     amount?: true
     date?: true
     method?: true
     description?: true
     cardId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type TransactionMaxAggregateInputType = {
     id?: true
-    isEarning?: true
+    type?: true
     amount?: true
     date?: true
     method?: true
     description?: true
     cardId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type TransactionCountAggregateInputType = {
     id?: true
-    isEarning?: true
+    type?: true
     amount?: true
     date?: true
     method?: true
     description?: true
     cardId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5396,13 +5680,14 @@ export namespace Prisma {
 
   export type TransactionGroupByOutputType = {
     id: number
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date
-    method: string
+    method: $Enums.TransactionMethod
     description: string | null
     cardId: number
     userId: number
+    currency: string
     createdAt: Date
     updatedAt: Date
     _count: TransactionCountAggregateOutputType | null
@@ -5428,34 +5713,55 @@ export namespace Prisma {
 
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    isEarning?: boolean
+    type?: boolean
     amount?: boolean
     date?: boolean
     method?: boolean
     description?: boolean
     cardId?: boolean
     userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Card?: boolean | CardDefaultArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
-
-  export type TransactionSelectScalar = {
+  export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    isEarning?: boolean
+    type?: boolean
     amount?: boolean
     date?: boolean
     method?: boolean
     description?: boolean
     cardId?: boolean
     userId?: boolean
+    currency?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transaction"]>
+
+  export type TransactionSelectScalar = {
+    id?: boolean
+    type?: boolean
+    amount?: boolean
+    date?: boolean
+    method?: boolean
+    description?: boolean
+    cardId?: boolean
+    userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Card?: boolean | CardDefaultArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Card?: boolean | CardDefaultArgs<ExtArgs>
     User?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5468,13 +5774,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      isEarning: boolean
+      type: $Enums.TransactionType
       amount: number
       date: Date
-      method: string
+      method: $Enums.TransactionMethod
       description: string | null
       cardId: number
       userId: number
+      currency: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["transaction"]>
@@ -5593,6 +5900,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Transactions and returns the data saved in the database.
+     * @param {TransactionCreateManyAndReturnArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transaction = await prisma.transaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Transactions and only return the `id`
+     * const transactionWithIdOnly = await prisma.transaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a Transaction.
@@ -5849,13 +6180,14 @@ export namespace Prisma {
    */ 
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'Int'>
-    readonly isEarning: FieldRef<"Transaction", 'Boolean'>
+    readonly type: FieldRef<"Transaction", 'TransactionType'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
-    readonly method: FieldRef<"Transaction", 'String'>
+    readonly method: FieldRef<"Transaction", 'TransactionMethod'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly cardId: FieldRef<"Transaction", 'Int'>
     readonly userId: FieldRef<"Transaction", 'Int'>
+    readonly currency: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
@@ -6063,6 +6395,26 @@ export namespace Prisma {
      * The data used to create many Transactions.
      */
     data: TransactionCreateManyInput | TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Transaction createManyAndReturn
+   */
+  export type TransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionCreateManyInput | TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6388,6 +6740,15 @@ export namespace Prisma {
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    cpf?: boolean
+    phone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
@@ -6403,6 +6764,7 @@ export namespace Prisma {
     Transaction?: boolean | User$TransactionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -6533,6 +6895,30 @@ export namespace Prisma {
      *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
      * Delete a User.
@@ -6999,6 +7385,22 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -7134,8 +7536,7 @@ export namespace Prisma {
     ReadUncommitted: 'ReadUncommitted',
     ReadCommitted: 'ReadCommitted',
     RepeatableRead: 'RepeatableRead',
-    Serializable: 'Serializable',
-    Snapshot: 'Snapshot'
+    Serializable: 'Serializable'
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
@@ -7147,10 +7548,9 @@ export namespace Prisma {
     number: 'number',
     expiration: 'expiration',
     cvv: 'cvv',
-    description: 'description',
+    nickname: 'nickname',
     issuerId: 'issuerId',
-    acceptsDebit: 'acceptsDebit',
-    acceptsCredit: 'acceptsCredit',
+    cardType: 'cardType',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7195,13 +7595,14 @@ export namespace Prisma {
 
   export const TransactionScalarFieldEnum: {
     id: 'id',
-    isEarning: 'isEarning',
+    type: 'type',
     amount: 'amount',
     date: 'date',
     method: 'method',
     description: 'description',
     cardId: 'cardId',
     userId: 'userId',
+    currency: 'currency',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7230,6 +7631,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
@@ -7251,6 +7660,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -7258,9 +7674,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'String[]'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CardType'
+   */
+  export type EnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CardType[]'
+   */
+  export type ListEnumCardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardType[]'>
     
 
 
@@ -7272,9 +7702,51 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType'
+   */
+  export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType[]'
+   */
+  export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionMethod'
+   */
+  export type EnumTransactionMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionMethod'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionMethod[]'
+   */
+  export type ListEnumTransactionMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionMethod[]'>
     
   /**
    * Deep Input Types
@@ -7290,10 +7762,9 @@ export namespace Prisma {
     number?: StringNullableFilter<"Card"> | string | null
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
-    description?: StringNullableFilter<"Card"> | string | null
+    nickname?: StringNullableFilter<"Card"> | string | null
     issuerId?: IntFilter<"Card"> | number
-    acceptsDebit?: BoolFilter<"Card"> | boolean
-    acceptsCredit?: BoolFilter<"Card"> | boolean
+    cardType?: EnumCardTypeFilter<"Card"> | $Enums.CardType
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     Issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
@@ -7308,10 +7779,9 @@ export namespace Prisma {
     number?: SortOrderInput | SortOrder
     expiration?: SortOrderInput | SortOrder
     cvv?: SortOrderInput | SortOrder
-    description?: SortOrderInput | SortOrder
+    nickname?: SortOrderInput | SortOrder
     issuerId?: SortOrder
-    acceptsDebit?: SortOrder
-    acceptsCredit?: SortOrder
+    cardType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Issuer?: IssuerOrderByWithRelationInput
@@ -7329,10 +7799,9 @@ export namespace Prisma {
     name?: StringFilter<"Card"> | string
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
-    description?: StringNullableFilter<"Card"> | string | null
+    nickname?: StringNullableFilter<"Card"> | string | null
     issuerId?: IntFilter<"Card"> | number
-    acceptsDebit?: BoolFilter<"Card"> | boolean
-    acceptsCredit?: BoolFilter<"Card"> | boolean
+    cardType?: EnumCardTypeFilter<"Card"> | $Enums.CardType
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     Issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
@@ -7347,10 +7816,9 @@ export namespace Prisma {
     number?: SortOrderInput | SortOrder
     expiration?: SortOrderInput | SortOrder
     cvv?: SortOrderInput | SortOrder
-    description?: SortOrderInput | SortOrder
+    nickname?: SortOrderInput | SortOrder
     issuerId?: SortOrder
-    acceptsDebit?: SortOrder
-    acceptsCredit?: SortOrder
+    cardType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CardCountOrderByAggregateInput
@@ -7369,10 +7837,9 @@ export namespace Prisma {
     number?: StringNullableWithAggregatesFilter<"Card"> | string | null
     expiration?: StringNullableWithAggregatesFilter<"Card"> | string | null
     cvv?: StringNullableWithAggregatesFilter<"Card"> | string | null
-    description?: StringNullableWithAggregatesFilter<"Card"> | string | null
+    nickname?: StringNullableWithAggregatesFilter<"Card"> | string | null
     issuerId?: IntWithAggregatesFilter<"Card"> | number
-    acceptsDebit?: BoolWithAggregatesFilter<"Card"> | boolean
-    acceptsCredit?: BoolWithAggregatesFilter<"Card"> | boolean
+    cardType?: EnumCardTypeWithAggregatesFilter<"Card"> | $Enums.CardType
     createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
   }
@@ -7563,13 +8030,14 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: IntFilter<"Transaction"> | number
-    isEarning?: BoolFilter<"Transaction"> | boolean
+    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    method?: StringFilter<"Transaction"> | string
+    method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: IntFilter<"Transaction"> | number
     userId?: IntFilter<"Transaction"> | number
+    currency?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     Card?: XOR<CardRelationFilter, CardWhereInput>
@@ -7578,13 +8046,14 @@ export namespace Prisma {
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
-    isEarning?: SortOrder
+    type?: SortOrder
     amount?: SortOrder
     date?: SortOrder
     method?: SortOrder
     description?: SortOrderInput | SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Card?: CardOrderByWithRelationInput
@@ -7596,13 +8065,14 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
-    isEarning?: BoolFilter<"Transaction"> | boolean
+    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    method?: StringFilter<"Transaction"> | string
+    method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: IntFilter<"Transaction"> | number
     userId?: IntFilter<"Transaction"> | number
+    currency?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     Card?: XOR<CardRelationFilter, CardWhereInput>
@@ -7611,13 +8081,14 @@ export namespace Prisma {
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
-    isEarning?: SortOrder
+    type?: SortOrder
     amount?: SortOrder
     date?: SortOrder
     method?: SortOrder
     description?: SortOrderInput | SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
@@ -7632,13 +8103,14 @@ export namespace Prisma {
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Transaction"> | number
-    isEarning?: BoolWithAggregatesFilter<"Transaction"> | boolean
+    type?: EnumTransactionTypeWithAggregatesFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    method?: StringWithAggregatesFilter<"Transaction"> | string
+    method?: EnumTransactionMethodWithAggregatesFilter<"Transaction"> | $Enums.TransactionMethod
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     cardId?: IntWithAggregatesFilter<"Transaction"> | number
     userId?: IntWithAggregatesFilter<"Transaction"> | number
+    currency?: StringWithAggregatesFilter<"Transaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   }
@@ -7715,9 +8187,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     Issuer: IssuerCreateNestedOneWithoutCardInput
@@ -7732,10 +8203,9 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
+    nickname?: string | null
     issuerId: number
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     CreditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
@@ -7748,9 +8218,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -7765,10 +8234,9 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
     issuerId?: IntFieldUpdateOperationsInput | number
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
@@ -7777,14 +8245,14 @@ export namespace Prisma {
   }
 
   export type CardCreateManyInput = {
+    id?: number
     name: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
+    nickname?: string | null
     issuerId: number
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7794,9 +8262,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7807,10 +8274,9 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
     issuerId?: IntFieldUpdateOperationsInput | number
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7850,6 +8316,7 @@ export namespace Prisma {
   }
 
   export type CreditCardCreateManyInput = {
+    id?: number
     creditLimit: number
     currentCredit?: number
     cardId: number
@@ -7904,6 +8371,7 @@ export namespace Prisma {
   }
 
   export type DebitCardCreateManyInput = {
+    id?: number
     balance?: number
     cardId: number
     createdAt?: Date | string
@@ -7963,6 +8431,7 @@ export namespace Prisma {
   }
 
   export type IssuerCreateManyInput = {
+    id?: number
     name: string
     color: string
     icon?: string | null
@@ -7988,11 +8457,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     Card: CardCreateNestedOneWithoutTransactionInput
@@ -8001,23 +8471,25 @@ export namespace Prisma {
 
   export type TransactionUncheckedCreateInput = {
     id?: number
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     cardId: number
     userId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TransactionUpdateInput = {
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Card?: CardUpdateOneRequiredWithoutTransactionNestedInput
@@ -8026,48 +8498,53 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateManyInput = {
-    isEarning: boolean
+    id?: number
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     cardId: number
     userId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TransactionUpdateManyMutationInput = {
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8115,6 +8592,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
+    id?: number
     name: string
     email: string
     cpf?: string | null
@@ -8144,8 +8622,8 @@ export namespace Prisma {
 
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -8155,8 +8633,8 @@ export namespace Prisma {
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8164,13 +8642,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8178,18 +8657,21 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type EnumCardTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardType | EnumCardTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardTypeFilter<$PrismaModel> | $Enums.CardType
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -8233,10 +8715,9 @@ export namespace Prisma {
     number?: SortOrder
     expiration?: SortOrder
     cvv?: SortOrder
-    description?: SortOrder
+    nickname?: SortOrder
     issuerId?: SortOrder
-    acceptsDebit?: SortOrder
-    acceptsCredit?: SortOrder
+    cardType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8252,10 +8733,9 @@ export namespace Prisma {
     number?: SortOrder
     expiration?: SortOrder
     cvv?: SortOrder
-    description?: SortOrder
+    nickname?: SortOrder
     issuerId?: SortOrder
-    acceptsDebit?: SortOrder
-    acceptsCredit?: SortOrder
+    cardType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8266,10 +8746,9 @@ export namespace Prisma {
     number?: SortOrder
     expiration?: SortOrder
     cvv?: SortOrder
-    description?: SortOrder
+    nickname?: SortOrder
     issuerId?: SortOrder
-    acceptsDebit?: SortOrder
-    acceptsCredit?: SortOrder
+    cardType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8281,8 +8760,8 @@ export namespace Prisma {
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -8297,8 +8776,8 @@ export namespace Prisma {
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8306,6 +8785,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -8314,8 +8794,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8323,24 +8803,27 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type EnumCardTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardType | EnumCardTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedEnumCardTypeFilter<$PrismaModel>
+    _max?: NestedEnumCardTypeFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -8353,8 +8836,8 @@ export namespace Prisma {
 
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -8410,8 +8893,8 @@ export namespace Prisma {
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -8505,6 +8988,20 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type EnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type EnumTransactionMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionMethod | EnumTransactionMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionMethodFilter<$PrismaModel> | $Enums.TransactionMethod
+  }
+
   export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -8512,13 +9009,14 @@ export namespace Prisma {
 
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
-    isEarning?: SortOrder
+    type?: SortOrder
     amount?: SortOrder
     date?: SortOrder
     method?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8532,26 +9030,28 @@ export namespace Prisma {
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
-    isEarning?: SortOrder
+    type?: SortOrder
     amount?: SortOrder
     date?: SortOrder
     method?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
-    isEarning?: SortOrder
+    type?: SortOrder
     amount?: SortOrder
     date?: SortOrder
     method?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8561,6 +9061,26 @@ export namespace Prisma {
     amount?: SortOrder
     cardId?: SortOrder
     userId?: SortOrder
+  }
+
+  export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionMethod | EnumTransactionMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionMethodWithAggregatesFilter<$PrismaModel> | $Enums.TransactionMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionMethodFilter<$PrismaModel>
+    _max?: NestedEnumTransactionMethodFilter<$PrismaModel>
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -8653,8 +9173,8 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type EnumCardTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CardType
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -8835,6 +9355,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EnumTransactionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionType
+  }
+
+  export type EnumTransactionMethodFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionMethod
+  }
+
   export type CardUpdateOneRequiredWithoutTransactionNestedInput = {
     create?: XOR<CardCreateWithoutTransactionInput, CardUncheckedCreateWithoutTransactionInput>
     connectOrCreate?: CardCreateOrConnectWithoutTransactionInput
@@ -8895,8 +9423,8 @@ export namespace Prisma {
 
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -8906,8 +9434,8 @@ export namespace Prisma {
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8920,8 +9448,8 @@ export namespace Prisma {
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8932,15 +9460,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedEnumCardTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardType | EnumCardTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardTypeFilter<$PrismaModel> | $Enums.CardType
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -8950,8 +9480,8 @@ export namespace Prisma {
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -8966,8 +9496,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -8977,8 +9507,8 @@ export namespace Prisma {
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8994,8 +9524,8 @@ export namespace Prisma {
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -9011,8 +9541,8 @@ export namespace Prisma {
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -9020,18 +9550,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedEnumCardTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CardType | EnumCardTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CardType[] | ListEnumCardTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCardTypeWithAggregatesFilter<$PrismaModel> | $Enums.CardType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedEnumCardTypeFilter<$PrismaModel>
+    _max?: NestedEnumCardTypeFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -9044,8 +9576,8 @@ export namespace Prisma {
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -9056,6 +9588,40 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type NestedEnumTransactionMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionMethod | EnumTransactionMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionMethodFilter<$PrismaModel> | $Enums.TransactionMethod
+  }
+
+  export type NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionMethod | EnumTransactionMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionMethod[] | ListEnumTransactionMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionMethodWithAggregatesFilter<$PrismaModel> | $Enums.TransactionMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionMethodFilter<$PrismaModel>
+    _max?: NestedEnumTransactionMethodFilter<$PrismaModel>
   }
 
   export type IssuerCreateWithoutCardInput = {
@@ -9119,11 +9685,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutCardInput = {
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     User: UserCreateNestedOneWithoutTransactionInput
@@ -9131,12 +9698,13 @@ export namespace Prisma {
 
   export type TransactionUncheckedCreateWithoutCardInput = {
     id?: number
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     userId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9148,6 +9716,7 @@ export namespace Prisma {
 
   export type TransactionCreateManyCardInputEnvelope = {
     data: TransactionCreateManyCardInput | TransactionCreateManyCardInput[]
+    skipDuplicates?: boolean
   }
 
   export type IssuerUpsertWithoutCardInput = {
@@ -9249,13 +9818,14 @@ export namespace Prisma {
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     id?: IntFilter<"Transaction"> | number
-    isEarning?: BoolFilter<"Transaction"> | boolean
+    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    method?: StringFilter<"Transaction"> | string
+    method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: IntFilter<"Transaction"> | number
     userId?: IntFilter<"Transaction"> | number
+    currency?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }
@@ -9265,9 +9835,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     Issuer: IssuerCreateNestedOneWithoutCardInput
@@ -9281,10 +9850,9 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
+    nickname?: string | null
     issuerId: number
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     DebitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -9312,9 +9880,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -9328,10 +9895,9 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
     issuerId?: IntFieldUpdateOperationsInput | number
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     DebitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -9343,9 +9909,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     Issuer: IssuerCreateNestedOneWithoutCardInput
@@ -9359,10 +9924,9 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
+    nickname?: string | null
     issuerId: number
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     CreditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
@@ -9390,9 +9954,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -9406,10 +9969,9 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
     issuerId?: IntFieldUpdateOperationsInput | number
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
@@ -9421,9 +9983,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     CreditCard?: CreditCardCreateNestedOneWithoutCardInput
@@ -9437,9 +9998,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     CreditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
@@ -9454,6 +10014,7 @@ export namespace Prisma {
 
   export type CardCreateManyIssuerInputEnvelope = {
     data: CardCreateManyIssuerInput | CardCreateManyIssuerInput[]
+    skipDuplicates?: boolean
   }
 
   export type CardUpsertWithWhereUniqueWithoutIssuerInput = {
@@ -9481,10 +10042,9 @@ export namespace Prisma {
     number?: StringNullableFilter<"Card"> | string | null
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
-    description?: StringNullableFilter<"Card"> | string | null
+    nickname?: StringNullableFilter<"Card"> | string | null
     issuerId?: IntFilter<"Card"> | number
-    acceptsDebit?: BoolFilter<"Card"> | boolean
-    acceptsCredit?: BoolFilter<"Card"> | boolean
+    cardType?: EnumCardTypeFilter<"Card"> | $Enums.CardType
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
   }
@@ -9494,9 +10054,8 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     Issuer: IssuerCreateNestedOneWithoutCardInput
@@ -9510,10 +10069,9 @@ export namespace Prisma {
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
+    nickname?: string | null
     issuerId: number
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
     CreditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
@@ -9565,9 +10123,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -9581,10 +10138,9 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
     issuerId?: IntFieldUpdateOperationsInput | number
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
@@ -9622,11 +10178,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutUserInput = {
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     Card: CardCreateNestedOneWithoutTransactionInput
@@ -9634,12 +10191,13 @@ export namespace Prisma {
 
   export type TransactionUncheckedCreateWithoutUserInput = {
     id?: number
-    isEarning: boolean
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     cardId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9651,6 +10209,7 @@ export namespace Prisma {
 
   export type TransactionCreateManyUserInputEnvelope = {
     data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
@@ -9670,22 +10229,25 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyCardInput = {
-    isEarning: boolean
+    id?: number
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     userId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TransactionUpdateWithoutCardInput = {
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutTransactionNestedInput
@@ -9693,36 +10255,38 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateWithoutCardInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutCardInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardCreateManyIssuerInput = {
+    id?: number
     name: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
-    description?: string | null
-    acceptsDebit?: boolean
-    acceptsCredit?: boolean
+    nickname?: string | null
+    cardType?: $Enums.CardType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9732,9 +10296,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUpdateOneWithoutCardNestedInput
@@ -9748,9 +10311,8 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     CreditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
@@ -9764,30 +10326,32 @@ export namespace Prisma {
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptsDebit?: BoolFieldUpdateOperationsInput | boolean
-    acceptsCredit?: BoolFieldUpdateOperationsInput | boolean
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    cardType?: EnumCardTypeFieldUpdateOperationsInput | $Enums.CardType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateManyUserInput = {
-    isEarning: boolean
+    id?: number
+    type: $Enums.TransactionType
     amount: number
     date: Date | string
-    method: string
+    method: $Enums.TransactionMethod
     description?: string | null
     cardId: number
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TransactionUpdateWithoutUserInput = {
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Card?: CardUpdateOneRequiredWithoutTransactionNestedInput
@@ -9795,24 +10359,26 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    isEarning?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
+    method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

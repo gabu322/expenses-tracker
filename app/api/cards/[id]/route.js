@@ -9,8 +9,8 @@ export async function GET(req, res) {
             id: Number(id),
          },
          include: {
-            CreditCard: true,
-            DebitCard: true,
+            creditCard: true,
+            debitCard: true,
          },
       });
 
@@ -34,30 +34,30 @@ export async function PUT(req, res) {
          data: {
             name: requestData.name,
             description: requestData.description,
-            acceptsCredit: requestData.acceptsCredit,
-            acceptsDebit: requestData.acceptsDebit,
+            credit: requestData.credit,
+            debit: requestData.debit,
             number: requestData.cardNumber,
             expiration: requestData.expiration,
             cvv: requestData.cvv,
 
-            Issuer: { connect: { id: requestData.issuer } },
-            CreditCard:
-               requestData.acceptsCredit && requestData.creditLimit
-                  ? {
-                       update: {
-                          creditLimit: requestData.creditLimit,
-                          currentCredit: requestData.currentCredit || 0.0,
-                       },
-                    }
-                  : undefined,
-            DebitCard:
-               requestData.acceptsDebit && requestData.balance
-                  ? {
-                       update: {
-                          balance: requestData.balance,
-                       },
-                    }
-                  : undefined,
+            issuer: { connect: { id: requestData.issuer } },
+
+            creditCard: requestData.credit
+               ? {
+                  update: {
+                     creditLimit: requestData.creditLimit,
+                     currentCredit: requestData.currentCredit || 0.0,
+                  },
+               }
+               : undefined,
+
+            debitCard: requestData.debit
+               ? {
+                  update: {
+                     balance: requestData.balance,
+                  },
+               }
+               : undefined,
          },
       });
 

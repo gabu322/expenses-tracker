@@ -4,8 +4,8 @@ export async function GET(req, res) {
    try {
       const cards = await prisma.card.findMany({
          include: {
-            CreditCard: true,
-            DebitCard: true,
+            creditCard: true,
+            debitCard: true,
          },
       });
 
@@ -18,39 +18,35 @@ export async function GET(req, res) {
 
 export async function POST(req, res) {
    try {
-      const requestData = await req.json();
+      const reqData = await req.json();
 
       const newCard = await prisma.card.create({
          data: {
-            name: requestData.name,
-            description: requestData.description || null,
-            number: requestData.cardNumber,
-            expiration: requestData.expiration || null,
-            cvv: requestData.cvv || null,
+            name: reqData.name,
+            number: reqData.cardNumber,
+            nickname: reqData.description || null,
+            expiration: reqData.expiration || null,
+            cvv: reqData.cvv || null,
+            userId: 1, // Hardcoded for now
 
-            Issuer: {
+            // Add issuer
+            issuer: {
                connect: {
-                  id: requestData.issuer,
+                  id: reqData.issuer,
                },
             },
 
-            acceptsCredit: requestData.acceptsCredit,
-            CreditCard: requestData.acceptsCredit
+            creditCard: reqData.credit
                ? {
-                    create: {
-                       creditLimit: requestData.creditLimit,
-                       currentCredit: requestData.currentCredit || 0.0,
-                    },
-                 }
+                  create: {
+                     creditLimit: reqData.creditLimit,
+                     currentCredit: reqData.currentCredit || 0.0,
+                  },
+               }
                : undefined,
 
-            acceptsDebit: requestData.acceptsDebit,
-            DebitCard: requestData.acceptsDebit
-               ? {
-                    create: {
-                       balance: requestData.balance,
-                    },
-                 }
+            debitCard: reqData.debit
+               ? { create: { balance: reqData.balance } }
                : undefined,
          },
       });

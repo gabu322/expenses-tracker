@@ -55,3 +55,7 @@ h5 {
 h6 {
    @apply text-sm font-medium;
 }
+
+.card {
+   @apply bg-white shadow rounded p-3;
+}

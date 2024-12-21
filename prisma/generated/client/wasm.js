@@ -125,12 +125,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.CardScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  issuerId: 'issuerId',
+  userId: 'userId',
   number: 'number',
   expiration: 'expiration',
   cvv: 'cvv',
   nickname: 'nickname',
-  issuerId: 'issuerId',
-  cardType: 'cardType',
+  debit: 'debit',
+  credit: 'credit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -167,10 +169,10 @@ exports.Prisma.TransactionScalarFieldEnum = {
   amount: 'amount',
   date: 'date',
   method: 'method',
-  description: 'description',
   cardId: 'cardId',
   userId: 'userId',
   currency: 'currency',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -199,13 +201,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.CardType = exports.$Enums.CardType = {
-  CREDIT: 'CREDIT',
-  DEBIT: 'DEBIT',
-  BOTH: 'BOTH',
-  NONE: 'NONE'
-};
-
 exports.TransactionType = exports.$Enums.TransactionType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE'

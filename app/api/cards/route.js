@@ -29,13 +29,15 @@ export async function POST(req, res) {
             cvv: reqData.cvv || null,
             userId: 1, // Hardcoded for now
 
-            // Add issuer
+            // Used like this for consistency
             issuer: {
                connect: {
-                  id: reqData.issuer,
+                  id: reqData.issuer
                },
             },
 
+            // Add credit info if it's a credit card
+            credit: requestData.credit,
             creditCard: reqData.credit
                ? {
                   create: {
@@ -45,6 +47,8 @@ export async function POST(req, res) {
                }
                : undefined,
 
+            // Add debit info if it's a debit card
+            debit: requestData.debit,
             debitCard: reqData.debit
                ? { create: { balance: reqData.balance } }
                : undefined,

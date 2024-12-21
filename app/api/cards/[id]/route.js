@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
-   const { id } = (await res.params);
+   const { id } = await res.params;
 
    try {
       const card = await prisma.card.findUnique({
@@ -22,10 +22,12 @@ export async function GET(req, res) {
 }
 
 export async function PUT(req, res) {
-   const { id } = (await res.params);
+   const { id } = await res.params;
 
    try {
       const requestData = await req.json();
+      console.log(requestData);
+
 
       const updatedCard = await prisma.card.update({
          where: {
@@ -33,15 +35,16 @@ export async function PUT(req, res) {
          },
          data: {
             name: requestData.name,
-            description: requestData.description,
-            credit: requestData.credit,
-            debit: requestData.debit,
             number: requestData.cardNumber,
+            nickname: requestData.description,
             expiration: requestData.expiration,
             cvv: requestData.cvv,
+            // userId: 1, // Hardcoded for now
 
+            // Used like this for consistency
             issuer: { connect: { id: requestData.issuer } },
 
+            credit: requestData.credit,
             creditCard: requestData.credit
                ? {
                   update: {
@@ -51,12 +54,9 @@ export async function PUT(req, res) {
                }
                : undefined,
 
+            debit: requestData.debit,
             debitCard: requestData.debit
-               ? {
-                  update: {
-                     balance: requestData.balance,
-                  },
-               }
+               ? { update: { balance: requestData.balance, }, }
                : undefined,
          },
       });
@@ -69,7 +69,7 @@ export async function PUT(req, res) {
 }
 
 export async function DELETE(req, res) {
-   const { id } = (await res.params);
+   const { id } = await res.params;
 
    try {
       await prisma.card.delete({

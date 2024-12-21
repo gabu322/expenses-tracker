@@ -277,7 +277,6 @@ export namespace Prisma {
   export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
   export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
   export import PrismaClientValidationError = runtime.PrismaClientValidationError
-  export import NotFoundError = runtime.NotFoundError
 
   /**
    * Re-export of sql-template-tag
@@ -316,8 +315,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.21.1
-   * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
+   * Prisma Client JS version: 6.1.0
+   * Query Engine version: 11f085a2012c0f4778414c8db2651556ee0ef959
    */
   export type PrismaVersion = {
     client: string
@@ -7793,10 +7792,10 @@ export namespace Prisma {
     credit?: BoolFilter<"Card"> | boolean
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
-    issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    creditCard?: XOR<CreditCardNullableRelationFilter, CreditCardWhereInput> | null
-    debitCard?: XOR<DebitCardNullableRelationFilter, DebitCardWhereInput> | null
+    issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    creditCard?: XOR<CreditCardNullableScalarRelationFilter, CreditCardWhereInput> | null
+    debitCard?: XOR<DebitCardNullableScalarRelationFilter, DebitCardWhereInput> | null
     transaction?: TransactionListRelationFilter
   }
 
@@ -7836,10 +7835,10 @@ export namespace Prisma {
     credit?: BoolFilter<"Card"> | boolean
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
-    issuer?: XOR<IssuerRelationFilter, IssuerWhereInput>
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    creditCard?: XOR<CreditCardNullableRelationFilter, CreditCardWhereInput> | null
-    debitCard?: XOR<DebitCardNullableRelationFilter, DebitCardWhereInput> | null
+    issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    creditCard?: XOR<CreditCardNullableScalarRelationFilter, CreditCardWhereInput> | null
+    debitCard?: XOR<DebitCardNullableScalarRelationFilter, DebitCardWhereInput> | null
     transaction?: TransactionListRelationFilter
   }, "id" | "number">
 
@@ -7891,7 +7890,7 @@ export namespace Prisma {
     cardId?: IntFilter<"CreditCard"> | number
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }
 
   export type CreditCardOrderByWithRelationInput = {
@@ -7914,7 +7913,7 @@ export namespace Prisma {
     currentCredit?: FloatFilter<"CreditCard"> | number
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }, "id" | "cardId">
 
   export type CreditCardOrderByWithAggregationInput = {
@@ -7952,7 +7951,7 @@ export namespace Prisma {
     cardId?: IntFilter<"DebitCard"> | number
     createdAt?: DateTimeFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeFilter<"DebitCard"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }
 
   export type DebitCardOrderByWithRelationInput = {
@@ -7973,7 +7972,7 @@ export namespace Prisma {
     balance?: FloatFilter<"DebitCard"> | number
     createdAt?: DateTimeFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeFilter<"DebitCard"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }, "id" | "cardId">
 
   export type DebitCardOrderByWithAggregationInput = {
@@ -8077,7 +8076,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -8110,7 +8109,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    card?: XOR<CardRelationFilter, CardWhereInput>
+    card?: XOR<CardScalarRelationFilter, CardWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -8736,22 +8735,22 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type IssuerRelationFilter = {
+  export type IssuerScalarRelationFilter = {
     is?: IssuerWhereInput
     isNot?: IssuerWhereInput
   }
 
-  export type UserNullableRelationFilter = {
+  export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
   }
 
-  export type CreditCardNullableRelationFilter = {
+  export type CreditCardNullableScalarRelationFilter = {
     is?: CreditCardWhereInput | null
     isNot?: CreditCardWhereInput | null
   }
 
-  export type DebitCardNullableRelationFilter = {
+  export type DebitCardNullableScalarRelationFilter = {
     is?: DebitCardWhereInput | null
     isNot?: DebitCardWhereInput | null
   }
@@ -8929,7 +8928,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type CardRelationFilter = {
+  export type CardScalarRelationFilter = {
     is?: CardWhereInput
     isNot?: CardWhereInput
   }
@@ -10552,46 +10551,6 @@ export namespace Prisma {
   }
 
 
-
-  /**
-   * Aliases for legacy arg types
-   */
-    /**
-     * @deprecated Use CardCountOutputTypeDefaultArgs instead
-     */
-    export type CardCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CardCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use IssuerCountOutputTypeDefaultArgs instead
-     */
-    export type IssuerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IssuerCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use UserCountOutputTypeDefaultArgs instead
-     */
-    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use CardDefaultArgs instead
-     */
-    export type CardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CardDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use CreditCardDefaultArgs instead
-     */
-    export type CreditCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CreditCardDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use DebitCardDefaultArgs instead
-     */
-    export type DebitCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DebitCardDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use IssuerDefaultArgs instead
-     */
-    export type IssuerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IssuerDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TransactionDefaultArgs instead
-     */
-    export type TransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransactionDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use UserDefaultArgs instead
-     */
-    export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

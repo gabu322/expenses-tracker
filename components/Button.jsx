@@ -9,7 +9,7 @@ export default function Button({
    transparent,
    blank,
    textColor = "text-white",
-   color = "bg-blue-500 hover:bg-blue-600",
+   color = "bg-blue-600 hover:bg-blue-700",
    text,
    disabled
 }) {

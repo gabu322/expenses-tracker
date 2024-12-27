@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const sizeConfig = {
    sm: {
@@ -48,6 +48,7 @@ export default function Input({
    const [infoColor, setInfoColor] = useState({ outline: "#d1d5db", text: "#9ca3af" });
    const [isFocused, setIsFocused] = useState(false);
    const sizes = sizeConfig[size];
+   const inputRef = useRef(null);
 
    useEffect(() => {
       let formattedValue = initialValue || "";
@@ -142,7 +143,7 @@ export default function Input({
          setIsFocused(false);
          setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
       }}
-      onClick={() => document.getElementById(id || name).focus()}
+      onClick={() => inputRef.current && inputRef.current.focus()}
       style={{ outlineColor: infoColor.outline }}
    >
 
@@ -152,6 +153,7 @@ export default function Input({
          onClick={() => document.getElementById(`${id || name}-color`).click()}
       >
          <input
+            ref={inputRef}
             id={`${id || name}-color`}
             type="color"
             value={value}
@@ -161,6 +163,7 @@ export default function Input({
       </div>}
 
       <input
+         ref={inputRef}
          id={id || name}
          name={name}
          className={`outline-none w-full bg-transparent my-auto`}

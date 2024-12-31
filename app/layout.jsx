@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const roboto = Roboto({
    subsets: ["latin"],
@@ -9,7 +9,7 @@ const roboto = Roboto({
 
 export const metadata = {
    title: "Expenses Tracker",
-   // description: "",
+   description: "A mobile-focused web application designed to help users track their income and expenses.",
 };
 
 export default function RootLayout({ children }) {

@@ -13,10 +13,10 @@ export default function Home() {
 
    useEffect(() => {
       try {
-         axios.get('/api/cards')
-            .then((response) => setCardList(response.data))
          axios.get('/api/issuers')
             .then((response) => setIssuers(response.data))
+         axios.get('/api/cards')
+            .then((response) => setCardList(response.data))
       } catch (error) {
          console.log("error");
          console.error(error);
@@ -27,7 +27,6 @@ export default function Home() {
       <div className="flex flex-row justify-between">
          <h1>Seus cartões</h1>
 
-         <Button onClick={() => console.log(issuers, cardList)}>Add cartão</Button>
       </div>
 
       {cardList.map((card) => (
@@ -43,11 +42,11 @@ export function Card({
 }) {
    const router = useRouter();
 
-   const lightenedColor = lighten(0.1, issuer.color);
-   const darkenedColor = darken(0.1, issuer.color);
+   const lightenedColor = lighten(0.1, issuer?.color);
+   const darkenedColor = darken(0.1, issuer?.color);
 
    return <div
-      className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col ${className || ''} text-white `}
+      className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col shadow-lg ${className || ''} text-white `}
       style={{ background: `linear-gradient(to bottom, ${darkenedColor}, ${lightenedColor})` }}
    >
       <div className="flex flex-row justify-between">

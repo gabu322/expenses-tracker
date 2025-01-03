@@ -48,6 +48,7 @@ export default function Select({
    initialValue,
    searchable = true,
    showOptionId = false,
+   rounded,
    required,
    disabled,
 }) {
@@ -103,81 +104,78 @@ export default function Select({
       setIsFocused(false);
    };
 
-   return (
-      <div
-         className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? 'outline-2' : 'outline-1'} hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
-         onMouseLeave={() => {
-            setIsFocused(false);
-            setInfoColor({ outline: '#d1d5db', text: '#9ca3af' });
-         }}
-         onClick={() => setIsFocused(true)}
-         style={{ outlineColor: infoColor.outline }}
+   return <div
+      className={`relative outline outline-offset-[-1px] ${rounded ? "rounded-full" : "rounded"} ${className} ${sizes.base} ${isFocused ? 'outline-2' : 'outline-1'} hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
+      onMouseLeave={() => {
+         setIsFocused(false);
+         setInfoColor({ outline: '#d1d5db', text: '#9ca3af' });
+      }}
+      onClick={() => setIsFocused(true)}
+      style={{ outlineColor: infoColor.outline }}
+   >
+      <input
+         id={id || name}
+         name={name}
+         className={`outline-none w-full ${sizes.inputMargin}`}
+         type="text"
+         value={value}
+         onChange={handleInputChange}
+         onInvalid={() => setInfoColor({ outline: '#fca5a5', text: '#f87171' })}
+         autoComplete="off"
+         disabled={disabled}
+         required={required}
+         readOnly={!searchable}
+      />
+
+      {label && <label
+         htmlFor={id || name}
+         className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value
+            ? `${sizes.labelSelected} px-1 cursor-default`
+            : `${sizes.labelUnselected} cursor-text`
+            } ${disabled ? 'bg-gray-200' : 'bg-white'}`}
+         style={{ color: infoColor.text }}
       >
-         <input
-            id={id || name}
-            name={name}
-            className={`outline-none w-full ${sizes.inputMargin}`}
-            type="text"
-            value={value}
-            onChange={handleInputChange}
-            onInvalid={() => setInfoColor({ outline: '#fca5a5', text: '#f87171' })}
-            autoComplete="off"
-            disabled={disabled}
-            required={required}
-            readOnly={!searchable}
-         />
+         {label}
+         {required && '*'}
+      </label>}
 
-         {label && <label
-            htmlFor={id || name}
-            className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value
-               ? `${sizes.labelSelected} px-1 cursor-default`
-               : `${sizes.labelUnselected} cursor-text`
-               } ${disabled ? 'bg-gray-200' : 'bg-white'}`}
-            style={{ color: infoColor.text }}
+      {isFocused && <div
+         className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-60 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      >
+         {options
+            .filter((option) => option.name.toLowerCase().includes((value || '').toLowerCase()))
+            .map((option) => (
+               <div
+                  key={option.id || option.text}
+                  className={`p-2 transition cursor-pointer ${option.disabled ? 'opacity-60 bg-gray-100' : 'hover:bg-gray-200'
+                     }`}
+                  onClick={() => handleOptionClick(option)}
+               >
+                  {showOptionId && `${option.id} - `}
+                  {option.name}
+               </div>
+            ))}
+      </div>}
+
+      {/* Clear Button */}
+      <div className="absolute right-1 top-1 p-2 bg-white z-2 rounded-full" onClick={handleErase}>
+         <svg
+            className="w-4 h-4"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
          >
-            {label}
-            {required && '*'}
-         </label>}
-
-         {isFocused && <div
-            className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${isFocused ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-               }`}
-         >
-            {options
-               .filter((option) => option.name.toLowerCase().includes((value || '').toLowerCase()))
-               .map((option) => (
-                  <div
-                     key={option.id || option.text}
-                     className={`p-2 transition cursor-pointer ${option.disabled ? 'opacity-60 bg-gray-100' : 'hover:bg-gray-200'
-                        }`}
-                     onClick={() => handleOptionClick(option)}
-                  >
-                     {showOptionId && `${option.id} - `}
-                     {option.name}
-                  </div>
-               ))}
-         </div>}
-
-         {/* Clear Button */}
-         <div className="absolute right-1 top-1 p-2 bg-white z-2 rounded-full" onClick={handleErase}>
-            <svg
-               className="w-4 h-4"
-               width="24"
-               height="24"
-               viewBox="0 0 24 24"
-               fill="none"
-               xmlns="http://www.w3.org/2000/svg"
-            >
-               <path d="M21 3L12 12L3 3" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-               <path
-                  d="M3 21L12 12L21 21"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-               />
-            </svg>
-         </div>
+            <path d="M21 3L12 12L3 3" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+               d="M3 21L12 12L21 21"
+               stroke="black"
+               strokeWidth="2"
+               strokeLinecap="round"
+               strokeLinejoin="round"
+            />
+         </svg>
       </div>
-   );
+   </div>;
 }

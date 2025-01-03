@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, } from 'react';
 
 const sizeConfig = {
    sm: {
@@ -46,6 +45,7 @@ export default function Select({
    options,
    onChange,
    size = 'md',
+   initialValue,
    searchable = true,
    showOptionId = false,
    required,
@@ -59,6 +59,15 @@ export default function Select({
    useEffect(() => {
       if (isFocused && infoColor.outline != '#fca5a5') setInfoColor({ outline: '#3b82f6', text: '#3b82f6' });
    }, [isFocused]);
+
+   useEffect(() => {
+      if (initialValue == '') {
+         handleErase();
+      } else if (initialValue) {
+         const selectedOption = options.find((option) => option.id === initialValue);
+         setValue(selectedOption ? selectedOption.name : '');
+      }
+   }, [initialValue]);
 
    const handleOptionClick = (option) => {
       if (option.disabled) return;
@@ -76,16 +85,16 @@ export default function Select({
    };
 
    const handleInputChange = (e) => {
-      let newValue = e.target.value;
       setValue(e.target.value);
 
-      if (onChange)
+      if (onChange) {
          onChange({
             target: {
                name,
                value: e.target.option ? e.target.id : null,
             },
          });
+      }
    };
 
    const handleErase = () => {
@@ -96,9 +105,7 @@ export default function Select({
 
    return (
       <div
-         className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${
-            isFocused ? 'outline-2' : 'outline-1'
-         } hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
+         className={`relative rounded outline outline-offset-[-1px] ${className} ${sizes.base} ${isFocused ? 'outline-2' : 'outline-1'} hover:outline-2 ${disabled ? 'bg-gray-100' : 'bg-white'}`}
          onMouseLeave={() => {
             setIsFocused(false);
             setInfoColor({ outline: '#d1d5db', text: '#9ca3af' });
@@ -120,45 +127,39 @@ export default function Select({
             readOnly={!searchable}
          />
 
-         {label && (
-            <label
-               htmlFor={id || name}
-               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${
-                  isFocused || value
-                     ? `${sizes.labelSelected} px-1 cursor-default`
-                     : `${sizes.labelUnselected} cursor-text`
+         {label && <label
+            htmlFor={id || name}
+            className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value
+               ? `${sizes.labelSelected} px-1 cursor-default`
+               : `${sizes.labelUnselected} cursor-text`
                } ${disabled ? 'bg-gray-200' : 'bg-white'}`}
-               style={{ color: infoColor.text }}
-            >
-               {label}
-               {required && '*'}
-            </label>
-         )}
+            style={{ color: infoColor.text }}
+         >
+            {label}
+            {required && '*'}
+         </label>}
 
-         {isFocused && (
-            <div
-               className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${
-                  isFocused ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+         {isFocused && <div
+            className={`absolute top-full left-0 w-full bg-white border border-gray-300 rounded max-h-60 overflow-y-auto transition-all z-10 ${isFocused ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                }`}
-            >
-               {options
-                  .filter((option) => option.name.toLowerCase().includes((value || '').toLowerCase()))
-                  .map((option) => (
-                     <div
-                        key={option.id || option.text}
-                        className={`p-2 transition cursor-pointer ${
-                           option.disabled ? 'opacity-60 bg-gray-100' : 'hover:bg-gray-200'
+         >
+            {options
+               .filter((option) => option.name.toLowerCase().includes((value || '').toLowerCase()))
+               .map((option) => (
+                  <div
+                     key={option.id || option.text}
+                     className={`p-2 transition cursor-pointer ${option.disabled ? 'opacity-60 bg-gray-100' : 'hover:bg-gray-200'
                         }`}
-                        onClick={() => handleOptionClick(option)}
-                     >
-                        {showOptionId && `${option.id} - `}
-                        {option.name}
-                     </div>
-                  ))}
-            </div>
-         )}
+                     onClick={() => handleOptionClick(option)}
+                  >
+                     {showOptionId && `${option.id} - `}
+                     {option.name}
+                  </div>
+               ))}
+         </div>}
 
-         <div className="absolute right-1 top-1 p-2 bg-white z-2" onClick={handleErase}>
+         {/* Clear Button */}
+         <div className="absolute right-1 top-1 p-2 bg-white z-2 rounded-full" onClick={handleErase}>
             <svg
                className="w-4 h-4"
                width="24"

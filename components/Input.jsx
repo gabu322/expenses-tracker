@@ -55,7 +55,7 @@ export default function Input({
 
       if (currency) {
          formattedValue = initialValue
-            ? formatCurrency(initialValue)
+            ? formatCurrency(initialValue.toString())
             : currency + "0.00";
       } else if (mask) {
          formattedValue = initialValue
@@ -180,7 +180,7 @@ export default function Input({
       {label && <label
          htmlFor={id || name}
          className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 leading-1
-            ${isFocused || value || type == "date" || type == "month" || type == "color" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} 
+            ${isFocused || value || type == "date" || type == "month" || type == "color" || type == "datetime-local" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} 
             ${disabled ? 'bg-gray-200' : 'bg-white'}`}
          style={{ color: infoColor.text }}
       >

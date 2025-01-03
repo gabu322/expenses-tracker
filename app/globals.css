@@ -17,13 +17,14 @@
 } */
 
 body {
+   @apply bg-blue-50 text-slate-800;
    color: rgb(var(--foreground-rgb));
-   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+   background: bg-gray-100;
    line-height: 1;
 }
 
 main {
-   @apply min-h-screen p-4 pb-20 bg-slate-100;
+   @apply min-h-screen p-4 pb-20;
 }
 
 @layer utilities {

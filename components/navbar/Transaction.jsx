@@ -7,10 +7,11 @@ import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
 
-export default function Transaction({ isOpen, cardId = 1 }) {
+export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
    const [cards, setCards] = useState([]);
    const [transaction, setTransaction] = useState({
       cardId: cardId,
+      userId: 1,
       amount: '',
       type: '',
       date: '',
@@ -30,86 +31,123 @@ export default function Transaction({ isOpen, cardId = 1 }) {
       setTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
-   const handleSubmit = async () => {
+   const handleClear = () => {
+      setTransaction({
+         cardId: '',
+         amount: '',
+         type: '',
+         date: '',
+         hour: '',
+         description: '',
+         method: ''
+      });
+   };
+
+   const handleSubmit = async (e) => {
+      e.preventDefault();
       try {
-         const response = await fetch('/api/transactions', {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(transaction)
+         // Submit the transaction and if successful, clear the form and close the navbar
+         await axios.post('/api/transactions', transaction).then(() => {
+            handleClear();
+            toggleNavbar();
          });
-         if (!response.ok) throw new Error('Network response was not ok');
-         console.log('Transaction saved successfully');
       } catch (error) {
          console.error('Error saving transaction:', error);
       }
    };
 
-   return <div className={`w-full h-96 px-4 pt-11 fixed bg-white flex flex-col gap-4 items-center transition-all duration-500 ${isOpen ? "-bottom-0" : "-bottom-80"}`}>
+   return <form onSubmit={handleSubmit} className={`w-full h-96 px-4 pt-11 fixed bg-white flex flex-col gap-4 items-center transition-all duration-500 ${isOpen ? "-bottom-0" : "-bottom-80"}`}>
+      <h2 className="text-2xl font-bold text-left w-full">Nova transação</h2>
 
       <div className="flex flex-row gap-4 w-full">
          <Input
-            label="Valor"
+            className="w-1/2"
             name="amount"
+            label="Valor"
             currency="R$"
-            required
-            className="w-1/2 rounded-full"
+            initialValue={transaction.amount}
             onChange={handleChange}
+            rounded
+            required
          />
 
          <Select
-            label="Tipo"
+            className="w-1/2"
             name="type"
+            label="Tipo"
             options={[
                { id: "income", name: "Receita" },
                { id: "expense", name: "Despesa" },
             ]}
-            required
-            className="w-1/2 rounded-full"
+            initialValue={transaction.type}
             onChange={handleChange}
+            rounded
+            required
          />
       </div>
 
       <div className="flex flex-row gap-4 w-full">
-         <Input
-            label="Data"
-            name="date"
-            type="date"
-            required
+         <Select
             className="w-1/2"
+            name="cardId"
+            label="Cartão"
+            options={cards.map(card => ({ id: card.id, name: card.name }))}
+            initialValue={transaction.cardId}
             onChange={handleChange}
+            rounded
+            required
          />
 
-         <Input
-            label="Hora"
-            name="hour"
-            type="time"
-            required
+         <Select
             className="w-1/2"
+            name="method"
+            label="Método de pagamento"
+            options={[
+               { id: "debit", name: "Débito" },
+               { id: "credit", name: "Crédito" },
+            ]}
+            initialValue={transaction.method}
             onChange={handleChange}
+            rounded
+            required
          />
       </div>
 
       <Input
-         label="Descrição"
-         name="description"
          className="w-full"
+         name="date"
+         label="Data"
+         type="datetime-local"
+         initialValue={transaction.date}
          onChange={handleChange}
-      />
-
-      <Select
-         label="Método de pagamento"
-         name="method"
-         options={[
-            { id: "debit", name: "Débito" },
-            { id: "credit", name: "Crédito" },
-         ]}
+         rounded
          required
-         className="w-full"
-         onChange={handleChange}
       />
 
-      <Button text="Adicionar" color="green" className="w-full" onClick={handleSubmit} />
-   </div>;
+      <Input
+         className="w-full"
+         name="description"
+         label="Descrição"
+         initialValue={transaction.description}
+         onChange={handleChange}
+         rounded
+         required
+      />
+
+      <div className="flex flex-row gap-4 w-full">
+         <Button
+            className="w-full"
+            text="Adicionar"
+            color="green"
+            type="submit"
+         />
+
+         <Button
+            className="w-full"
+            text="Cancelar"
+            color="red"
+            onClick={handleClear}
+         />
+      </div>
+   </form>;
 }

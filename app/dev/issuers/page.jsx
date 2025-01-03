@@ -64,7 +64,6 @@ export default function Page({ }) {
             name="name"
             label="Nome do banco"
             onChange={handleChange}
-            initialValue="a"
             required
          />
 

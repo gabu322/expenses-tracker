@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
@@ -9,10 +10,9 @@ export async function GET(req, res) {
          },
       });
 
-      return new Response(JSON.stringify(cards), { status: 200 });
+      return NextResponse.json(cards, { status: 200 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
 
@@ -55,9 +55,8 @@ export async function POST(req, res) {
          },
       });
 
-      return new Response(JSON.stringify(newCard), { status: 201 });
+      return NextResponse.json(newCard, { status: 201 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

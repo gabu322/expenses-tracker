@@ -15,15 +15,12 @@ export default function Page({ }) {
    const [cardData, setCardData] = useState({
       name: "",
       description: "",
-      acceptsCredit: false,
-      acceptsDebit: false,
    });
 
    useEffect(() => {
       axios.get("/api/issuers")
          .then(response => setIssuers(response.data))
          .catch(console.error);
-
    }, []);
 
    const handleChange = (e) => {
@@ -33,26 +30,23 @@ export default function Page({ }) {
 
    const handleCheckboxChange = (e) => {
       const { name, checked } = e.target;
+
       setCardData({ ...cardData, [name]: checked });
    };
 
    const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-         await axios.post("/api/cards", {
-            ...cardData,
-            creditLimit: +cardData.creditLimit || undefined,
-            currentCredit: +cardData.currentCredit || undefined,
-            balance: +cardData.balance || undefined,
-         });
+         await axios.post("/api/cards", { ...cardData, });
          router.push("/");
       } catch (error) {
          console.error(error);
       }
    }
 
-   return <main className="min-h-screen flex flex-col gap-8">
-      <h1>Criando novo cartão</h1>
+   return <main className="min-h-screen flex flex-col gap-4">
+      <h1 className="">Criando novo cartão</h1>
+
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
          <div className="flex flex-col gap-4">
 
@@ -107,21 +101,23 @@ export default function Page({ }) {
 
                <div className="flex gap-4">
                   <Checkbox
-                     name="acceptsCredit"
+                     name="credit"
                      onChange={handleCheckboxChange}
                      label={"Crédito"}
+                     checked={cardData.credit}
                   />
 
                   <Checkbox
-                     name="acceptsDebit"
+                     name="debit"
                      onChange={handleCheckboxChange}
                      label="Débito"
+                     checked={cardData.debit}
                   />
                </div>
             </div>
          </div>
 
-         {cardData.acceptsCredit && <div className="flex flex-col gap-4">
+         {(cardData.credit) && <div className="flex flex-col gap-4">
             <h2>Informações de crédito</h2>
 
             <Input
@@ -129,7 +125,7 @@ export default function Page({ }) {
                label="Limite de crédito"
                onChange={handleChange}
                currency={"R$"}
-               required={cardData.acceptsCredit}
+               required={cardData.credit}
             />
 
             <Input
@@ -137,11 +133,11 @@ export default function Page({ }) {
                label="Crédito atual"
                onChange={handleChange}
                currency={"R$"}
-               required={cardData.acceptsCredit}
+               required={cardData.credit}
             />
          </div>}
 
-         {cardData.acceptsDebit && <div className="flex flex-col gap-4">
+         {cardData.debit && <div className="flex flex-col gap-4">
             <h2>Informações de débito</h2>
 
             <Input
@@ -149,13 +145,11 @@ export default function Page({ }) {
                label="Saldo da conta"
                onChange={handleChange}
                currency={"R$"}
-               required={cardData.acceptsDebit}
+               required={cardData.debit}
             />
          </div>}
 
          <Button type={"submit"} className={"text-white"} >Adicionar</Button>
-
-         <Button onClick={() => console.log(cardData)} className={"text-white"} >Log</Button>
       </form>
    </main>;
 }

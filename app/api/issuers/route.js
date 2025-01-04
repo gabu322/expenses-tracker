@@ -1,13 +1,13 @@
+import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
    try {
       const issuers = await prisma.issuer.findMany();
 
-      return new Response(JSON.stringify(issuers), { status: 200 });
+      return NextResponse.json(issuers, { status: 200 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
 
@@ -23,9 +23,8 @@ export async function POST(req, res) {
          },
       });
 
-      return new Response(JSON.stringify(newIssuer), { status: 201 });
+      return NextResponse.json(newIssuer, { status: 201 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

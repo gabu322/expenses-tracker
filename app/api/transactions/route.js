@@ -1,17 +1,19 @@
+import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
    try {
       const transactions = await prisma.transaction.findMany();
 
-      return new Response(JSON.stringify(transactions), { status: 200 });
+      return NextResponse.json(transactions, { status: 200 });
    } catch (error) {
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
 
 export async function POST(req, res) {
    const transaction = await req.json();
+   let newTransaction = {};
    const formattedDate = new Date(transaction.date).toISOString();
 
    const userId = 1; // Hardcoded for now
@@ -53,7 +55,7 @@ export async function POST(req, res) {
          }
 
          // Finally, create the transaction
-         await tx.transaction.create({
+         newTransaction = await tx.transaction.create({
             data: {
                type: transaction.type.toUpperCase(),
                amount: parseFloat(transaction.amount.toFixed(2)),
@@ -67,8 +69,8 @@ export async function POST(req, res) {
 
       }); // End of prisma transaction
 
-      return new Response("Transaction added", { status: 201 });
+      return NextResponse.json(newTransaction, { status: 201 });
    } catch (error) {
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

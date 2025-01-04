@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 
 export async function GET(req, res) {
@@ -14,10 +15,9 @@ export async function GET(req, res) {
          },
       });
 
-      return new Response(JSON.stringify(card), { status: 200 });
+      return NextResponse.json(card, { status: 200 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
 
@@ -61,10 +61,9 @@ export async function PUT(req, res) {
          },
       });
 
-      return new Response(JSON.stringify(updatedCard), { status: 200 });
+      return NextResponse.json(updatedCard, { status: 200 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
 
@@ -78,9 +77,8 @@ export async function DELETE(req, res) {
          },
       });
 
-      return new Response(null, { status: 204 });
+      return NextResponse.json({ message: "Card deleted" }, { status: 200 });
    } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

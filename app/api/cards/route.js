@@ -19,6 +19,7 @@ export async function GET(req, res) {
 export async function POST(req, res) {
    try {
       const reqData = await req.json();
+      console.log(reqData);
 
       const newCard = await prisma.card.create({
          data: {
@@ -27,17 +28,14 @@ export async function POST(req, res) {
             nickname: reqData.description || null,
             expiration: reqData.expiration || null,
             cvv: reqData.cvv || null,
-            userId: 1, // Hardcoded for now
+
+            user: { connect: { id: 1, }, }, // Hardcoded for now
 
             // Used like this for consistency
-            issuer: {
-               connect: {
-                  id: reqData.issuer
-               },
-            },
+            issuer: { connect: { id: reqData.issuer }, },
 
             // Add credit info if it's a credit card
-            credit: requestData.credit,
+            credit: reqData.credit,
             creditCard: reqData.credit
                ? {
                   create: {
@@ -48,7 +46,7 @@ export async function POST(req, res) {
                : undefined,
 
             // Add debit info if it's a debit card
-            debit: requestData.debit,
+            debit: reqData.debit,
             debitCard: reqData.debit
                ? { create: { balance: reqData.balance } }
                : undefined,
@@ -57,6 +55,7 @@ export async function POST(req, res) {
 
       return NextResponse.json(newCard, { status: 201 });
    } catch (error) {
+      console.log(error)
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

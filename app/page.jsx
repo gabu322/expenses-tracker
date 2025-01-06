@@ -56,7 +56,7 @@ export function Card({
       </div>
 
       <div className="flex-grow flex flex-col justify-between">
-         {card.debit ? <h3 className="leading-none">$ {card.debitCard.balance}</h3> : <div />}
+         {card.debit ? <h3 className="leading-none">$ {card.debitCard.balance.toFixed(2)}</h3> : <div />}
 
          {card.credit && <div className="flex flex-col mb-1">
             <h6 className="text-gray-300 leading-none">

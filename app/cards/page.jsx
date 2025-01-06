@@ -25,7 +25,7 @@ export default function Page({ }) {
 
    const handleChange = (e) => {
       const { name, value } = e.target;
-      setCardData({ ...cardData, [name]: value });
+      setCardData((prev) => ({ ...prev, [name]: value }));
    };
 
    const handleCheckboxChange = (e) => {
@@ -40,7 +40,7 @@ export default function Page({ }) {
          await axios.post("/api/cards", { ...cardData, });
          router.push("/");
       } catch (error) {
-         console.error(error);
+         console.error(error.message);
       }
    }
 

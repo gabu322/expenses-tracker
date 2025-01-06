@@ -56,7 +56,7 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
       }
    };
 
-   return <form onSubmit={handleSubmit} className={`w-full h-96 px-4 pt-11 fixed bg-white flex flex-col gap-4 items-center transition-all duration-500 ${isOpen ? "-bottom-0" : "-bottom-80"}`}>
+   return <form onSubmit={handleSubmit} className={`w-full h-96 px-4 pt-9 fixed bg-white flex flex-col gap-4 items-center transition-all duration-500 ${isOpen ? "-bottom-0" : "-bottom-80"}`}>
       <h2 className="text-2xl font-bold text-left w-full">Nova transação</h2>
 
       <div className="flex flex-row gap-4 w-full">

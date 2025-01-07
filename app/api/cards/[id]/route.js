@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createCardSchema } from "@/lib/validation/cardValidation.js";
 
 export async function GET(req, res) {
    const { id } = await res.params;
@@ -25,38 +26,36 @@ export async function PUT(req, res) {
    const { id } = await res.params;
 
    try {
-      const requestData = await req.json();
-      console.log(requestData);
-
+      const cardData = createCardSchema.parse(await req.json());
 
       const updatedCard = await prisma.card.update({
          where: {
             id: Number(id),
          },
          data: {
-            name: requestData.name,
-            number: requestData.cardNumber,
-            nickname: requestData.description,
-            expiration: requestData.expiration,
-            cvv: requestData.cvv,
+            name: cardData.name,
+            number: cardData.cardNumber,
+            nickname: cardData.description,
+            expiration: cardData.expiration,
+            cvv: cardData.cvv,
             // userId: 1, // Hardcoded for now
 
             // Used like this for consistency
-            issuer: { connect: { id: requestData.issuer } },
+            issuer: { connect: { id: cardData.issuer } },
 
-            credit: requestData.credit,
-            creditCard: requestData.credit
+            credit: cardData.credit,
+            creditCard: cardData.credit
                ? {
                   update: {
-                     creditLimit: requestData.creditLimit,
-                     currentCredit: requestData.currentCredit || 0.0,
+                     creditLimit: cardData.creditLimit,
+                     currentCredit: cardData.currentCredit || 0.0,
                   },
                }
                : undefined,
 
-            debit: requestData.debit,
-            debitCard: requestData.debit
-               ? { update: { balance: requestData.balance, }, }
+            debit: cardData.debit,
+            debitCard: cardData.debit
+               ? { update: { balance: cardData.balance, }, }
                : undefined,
          },
       });

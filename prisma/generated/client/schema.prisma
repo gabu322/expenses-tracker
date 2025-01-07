@@ -17,18 +17,16 @@ enum TransactionMethod {
   PIX
   DEBIT
   CREDIT
-  CASH
 }
 
 model Card {
   id         Int     @id @default(autoincrement())
-  name       String
+  nickname   String
   issuerId   Int
-  userId     Int?
+  userId     Int
   number     String? @unique
   expiration String?
   cvv        String?
-  nickname   String?
   debit      Boolean @default(false)
   credit     Boolean @default(false)
 
@@ -107,14 +105,30 @@ model Transaction {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
-  cpf   String? @unique
-  phone String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String?
+  cpf      String? @unique
+  phone    String?
 
   // Relations
-  card Card[]
+  card     Card[]
+  sessions Session[]
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  sessionToken String   @unique
+  expires      DateTime
+
+  // Foreign keys
+  user User @relation(fields: [userId], references: [id])
 
   // Timestamps
   createdAt DateTime @default(now())

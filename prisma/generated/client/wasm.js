@@ -119,13 +119,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.CardScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  nickname: 'nickname',
   issuerId: 'issuerId',
   userId: 'userId',
   number: 'number',
   expiration: 'expiration',
   cvv: 'cvv',
-  nickname: 'nickname',
   debit: 'debit',
   credit: 'credit',
   createdAt: 'createdAt',
@@ -174,10 +173,20 @@ exports.Prisma.TransactionScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   email: 'email',
+  password: 'password',
+  name: 'name',
   cpf: 'cpf',
   phone: 'phone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sessionToken: 'sessionToken',
+  expires: 'expires',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -204,8 +213,7 @@ exports.TransactionType = exports.$Enums.TransactionType = {
 exports.TransactionMethod = exports.$Enums.TransactionMethod = {
   PIX: 'PIX',
   DEBIT: 'DEBIT',
-  CREDIT: 'CREDIT',
-  CASH: 'CASH'
+  CREDIT: 'CREDIT'
 };
 
 exports.Prisma.ModelName = {
@@ -214,7 +222,8 @@ exports.Prisma.ModelName = {
   DebitCard: 'DebitCard',
   Issuer: 'Issuer',
   Transaction: 'Transaction',
-  User: 'User'
+  User: 'User',
+  Session: 'Session'
 };
 
 /**

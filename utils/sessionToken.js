@@ -6,13 +6,12 @@ import crypto from 'crypto';
  * @param {string} email - The user's email
  * @returns {string} The generated session token
  */
-export default function generateSessionToken(secret, email) {
+export function generateSessionToken(secret, email) {
    const timestamp = Date.now().toString();
    const data = `${email}${timestamp}`;
 
    // Generate a secure token using HMAC and SHA-256
-   const token = crypto
-      .createHmac('sha256', secret)
+   const token = crypto.createHmac('sha256', secret)
       .update(data)
       .digest('hex');
 

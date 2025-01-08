@@ -59,7 +59,7 @@ export default function Page({ }) {
       }
    };
 
-   return <div className="flex flex-col justify-center items-center w-full gap-4 bg-white py-6 rounded-lg shadow-lg">
+   return <div className="flex flex-col justify-center items-center w-full gap-4 bg-white py-6 rounded-lg shadow-lg max-w-md">
       <h1 className="text-2xl">Signup</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-4/5">
@@ -111,6 +111,7 @@ export default function Page({ }) {
          />
 
          <Button
+            className="w-full"
             type="submit"
             text={"Sign Up"}
          />

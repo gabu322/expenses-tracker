@@ -9,7 +9,7 @@ export async function GET(req, res) {
       await prisma.transaction.deleteMany();
       await prisma.card.deleteMany();
       await prisma.issuer.deleteMany();
-      // await prisma.session.deleteMany();
+      await prisma.session.deleteMany();
       await prisma.user.deleteMany();
       return NextResponse.json({ message: "Database cleared" }, { status: 200 });
    } catch (error) {

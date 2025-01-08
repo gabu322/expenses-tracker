@@ -12,10 +12,7 @@ import Select from "@/components/Select";
 export default function Page({ }) {
    const router = useRouter();
    const [issuers, setIssuers] = useState([]);
-   const [cardData, setCardData] = useState({
-      name: "",
-      description: "",
-   });
+   const [cardData, setCardData] = useState({});
 
    useEffect(() => {
       axios.get("/api/issuers")
@@ -52,16 +49,18 @@ export default function Page({ }) {
 
             <h2>Informações gerais</h2>
             <Input
-               name="name"
+               name="nickname"
                label="Nome do cartão"
                onChange={handleChange}
                required
             />
 
-            <Input
-               name="description"
-               label="Descrição"
+            <Select
+               name="issuer"
+               label="Banco"
+               options={issuers}
                onChange={handleChange}
+               required
             />
 
             <Input
@@ -74,26 +73,18 @@ export default function Page({ }) {
             />
 
             <Input
-               name="cvv"
-               label="CVV"
-               onChange={handleChange}
-               mask="000"
-               type="number"
-            />
-
-            <Input
                name="expiration"
                label="Data de expiração"
                onChange={handleChange}
                type="month"
             />
 
-            <Select
-               name="issuer"
-               label="Banco"
-               options={issuers}
+            <Input
+               name="cvv"
+               label="CVV"
                onChange={handleChange}
-               required
+               mask="000"
+               type="number"
             />
 
             <div className="flex justify-between">

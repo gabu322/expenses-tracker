@@ -49,16 +49,14 @@ export default function Button({
       color = "bg-black hover:bg-gray-800";
    }
 
-   const buttonContent = (
-      <button
-         type={type ?? "button"}
-         className={`px-3 rounded drop-shadow transition-all duration-200 cursor-pointer font-semibold text-sm flex-r-2 items-center justify-center ${color} ${textColor} ${className} h-10`}
-         onClick={onClick}
-         disabled={disabled}
-      >
-         {children || text}
-      </button>
-   );
+   const buttonContent = <button
+      type={type ?? "button"}
+      className={`px-3 rounded drop-shadow transition-all duration-200 cursor-pointer font-semibold text-sm flex-r-2 items-center justify-center ${color} ${textColor} ${className} h-10`}
+      onClick={onClick}
+      disabled={disabled}
+   >
+      {children || text}
+   </button>;
 
    if (href) {
       return (

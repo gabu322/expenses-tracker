@@ -1,45 +1,51 @@
-# Table of Contents
+# Expenses Tracker Web App
 
-- [Table of Contents](#table-of-contents)
-  - [Expenses Tracker Web App](#expenses-tracker-web-app)
-  - [Key Features](#key-features)
-  - [How It Works](#how-it-works)
-  - [Tech Stack](#tech-stack)
-  - [What I’m Working On](#what-im-working-on)
-  - [Future Plans](#future-plans)
-
-## Expenses Tracker Web App
+[Leia em Português 🇧🇷](./README.pt.md)
 
 A mobile-focused web application designed to help users track their income and expenses.
 
+## Table of Contents
+
+- [Expenses Tracker Web App](#expenses-tracker-web-app)
+  - [Table of Contents](#table-of-contents)
+  - [Key Features](#key-features)
+  - [How It Works](#how-it-works)
+  - [Tech Stack](#tech-stack)
+  - [Current Work](#current-work)
+  - [Future Plans](#future-plans)
+  - [Contact](#contact)
+
 ## Key Features
 
-- Track income and expenses
-- Mobile-first responsive design
-- Categorize transactions (e.g., food, medical, utilities)
+- User authentication: Secure sign-in and sign-up functionality.
+- Create your Card: Create a debit or credit card with your current data.  
+- Income and expense tracking: Add transactions with details such as amount, date, and category.
+- Keep track of your expenses: View insights on your spending habits and income trends. (WIP)
 
 ## How It Works
 
-1. Add your income or expenses with details like amount, date, and category.
-2. Visualize your financial data through charts and graphs.
-3. Monitor your spending habits and income trends to make informed decisions.
+1. **Sign up or log in**: Create an account or access an existing one securely.  
+2. **Create your card**: Add a debit or credit card with your information.
+3. **Add transactions**: Log income or expenses, specifying details like amount, date, category, and transaction type.  
 
 ## Tech Stack
 
 - **Frontend**: Next.js (App Directory)
 - **Styling**: Tailwind CSS
-- **Backend**: Prisma (connected to Azure Postgres SQL Database)
+- **Backend**: Prisma ORM with a connection to an Azure PostgreSQL database
+- **Authentication**: NextAuth.js (planned)
+  
+## Current Work
 
-## What I’m Working On
-
-- Adding the transactions feature
-- Doing the documentation for the project
+- Writing detailed project documentation.
+- Developing the card and transaction analysis features.
 
 ## Future Plans
 
-- Implementing user authentication
-- Adding goal-setting and budgeting features
-  
----  
-  
-This project is a personal initiative and is not currently designed for public use. If you're reviewing this as part of my portfolio, feel free to reach out with any questions!
+- Implement user authentication with Google OAuth using NextAuth.js.
+- Add goal-setting and budgeting tools to help users plan their finances effectively.
+- Introduce multi-language support.
+
+## Contact
+
+This project is a personal initiative and not currently intended for public release. If you have any questions or would like to know more, feel free to reach out via email or GitHub.

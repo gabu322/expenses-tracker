@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 
 import Button from "@/components/Button";
@@ -9,8 +10,9 @@ import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 
-export default function Page({ }) {
+export default function Page() {
    const router = useRouter();
+   const { data: session } = useSession();
    const [issuers, setIssuers] = useState([]);
    const [cardData, setCardData] = useState({});
 
@@ -27,17 +29,19 @@ export default function Page({ }) {
 
    const handleCheckboxChange = (e) => {
       const { name, checked } = e.target;
-
       setCardData({ ...cardData, [name]: checked });
    };
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+
+      if (!session?.user?.id) router.push("/login");
+
       try {
-         await axios.post("/api/cards", { ...cardData, });
+         await axios.post("/api/cards", { ...cardData, userId: session.user.id });
          router.push("/");
       } catch (error) {
-         console.error(error.message);
+         console.error(error);
       }
    }
 
@@ -56,7 +60,7 @@ export default function Page({ }) {
             />
 
             <Select
-               name="issuer"
+               name="issuerId"
                label="Banco"
                options={issuers}
                onChange={handleChange}
@@ -64,7 +68,7 @@ export default function Page({ }) {
             />
 
             <Input
-               name="cardNumber"
+               name="number"
                label="Número do cartão"
                onChange={handleChange}
                mask="**** **** **** 0000"

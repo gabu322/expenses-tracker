@@ -90,7 +90,7 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
             className="w-1/2"
             name="cardId"
             label="Cartão"
-            options={cards.map(card => ({ value: card.id, text: card.name }))}
+            options={cards.map(card => ({ value: card.id, text: card.nickname }))}
             initialValue={transaction.cardId}
             onChange={handleChange}
             rounded

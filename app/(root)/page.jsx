@@ -15,10 +15,8 @@ export default function Home() {
       try {
          axios.get('/api/issuers')
             .then((response) => setIssuers(response.data))
-            .then(() => console.log("issuers", issuers))
          axios.get('/api/cards')
             .then((response) => setCardList(response.data))
-            .then(() => console.log("cards", cardList))
 
       } catch (error) {
          console.log("error");
@@ -29,7 +27,7 @@ export default function Home() {
    return <div className="flex flex-col gap-5">
       <div className="flex flex-row justify-between">
          <h1>Seus cartões</h1>
-
+         <Button onClick={() => console.log(cardList)}>Refresh</Button>
       </div>
 
       {cardList.map((card) => (
@@ -45,17 +43,16 @@ export function Card({
 }) {
    const router = useRouter();
 
-   const lightenedColor = lighten(0.1, issuer?.color);
-   const darkenedColor = darken(0.1, issuer?.color);
+   const lightenedColor = lighten(0.1, issuer?.color || '#000');
+   const darkenedColor = darken(0.1, issuer?.color || '#000');
 
    return <div
-      className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col shadow-lg ${className || ''} text-white `}
+      className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col shadow-lg ${className || ''} text-white max-w-[400px]`}
       style={{ background: `linear-gradient(to bottom, ${darkenedColor}, ${lightenedColor})` }}
    >
-      <div className="flex flex-row justify-between">
-         <h2>{card.name}</h2>
-
-         <h4>{card.name}</h4>
+      <div className="flex flex-row justify-between mb-2 h-10">
+         <img src={issuer?.icon} alt={issuer?.name} className="h-10 w-16" />
+         <h4>{card.nickname}</h4>
       </div>
 
       <div className="flex-grow flex flex-col justify-between">
@@ -69,7 +66,7 @@ export function Card({
          </div>}
       </div>
       <div className="w-full flex flex-row justify-between">
-         <div>{'**** **** **** ' + card.number.slice(-4)}</div>
+         <div>{card.number}</div>
 
          <div className="flex cursor-pointer" onClick={() => router.push("/cards/" + card.id)}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">

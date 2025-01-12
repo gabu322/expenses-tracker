@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createTransactionSchema } from "@/lib/validation/transactionValidation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 export async function GET(req, res) {
    try {
@@ -12,13 +14,10 @@ export async function GET(req, res) {
    }
 }
 
-
-export async function POST(req) {
-   const userId = 1; // Hardcoded for now
-
+export async function POST(req, res) {
    try {
       const data = await req.json();
-      console.log(data);
+      const session = await getServerSession(authOptions);
 
       const transactionData = createTransactionSchema.parse(data);
 
@@ -31,6 +30,8 @@ export async function POST(req) {
          });
 
          if (!card) throw new Error("Card not found");
+
+         if (card.userId !== session.user.id) throw new Error("Card does not belong to user");
 
          // Determine if the amount should be added or subtracted
          const inverter = transactionData.type === "INCOME" ? 1 : -1;
@@ -53,15 +54,14 @@ export async function POST(req) {
          return tx.transaction.create({
             data: {
                ...transactionData,
-               userId,
+               userId: session.user.id,
             },
          });
       });
 
       return NextResponse.json(newTransaction, { status: 201 });
    } catch (error) {
-      if (error.name === "ZodError")
-         return NextResponse.json({ errors: error.errors }, { status: 400 });
+      if (error.name === "ZodError") return NextResponse.json({ errors: error.errors }, { status: 400 });
 
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

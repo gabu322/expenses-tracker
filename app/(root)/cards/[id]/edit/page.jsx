@@ -97,7 +97,7 @@ export default function Page({ params }) {
             <Select
                name="issuer"
                label="Banco"
-               options={issuers}
+               options={issuers.map(issuer => ({ value: issuer.id, text: issuer.name }))}
                onChange={handleChange}
                // initialValue={card.issuerId}
                required

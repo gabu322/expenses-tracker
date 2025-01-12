@@ -62,7 +62,7 @@ export default function Page() {
             <Select
                name="issuerId"
                label="Banco"
-               options={issuers}
+               options={issuers.map(issuer => ({ value: issuer.id, text: issuer.name }))}
                onChange={handleChange}
                required
             />

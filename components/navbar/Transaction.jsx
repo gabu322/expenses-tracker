@@ -65,7 +65,6 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
             name="amount"
             label="Valor"
             currency="R$"
-            initialValue={transaction.amount}
             onChange={handleChange}
             rounded
             required
@@ -76,8 +75,8 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
             name="type"
             label="Tipo"
             options={[
-               { id: "income", name: "Receita" },
-               { id: "expense", name: "Despesa" },
+               { value: "income", text: "Receita" },
+               { value: "expense", text: "Despesa" },
             ]}
             initialValue={transaction.type}
             onChange={handleChange}
@@ -91,7 +90,7 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
             className="w-1/2"
             name="cardId"
             label="Cartão"
-            options={cards.map(card => ({ id: card.id, name: card.name }))}
+            options={cards.map(card => ({ value: card.id, text: card.name }))}
             initialValue={transaction.cardId}
             onChange={handleChange}
             rounded
@@ -103,8 +102,8 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
             name="method"
             label="Método de pagamento"
             options={[
-               { id: "debit", name: "Débito" },
-               { id: "credit", name: "Crédito" },
+               { value: "debit", text: "Débito" },
+               { value: "credit", text: "Crédito" },
             ]}
             initialValue={transaction.method}
             onChange={handleChange}

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createCardSchema } from "@/lib/validation/cardValidation";
 
 export async function GET(req, res) {
    try {
@@ -18,44 +19,45 @@ export async function GET(req, res) {
 
 export async function POST(req, res) {
    try {
-      const reqData = await req.json();
-      console.log(reqData);
+      const data = await req.json();
+
+      const cardData = createCardSchema.parse(data);
 
       const newCard = await prisma.card.create({
          data: {
-            name: reqData.name,
-            number: reqData.cardNumber,
-            nickname: reqData.description || null,
-            expiration: reqData.expiration || null,
-            cvv: reqData.cvv || null,
+            number: cardData.number,
+            nickname: cardData.nickname,
+            expiration: cardData.expiration || null,
+            cvv: cardData.cvv || null,
 
-            user: { connect: { id: 1, }, }, // Hardcoded for now
+            user: { connect: { id: cardData.userId } },
 
             // Used like this for consistency
-            issuer: { connect: { id: reqData.issuer }, },
+            issuer: { connect: { id: cardData.issuerId } },
 
             // Add credit info if it's a credit card
-            credit: reqData.credit,
-            creditCard: reqData.credit
+            credit: cardData.credit,
+            creditCard: cardData.credit
                ? {
                   create: {
-                     creditLimit: reqData.creditLimit,
-                     currentCredit: reqData.currentCredit || 0.0,
+                     creditLimit: cardData.creditLimit,
+                     currentCredit: cardData.currentCredit || 0.0,
                   },
                }
                : undefined,
 
             // Add debit info if it's a debit card
-            debit: reqData.debit,
-            debitCard: reqData.debit
-               ? { create: { balance: reqData.balance } }
+            debit: cardData.debit,
+            debitCard: cardData.debit
+               ? { create: { balance: cardData.balance } }
                : undefined,
          },
       });
 
       return NextResponse.json(newCard, { status: 201 });
    } catch (error) {
-      console.log(error)
+      if (error.name === "ZodError") return NextResponse.json({ error: error.errors }, { status: 400 });
+
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

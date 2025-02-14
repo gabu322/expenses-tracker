@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createCardSchema } from "@/lib/validation/cardValidation.js";
+import { updateCardSchema } from "@/lib/validation/cardValidation.js";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 export async function GET(req, res) {
    const { id } = await res.params;
@@ -26,16 +28,20 @@ export async function PUT(req, res) {
    const { id } = await res.params;
 
    try {
-      const cardData = createCardSchema.parse(await req.json());
+      const data = await req.json();
+      const session = await getServerSession(authOptions);
+
+      const cardData = updateCardSchema.parse(data);
+
+      if (cardData.userId !== session.user.id) throw new Error("Card does not belong to user");
 
       const updatedCard = await prisma.card.update({
          where: {
             id: Number(id),
          },
          data: {
-            name: cardData.name,
-            number: cardData.cardNumber,
-            nickname: cardData.description,
+            nickname: cardData.nickname,
+            number: cardData.number,
             expiration: cardData.expiration,
             cvv: cardData.cvv,
             // userId: 1, // Hardcoded for now
@@ -62,6 +68,8 @@ export async function PUT(req, res) {
 
       return NextResponse.json(updatedCard, { status: 200 });
    } catch (error) {
+      if (error.name === "ZodError") return NextResponse.json({ error: error.errors }, { status: 400 });
+
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

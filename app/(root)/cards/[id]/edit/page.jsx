@@ -47,29 +47,22 @@ export default function Page({ params }) {
       }
    }
 
-   return <main className="min-h-screen flex flex-col gap-8">
+   return <div className="min-h-screen flex flex-col gap-8">
       <h1>Editando cartão</h1>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
          <div className="flex flex-col gap-4">
 
             <h2>Informações gerais</h2>
             <Input
-               name="name"
+               name="nickname"
                label="Nome do cartão"
                onChange={handleChange}
-               initialValue={card.name}
+               initialValue={card.nickname}
                required
             />
 
             <Input
-               name="description"
-               label="Descrição"
-               initialValue={card.nickname}
-               onChange={handleChange}
-            />
-
-            <Input
-               name="cardNumber"
+               name="number"
                label="Número do cartão"
                onChange={handleChange}
                mask="**** **** **** 0000"
@@ -99,7 +92,7 @@ export default function Page({ params }) {
                label="Banco"
                options={issuers.map(issuer => ({ value: issuer.id, text: issuer.name }))}
                onChange={handleChange}
-               // initialValue={card.issuerId}
+               initialValue={card.issuerId}
                required
             />
 
@@ -133,6 +126,7 @@ export default function Page({ params }) {
                onChange={handleChange}
                currency={"R$"}
                required={card.credit}
+               initialValue={card.creditCard.creditLimit}
             />
 
             <Input
@@ -141,6 +135,7 @@ export default function Page({ params }) {
                onChange={handleChange}
                currency={"R$"}
                required={card.credit}
+               initialValue={card.creditCard.currentCredit}
             />
          </div>}
 
@@ -153,6 +148,7 @@ export default function Page({ params }) {
                onChange={handleChange}
                currency={"R$"}
                required={card.debit}
+               initialValue={card.debitCard.balance}
             />
          </div>}
 
@@ -160,5 +156,5 @@ export default function Page({ params }) {
 
          <Button onClick={() => console.log(card)} className={"text-white"} >Log</Button>
       </form>
-   </main>;
+   </div>;
 }

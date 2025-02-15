@@ -48,7 +48,7 @@ export default function Page({ }) {
       }
    }
 
-   return <main className="flex flex-col gap-5 p-5">
+   return <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between">
          <h1>Bancos</h1>
          <Button
@@ -96,7 +96,7 @@ export default function Page({ }) {
       {issuers.map((issuer) => (
          <Issuer key={issuer.id} issuer={issuer} handleDelete={handleDelete} />
       ))}
-   </main>
+   </div>
 };
 
 export function Issuer({ issuer, handleDelete }) {

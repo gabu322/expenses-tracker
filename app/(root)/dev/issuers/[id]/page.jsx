@@ -38,7 +38,7 @@ export default function Page({ params }) {
       }
    }
 
-   return <main className="flex-col-4">
+   return <div className="flex-col-4">
       <h1>Editar banco: {issuer?.name}</h1>
       <form onSubmit={handleSubmit} className="flex-col-4">
          <Input
@@ -69,6 +69,6 @@ export default function Page({ params }) {
             className="w-full"
          />
       </form>
-   </main>
+   </div>
 
 };

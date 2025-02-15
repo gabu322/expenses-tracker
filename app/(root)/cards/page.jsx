@@ -88,7 +88,6 @@ export default function Page() {
                label="CVV"
                onChange={handleChange}
                mask="000"
-               type="number"
             />
 
             <div className="flex justify-between">

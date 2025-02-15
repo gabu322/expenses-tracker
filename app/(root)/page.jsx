@@ -27,11 +27,11 @@ export default function Home() {
    return <div className="flex flex-col gap-5">
       <div className="flex flex-row justify-between">
          <h1>Seus cartões</h1>
-         <Button onClick={() => console.log(cardList)}>Refresh</Button>
+         <Button href={"/cards"}>Novo Cartão</Button>
       </div>
 
       {cardList.map((card) => (
-         <Card key={card.id} card={card} issuer={issuers.find((issuer) => issuer.id === card.issuerId)} />
+         <Card key={card.id} card={card} issuer={issuers?.find((issuer) => issuer.id === card.issuerId)} />
       ))}
    </div>;
 }

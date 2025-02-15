@@ -9,6 +9,7 @@ import CountUp from "react-countup";
 export default function Page({ params }) {
    const { id } = use(params);
    const [card, setCard] = useState();
+   const [transactions, setTransactions] = useState([]);
 
    useEffect(() => {
       axios.get(`/api/cards/${id}`)
@@ -19,8 +20,8 @@ export default function Page({ params }) {
          .catch(console.error);
    }, []);
 
-   return <main className="flex flex-col gap-4">
-      <h2>{card?.name}</h2>
+   return <div className="flex flex-col gap-4">
+      <h2>{card?.nickname}</h2>
 
       <div className="w-full grid grid-cols-2 gap-4">
          {/* Debit card info */}
@@ -51,7 +52,7 @@ export default function Page({ params }) {
                <div className="flex flex-col justify-around">
                   <span className="font-light">Credit Limit</span>
 
-                  <span className="font-bold">${parseFloat(card?.creditCard.creditLimit).toFixed(2)}</span>
+                  <CountUp className="font-bold" prefix="$" end={card?.creditCard.creditLimit} decimals={2} />
                </div>
             </div>
             <div className="card h-16 flex-row-4">
@@ -60,10 +61,10 @@ export default function Page({ params }) {
                <div className="flex flex-col justify-around">
                   <span>Spent credit</span>
 
-                  <span className="font-bold">${parseFloat(card?.creditCard.currentCredit).toFixed(2)}</span>
-               </div>
+
+                  <CountUp className="font-bold" prefix="$" end={card?.creditCard.currentCredit} decimals={2} /> </div>
             </div>
          </>}
       </div>
-   </main>;
+   </div>;
 };

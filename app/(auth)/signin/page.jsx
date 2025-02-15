@@ -4,8 +4,10 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import { useRouter } from "next/navigation";
 
 export default function Page({ }) {
+   const router = useRouter();
    const [login, setLogin] = useState({
       email: "",
       password: "",
@@ -18,20 +20,23 @@ export default function Page({ }) {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const result = await signIn("credentials", {
-         redirect: false,
-         email: login.email,
-         password: login.password,
-      });
 
-      if (result.error) {
-         console.error(result.error);
-      } else {
-         console.log("Login successful");
-         // Do a 5sec timeout and redirect to home
-         setTimeout(() => {
-            window.location.href = "/";
-         }, 5000);
+      try {
+         const response = await signIn("credentials", {
+            redirect: false,
+            email: login.email,
+            password: login.password,
+         });
+
+         if (!response.ok) {
+            throw new Error("Failed to login");
+         }
+
+         router.push("/");
+      } catch (error) {
+         // TODO: Show error message to the user
+         // May imply that the email or password is incorrect, or that the user is not registered
+         console.error("Login failed:", error);
       }
    }
 

@@ -11,7 +11,11 @@ export async function GET(req, res) {
       await prisma.issuer.deleteMany();
       await prisma.session.deleteMany();
       await prisma.user.deleteMany();
-      return NextResponse.json({ message: "Database cleared" }, { status: 200 });
+
+      console.log("Database cleared");
+
+      // send user to the home page
+      return NextResponse.redirect(new URL("/signup", req.url));
    } catch (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

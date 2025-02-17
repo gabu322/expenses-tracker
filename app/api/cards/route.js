@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createCardSchema } from "@/lib/validation/cardValidation";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
+// GET all cards of logged in user
 export async function GET(req, res) {
    try {
+      const session = await getServerSession(authOptions);
+
       const cards = await prisma.card.findMany({
+         where: { userId: session.user.id },
          include: {
             creditCard: true,
             debitCard: true,
@@ -17,6 +23,7 @@ export async function GET(req, res) {
    }
 }
 
+// POST a new card
 export async function POST(req, res) {
    try {
       const data = await req.json();

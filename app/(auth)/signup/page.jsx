@@ -36,7 +36,7 @@ export default function Page({ }) {
          // Call the custom register API
          const response = await axios.post("/api/auth/register", signup);
 
-         if (!response.ok) {
+         if (!response.status === 201) {
             throw new Error("Failed to register");
          }
 
@@ -46,14 +46,12 @@ export default function Page({ }) {
             email: signup.email,
             password: signup.password,
          });
-         console.log("here2");
 
-         if (loginResponse.ok) {
-            router.push("/");
-         } else {
-            console.error("Login failed:", loginResponse.error);
+         if (!loginResponse.ok) {
             throw new Error("Failed to login");
          }
+
+         router.push("/");
       } catch (error) {
          console.error("Signup failed:", error);
       }

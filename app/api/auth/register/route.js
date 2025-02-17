@@ -31,9 +31,11 @@ export async function POST(req) {
          },
       });
 
-      return NextResponse.json({ message: "User registered", user: { id: user.id, email: user.email } }, { status: 201 });
+      return NextResponse.json({ message: "User registered", user: { id: user.id, email: user.email, name: user.name } }, { status: 201 });
    } catch (error) {
+      console.log("here1")
       if (error.name === "ZodError") return NextResponse.json({ errors: error.errors }, { status: 400 });
+      console.log("here2")
 
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

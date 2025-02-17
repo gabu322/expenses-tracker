@@ -22,13 +22,13 @@ export default function Page({ }) {
       e.preventDefault();
 
       try {
-         const response = await signIn("credentials", {
+         const loginResponse = await signIn("credentials", {
             redirect: false,
             email: login.email,
             password: login.password,
          });
 
-         if (!response.ok) {
+         if (!loginResponse.ok) {
             throw new Error("Failed to login");
          }
 

@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { useRouter } from "next/navigation";
 
 export default function Page({ }) {
    const router = useRouter();

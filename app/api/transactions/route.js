@@ -4,16 +4,23 @@ import { createTransactionSchema } from "@/lib/validation/transactionValidation"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
+// GET all transactions of logged in user
 export async function GET(req, res) {
    try {
-      const transactions = await prisma.transaction.findMany();
+      const session = await getServerSession(authOptions)
 
-      return NextResponse.json(transactions, { status: 200 });
+      const transactions = await prisma.transaction.findMany({
+         where: { userId: session.user.id },
+         orderBy: { date: 'desc' }
+      })
+
+      return NextResponse.json(transactions)
    } catch (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 })
    }
 }
 
+// POST a new transaction
 export async function POST(req, res) {
    try {
       const data = await req.json();

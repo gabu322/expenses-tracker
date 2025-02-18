@@ -46,15 +46,13 @@ export async function POST(req, res) {
          // Update card balance based on method
          if (transactionData.method === "DEBIT" && card.debit) {
             await tx.debitCard.update({
-               where: { id: transactionData.cardId },
+               where: { cardId: transactionData.cardId },
                data: { balance: { increment: transactionData.amount * inverter } },
             });
          } else if (transactionData.method === "CREDIT" && card.credit) {
             await tx.creditCard.update({
-               where: { id: transactionData.cardId },
-               data: {
-                  currentCredit: { increment: transactionData.amount * inverter * -1 }, // Subtract for credit card
-               },
+               where: { cardId: transactionData.cardId },
+               data: { currentCredit: { increment: transactionData.amount * inverter * -1 } } // Subtract for credit card
             });
          }
 

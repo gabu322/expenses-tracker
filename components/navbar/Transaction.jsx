@@ -7,10 +7,10 @@ import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
 
-export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
+export default function Transaction({ isOpen, toggleNavbar, cardId }) {
    const [cards, setCards] = useState([]);
    const [transaction, setTransaction] = useState({
-      cardId: cardId,
+      cardId: null,
       userId: 1,
       amount: '',
       type: '',
@@ -25,6 +25,22 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
          .then(response => setCards(response.data))
          .catch(error => console.error('Error fetching cards:', error));
    }, []);
+
+   const [cardMethods, setCardMethods] = useState([]);
+   useEffect(() => {
+      const currentSelectedCard = cards.find(card => card.id === transaction.cardId);
+      setCardMethods([]);
+
+      const methods = [];
+      if (currentSelectedCard?.debit) {
+         methods.push({ value: "debit", text: "Débito" });
+      }
+      if (currentSelectedCard?.credit) {
+         methods.push({ value: "credit", text: "Crédito" });
+      }
+      setCardMethods(methods);
+
+   }, [transaction.cardId, cards]);
 
    const handleChange = (e) => {
       const { name, value } = e.target;
@@ -72,13 +88,10 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
 
          <Select
             className="w-1/2"
-            name="type"
-            label="Tipo"
-            options={[
-               { value: "income", text: "Receita" },
-               { value: "expense", text: "Despesa" },
-            ]}
-            initialValue={transaction.type}
+            name="cardId"
+            label="Cartão"
+            options={cards.map(card => ({ value: card.id, text: card.nickname }))}
+            initialValue={transaction.cardId}
             onChange={handleChange}
             rounded
             required
@@ -88,26 +101,28 @@ export default function Transaction({ isOpen, toggleNavbar, cardId = 1 }) {
       <div className="flex flex-row gap-4 w-full">
          <Select
             className="w-1/2"
-            name="cardId"
-            label="Cartão"
-            options={cards.map(card => ({ value: card.id, text: card.nickname }))}
-            initialValue={transaction.cardId}
+            name="method"
+            label="Método de pagamento"
+            options={cardMethods}
+            initialValue={transaction.method}
             onChange={handleChange}
             rounded
+            disabled={transaction.cardId === null}
             required
          />
 
          <Select
             className="w-1/2"
-            name="method"
-            label="Método de pagamento"
+            name="type"
+            label="Tipo"
             options={[
-               { value: "debit", text: "Débito" },
-               { value: "credit", text: "Crédito" },
+               { value: "income", text: (transaction.method === 'debit' ? "Receita" : "Pagamento de Fatura") },
+               { value: "expense", text: (transaction.method === 'debit' ? "Despeza" : "Compra") },
             ]}
-            initialValue={transaction.method}
+            initialValue={transaction.type}
             onChange={handleChange}
             rounded
+            disabled={transaction.cardId === null}
             required
          />
       </div>

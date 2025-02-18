@@ -23,12 +23,12 @@ export default function Page({ }) {
          className={"w-full"}
       />
 
-      <Button
+      {/* <Button
          text="Logout"
          onClick={() => {
             axios.post("/api/auth/logout");
          }}
          className={"w-full"}
-      />
+      /> */}
    </div>
 };

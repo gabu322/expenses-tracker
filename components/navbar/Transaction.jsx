@@ -117,7 +117,7 @@ export default function Transaction({ isOpen, toggleNavbar, cardId }) {
             label="Tipo"
             options={[
                { value: "income", text: (transaction.method === 'debit' ? "Receita" : "Pagamento de Fatura") },
-               { value: "expense", text: (transaction.method === 'debit' ? "Despeza" : "Compra") },
+               { value: "expense", text: (transaction.method === 'debit' ? "Despesa" : "Compra") },
             ]}
             initialValue={transaction.type}
             onChange={handleChange}

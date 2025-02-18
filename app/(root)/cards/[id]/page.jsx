@@ -12,13 +12,29 @@ export default function Page({ params }) {
    const [transactions, setTransactions] = useState([]);
 
    useEffect(() => {
-      axios.get(`/api/cards/${id}`)
-         .then((response) => {
-            setCard(response.data)
-            console.log(response.data)
-         })
-         .catch(console.error);
-   }, []);
+      const fetchCardData = async () => {
+         try {
+            const cardResponse = await axios.get(`/api/cards/${id}`);
+            setCard(cardResponse.data);
+            console.log(cardResponse.data);
+         } catch (error) {
+            console.error(error);
+         }
+      };
+
+      const fetchTransactions = async () => {
+         try {
+            const transactionsResponse = await axios.get(`/api/transactions`);
+            setTransactions(transactionsResponse.data);
+            console.log(transactionsResponse.data);
+         } catch (error) {
+            console.error(error);
+         }
+      };
+
+      fetchCardData();
+      fetchTransactions();
+   }, [id]);
 
    return <div className="flex flex-col gap-4">
       <h2>{card?.nickname}</h2>

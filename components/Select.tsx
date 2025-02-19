@@ -83,7 +83,7 @@ export default function Select({ id, className = "", name, label, options, onCha
 
       handleInputChange({
          target: {
-            id: option.value,
+            name,
             value: option.text,
          } as HTMLInputElement,
       } as React.ChangeEvent<HTMLInputElement>);

@@ -11,6 +11,17 @@ interface User {
    name: string | null;
 }
 
+// Session type declaration
+declare module "next-auth" {
+   interface Session {
+      user: {
+         id: string;
+         email: string;
+         name: string | null;
+      };
+   }
+}
+
 export const authOptions: NextAuthOptions = {
    session: {
       strategy: "jwt",

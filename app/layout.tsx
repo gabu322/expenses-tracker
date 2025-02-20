@@ -3,7 +3,7 @@ import "./globals.css";
 
 const nunito = Nunito({
    subsets: ["latin"],
-   weight: ['200', '300', '400', '500', '700', '900'],
+   weight: ["200", "300", "400", "500", "700", "900"],
 });
 
 export const metadata = {
@@ -11,10 +11,10 @@ export const metadata = {
    description: "A mobile-focused web application designed to help users track their income and expenses.",
 };
 
-export default function RootLayout({ children }) {
-   return <html lang="en">
-      <body className={nunito.className}>
-         {children}
-      </body>
-   </html>;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+   return (
+      <html lang="en">
+         <body className={nunito.className}>{children}</body>
+      </html>
+   );
 }

@@ -7,19 +7,24 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
-export default function Page({ }) {
+interface LoginData {
+   email: string;
+   password: string;
+}
+
+export default function Page() {
    const router = useRouter();
-   const [login, setLogin] = useState({
+   const [login, setLogin] = useState<LoginData>({
       email: "",
       password: "",
    });
 
-   const handleChange = (e) => {
+   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
       const { name, value } = e.target;
       setLogin((prev) => ({ ...prev, [name]: value }));
    }
 
-   const handleSubmit = async (e) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       try {
@@ -29,7 +34,7 @@ export default function Page({ }) {
             password: login.password,
          });
 
-         if (!loginResponse.ok) {
+         if (!loginResponse || loginResponse.ok) {
             throw new Error("Failed to login");
          }
 

@@ -72,7 +72,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
       const { name, value } = e.target;
-      setTransaction((prev) => ({ ...prev, [name]: name === "amount" ? Number(value) : value }));
+      setTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
    const handleClear = () => {

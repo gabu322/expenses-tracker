@@ -1,13 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createUserSchema } from "@/lib/validation/userValidation";
 import bcrypt from "bcrypt";
 
-export async function POST(req) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
    try {
-
       const reqData = await req.json();
-      console.log("Registering user");
 
       const userData = createUserSchema.parse(reqData);
 
@@ -32,9 +30,9 @@ export async function POST(req) {
       });
 
       return NextResponse.json({ message: "User registered", user: { id: user.id, email: user.email, name: user.name } }, { status: 201 });
-   } catch (error) {
+   } catch (error: any) {
       if (error.name === "ZodError") return NextResponse.json({ errors: error.errors }, { status: 400 });
-      console.log("here2")
+      console.log("here2");
 
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

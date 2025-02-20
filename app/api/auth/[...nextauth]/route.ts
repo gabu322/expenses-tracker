@@ -1,11 +1,19 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
 
-export const authOptions = {
+interface User {
+   id: string;
+   email: string;
+   name: string | null;
+}
+
+export const authOptions: NextAuthOptions = {
    session: {
-      strategy: "jwt", // Use only JWT for sessions
+      strategy: "jwt",
       maxAge: 24 * 60 * 60,
    },
    providers: [
@@ -15,21 +23,20 @@ export const authOptions = {
             email: { label: "Email", type: "text" },
             password: { label: "Password", type: "password" },
          },
-         async authorize(credentials) {
+         async authorize(credentials): Promise<User | null> {
+            if (!credentials?.email || !credentials?.password) throw new Error("Email and password are required");
+
             const user = await prisma.user.findUnique({
                where: { email: credentials.email },
             });
+
             if (!user) throw new Error("Invalid email or password");
 
-            // Compare passwords
-            const isValidPassword = await bcrypt.compare(
-               credentials.password,
-               user.password
-            );
+            const isValidPassword = await bcrypt.compare(credentials.password, user.password);
             if (!isValidPassword) throw new Error("Invalid email or password");
 
             return {
-               id: user.id,
+               id: user.id.toString(),
                email: user.email,
                name: user.name,
             };
@@ -37,22 +44,22 @@ export const authOptions = {
       }),
    ],
    callbacks: {
-      async jwt({ token, user }) {
+      // TODO - Fix the any types
+      async jwt({ token, user }: { token: any; user?: any }) {
          if (user) {
             token.id = user.id;
-            token.email = user.email;
-            token.name = user.name;
+            token.email = user.email ?? "";
+            token.name = user.name ?? "";
          }
          return token;
       },
 
-      async session({ session, token }) {
-         if (token) {
-            session.user.id = token.id;
-            session.user.email = token.email;
-            session.user.name = token.name;
-         }
-
+      async session({ session, token }: { session: any; token: JWT }) {
+         session.user = {
+            id: token.id,
+            email: token.email,
+            name: token.name,
+         };
          return session;
       },
    },

@@ -8,7 +8,7 @@ interface InputProps {
    name: string;
    label?: string;
    type?: string;
-   initialValue?: string;
+   initialValue?: string | number;
    onChange?: (event: { target: { name: string; value: string | number } }) => void;
    size?: keyof typeof sizeConfig;
    mask?: string;
@@ -47,21 +47,21 @@ const sizeConfig = {
 };
 
 export default function Input({ id, className = "", name, label, type = "text", initialValue = "", onChange, size = "md", mask, currency, underText, rounded, required, disabled }: InputProps) {
-   const [value, setValue] = useState<string>("");
+   const [value, setValue] = useState<string | number>("");
    const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
    const [isFocused, setIsFocused] = useState<boolean>(false);
    const sizes = sizeConfig[size];
    const inputRef = useRef<HTMLInputElement>(null);
 
    useEffect(() => {
-      let formattedValue = initialValue || "";
+      let formattedValue = initialValue.toString() || "";
 
       if (currency) {
-         formattedValue = initialValue ? formatCurrency(initialValue.toString()) : currency + "0.00";
+         formattedValue = initialValue ? formatCurrency(formattedValue) : currency + "0.00";
       } else if (mask) {
-         formattedValue = initialValue ? formatMask(initialValue, mask) : "";
+         formattedValue = initialValue ? formatMask(formattedValue, mask) : "";
       } else if (type === "color") {
-         formattedValue = initialValue ? formatColor(initialValue) : "#000000";
+         formattedValue = initialValue ? formatColor(formattedValue) : "#000000";
       }
 
       setValue(formattedValue);
@@ -160,7 +160,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
          {type === "color" && (
             <div
                className="rounded-md h-6 w-6 my-auto overflow-hidden relative cursor-pointer flex-shrink-0"
-               style={{ backgroundColor: value }}
+               style={{ backgroundColor: value.toString() }}
                onClick={() => {
                   const colorInput = document.getElementById(`${id || name}-color`);
                   if (colorInput) colorInput.click();

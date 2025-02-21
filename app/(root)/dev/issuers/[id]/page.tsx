@@ -1,16 +1,22 @@
 'use client';
 
-import { useEffect, use, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 
-export default function Page({ params }) {
+interface Issuer {
+   name: string;
+   color: string;
+   icon: string;
+}
+
+export default function Page() {
    const router = useRouter();
-   const { id } = use(params);
-   const [issuer, setIssuer] = useState({
+   const { id } = useParams();
+   const [issuer, setIssuer] = useState<Issuer>({
       name: "",
       color: "",
       icon: "",
@@ -22,12 +28,12 @@ export default function Page({ params }) {
       });
    }, [id]);
 
-   const handleChange = (e) => {
+   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
       const { name, value } = e.target;
       setIssuer({ ...issuer, [name]: value });
    };
 
-   const handleSubmit = async (e) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       try {

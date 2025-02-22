@@ -8,18 +8,24 @@ import { getServerSession } from "next-auth";
 export async function GET() {
    try {
       const session = await getServerSession(authOptions);
-
       if (!session || !session.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
       const cards = await prisma.card.findMany({
          where: { userId: session.user.id },
-         include: {
-            creditCard: true,
-            debitCard: true,
-         },
+         include: { creditCard: true, debitCard: true },
       });
 
-      return NextResponse.json(cards, { status: 200 });
+      const formattedCards = cards.map((card) => ({
+         ...card,
+         issuerId: card.issuerId.toString(),
+         credit: card.creditCard,
+         debit: card.debitCard,
+         limit: card.creditCard?.limit,
+         usedLimit: card.creditCard?.usedLimit,
+         balance: card.debitCard?.balance,
+      }));
+
+      return NextResponse.json(formattedCards, { status: 200 });
    } catch (error: any) {
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

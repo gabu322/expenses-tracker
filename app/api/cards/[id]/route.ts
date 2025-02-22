@@ -4,23 +4,38 @@ import { updateCardSchema } from "@/lib/validation/cardValidation.js";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { getIdFromRequest } from "@/utils/functions/api/getIdFromRequest";
+import { getParams, ParamsType } from "@/utils/params";
 
-export async function handler(req: NextRequest) {
-   const { id, error } = getIdFromRequest(req);
-   if (error) return error;
+async function handler(req: NextRequest, context: ParamsType) {
+   const { id } = getParams(context);
+   console.log(id);
 
    try {
       const session = await getServerSession(authOptions);
       if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-      const card = await prisma.card.findUnique({ where: { id } });
+      const card = await prisma.card.findUnique({
+         where: { id },
+         include: { creditCard: true, debitCard: true },
+      });
       if (!card) return NextResponse.json({ error: "Card not found" }, { status: 404 });
 
       if (card.userId !== session.user.id) return NextResponse.json({ error: "Card does not belong to user" }, { status: 401 });
 
       switch (req.method) {
          case "GET":
-            return NextResponse.json(card, { status: 200 });
+            // Return card data as a 1d object
+            const cardData = {
+               ...card,
+               issuerId: card.issuerId.toString(),
+               credit: card.creditCard,
+               debit: card.debitCard,
+               creditLimit: card.creditCard?.creditLimit,
+               currentCredit: card.creditCard?.currentCredit,
+               balance: card.debitCard?.balance,
+            };
+
+            return NextResponse.json(cardData, { status: 200 });
 
          case "PUT":
             const requestData = await req.json();
@@ -65,3 +80,5 @@ export async function handler(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
+
+export { handler as GET, handler as PUT, handler as DELETE };

@@ -1,43 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getIdFromRequest } from "@/utils/functions/api/getIdFromRequest";
+import { updateIssuerSchema } from "@/lib/validation/issuerValidation";
 
 export async function handler(req: NextRequest) {
-   const searchParams = new URL(req.url).searchParams;
-
-   const id = Number(searchParams.get("id"));
-   if (isNaN(id) || id <= 0) return NextResponse.json({ error: "Invalid or missing ID" }, { status: 400 });
+   const { id, error } = getIdFromRequest(req);
+   if (error) return error;
 
    try {
       const issuer = await prisma.issuer.findUnique({ where: { id } });
+      if (!issuer) return NextResponse.json({ error: "Issuer not found" }, { status: 404 });
 
       switch (req.method) {
-         // * GET
          case "GET":
             return NextResponse.json(issuer, { status: 200 });
 
-         // * PUT
          case "PUT":
             const requestData = await req.json();
+            const updatedIssuerData = updateIssuerSchema.parse(requestData);
 
             const updatedIssuer = await prisma.issuer.update({
-               where: {
-                  id: Number(id),
-               },
+               where: { id },
                data: {
-                  name: requestData.name,
-                  color: requestData.color,
-                  icon: requestData.icon,
+                  name: updatedIssuerData.name,
+                  color: updatedIssuerData.color,
+                  icon: updatedIssuerData.icon,
                },
             });
 
             return NextResponse.json(updatedIssuer, { status: 200 });
 
-         // * DELETE
          case "DELETE":
             await prisma.issuer.delete({
-               where: {
-                  id: Number(id),
-               },
+               where: { id },
             });
 
             return NextResponse.json({ message: "Issuer deleted" }, { status: 200 });
@@ -45,6 +40,8 @@ export async function handler(req: NextRequest) {
             return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
       }
    } catch (error: any) {
+      if (error.name === "ZodError") return NextResponse.json({ errors: error.errors }, { status: 400 });
+
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }

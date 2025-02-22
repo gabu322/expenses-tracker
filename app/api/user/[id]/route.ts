@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getIdFromRequest } from "@/utils/functions/api/getIdFromRequest";
 
 export async function GET(req: NextRequest) {
-   const id = Number(new URL(req.url).searchParams.get("id"));
-
-   if (isNaN(id) || id <= 0) return NextResponse.json({ error: "Invalid or missing ID" }, { status: 400 });
+   const { id, error } = getIdFromRequest(req);
+   if (error) return error;
 
    try {
       const user = await prisma.user.findUnique({ where: { id } });
@@ -18,9 +18,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-   const id = Number(new URL(req.url).searchParams.get("id"));
-
-   if (isNaN(id) || id <= 0) return NextResponse.json({ error: "Invalid or missing ID" }, { status: 400 });
+   const { id, error } = getIdFromRequest(req);
+   if (error) return error;
 
    try {
       const user = await prisma.user.findUnique({ where: { id } });
@@ -37,9 +36,8 @@ export async function DELETE(req: NextRequest) {
 
 // * Alternative way to export the functions
 // export async function handler(req: NextRequest) {
-//    const id = Number(new URL(req.url).searchParams.get("id"));
-
-//    if (isNaN(id) || id <= 0) return NextResponse.json({ error: "Invalid or missing ID" }, { status: 400 });
+//   const { id, error } = getIdFromRequest(req);
+//   if (error) return error;
 
 //    try {
 //       const user = await prisma.user.findUnique({ where: { id } });

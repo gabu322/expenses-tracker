@@ -101,7 +101,7 @@ export default function Page() {
                         color="darkgreen"
                      />
                      <div className="flex flex-col justify-around">
-                        <span>Limite de crédito</span>
+                        <span>Limite</span>
 
                         <CountUp
                            className="font-bold"

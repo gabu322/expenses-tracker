@@ -3,12 +3,10 @@ import { prisma } from "@/lib/prisma";
 import { updateCardSchema } from "@/lib/validation/cardValidation.js";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import { getIdFromRequest } from "@/utils/functions/api/getIdFromRequest";
 import { getParams, ParamsType } from "@/utils/params";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = getParams(context);
-   console.log(id);
 
    try {
       const session = await getServerSession(authOptions);
@@ -30,8 +28,8 @@ async function handler(req: NextRequest, context: ParamsType) {
                issuerId: card.issuerId.toString(),
                credit: card.creditCard,
                debit: card.debitCard,
-               creditLimit: card.creditCard?.creditLimit,
-               currentCredit: card.creditCard?.currentCredit,
+               creditLimit: card.creditCard?.limit,
+               currentCredit: card.creditCard?.usedLimit,
                balance: card.debitCard?.balance,
             };
 
@@ -53,8 +51,8 @@ async function handler(req: NextRequest, context: ParamsType) {
                   creditCard: updatedCardData.credit
                      ? {
                           update: {
-                             creditLimit: updatedCardData.creditLimit,
-                             currentCredit: updatedCardData.currentCredit || 0.0,
+                             limit: updatedCardData.limit,
+                             usedLimit: updatedCardData.usedLimit || 0.0,
                           },
                        }
                      : undefined,

@@ -13,7 +13,7 @@ export async function GET() {
       if (!session || !session.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
       const transactions = await prisma.transaction.findMany({
-         where: { userId: Number(session.user.id) },
+         where: { userId: session.user.id },
          orderBy: { date: "desc" },
       });
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
          } else if (transactionData.method === "CREDIT" && card.credit) {
             await tx.creditCard.update({
                where: { cardId: transactionData.cardId },
-               data: { currentCredit: { increment: transactionData.amount * inverter * -1 } },
+               data: { usedLimit: { increment: transactionData.amount * inverter * -1 } },
             });
          }
 

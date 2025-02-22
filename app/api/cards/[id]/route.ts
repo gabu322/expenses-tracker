@@ -4,6 +4,7 @@ import { updateCardSchema } from "@/lib/validation/cardValidation.js";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { getParams, ParamsType } from "@/utils/params";
+import { CardType } from "@/utils/types";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = getParams(context);
@@ -23,14 +24,18 @@ async function handler(req: NextRequest, context: ParamsType) {
       switch (req.method) {
          case "GET":
             // Return card data as a 1d object
-            const cardData = {
-               ...card,
-               issuerId: card.issuerId.toString(),
-               credit: card.creditCard,
-               debit: card.debitCard,
-               creditLimit: card.creditCard?.limit,
-               currentCredit: card.creditCard?.usedLimit,
+            const cardData: CardType = {
+               id: card.id,
+               nickname: card.nickname,
+               number: card.number ?? "",
+               expiration: card.expiration ?? "",
+               cvv: card.cvv ?? "",
+               issuerId: card.issuerId,
+               debit: !!card.debitCard,
                balance: card.debitCard?.balance,
+               credit: !!card.creditCard,
+               limit: card.creditCard?.limit,
+               usedLimit: card.creditCard?.usedLimit,
             };
 
             return NextResponse.json(cardData, { status: 200 });

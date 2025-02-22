@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
    const data = await req.json();
 
    try {
+      console.log(data);
       const cardData = createCardSchema.parse(data);
 
       const newCard = await prisma.card.create({
@@ -38,10 +39,7 @@ export async function POST(req: NextRequest) {
             nickname: cardData.nickname,
             expiration: cardData.expiration || null,
             cvv: cardData.cvv || null,
-
             user: { connect: { id: cardData.userId } },
-
-            // Used like this for consistency
             issuer: { connect: { id: cardData.issuerId } },
 
             // Add credit info if it's a credit card
@@ -49,8 +47,8 @@ export async function POST(req: NextRequest) {
             creditCard: cardData.credit
                ? {
                     create: {
-                       creditLimit: cardData.creditLimit || 0,
-                       currentCredit: cardData.currentCredit || 0.0,
+                       limit: cardData.limit || 0,
+                       usedLimit: cardData.usedLimit || 0.0,
                     },
                  }
                : undefined,

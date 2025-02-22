@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface Issuer {
    id: string;
@@ -51,7 +52,7 @@ export default function Page() {
          .catch(console.error);
    }, []);
 
-   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
+   const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setCardData((prev) => ({ ...prev, [name]: value }));
    };

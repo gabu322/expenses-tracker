@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface Issuer {
    id: number;
@@ -30,7 +31,7 @@ export default function Page() {
          .catch((err) => console.error(err));
    }, []);
 
-   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
+   const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setNewIssuer({ ...newIssuer, [name]: value });
    };

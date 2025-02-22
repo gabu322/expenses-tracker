@@ -6,6 +6,7 @@ import axios from "axios";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface Issuer {
    name: string;
@@ -28,7 +29,7 @@ export default function Page() {
       });
    }, [id]);
 
-   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
+   const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setIssuer({ ...issuer, [name]: value });
    };

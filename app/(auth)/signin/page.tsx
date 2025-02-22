@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface LoginData {
    email: string;
@@ -19,7 +20,7 @@ export default function Page() {
       password: "",
    });
 
-   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
+   const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setLogin((prev) => ({ ...prev, [name]: value }));
    }

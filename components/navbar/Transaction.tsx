@@ -6,6 +6,7 @@ import axios from "axios";
 import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface TransactionProps {
    isOpen: boolean;
@@ -70,7 +71,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
       setCardMethods(methods);
    }, [transaction.cardId, cards]);
 
-   const handleChange = (e: { target: { name: string; value: string | number | null } }) => {
+   const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setTransaction((prev) => ({ ...prev, [name]: value }));
    };

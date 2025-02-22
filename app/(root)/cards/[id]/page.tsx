@@ -6,34 +6,12 @@ import axios from "axios";
 
 import IDollar from "@/public/icons/dynamic/dollar";
 import CountUp from "react-countup";
-
-interface Card {
-   id: string;
-   nickname: string;
-   debit: boolean;
-   credit: boolean;
-   debitCard?: {
-      balance: number;
-   };
-   creditCard?: {
-      creditLimit: number;
-      currentCredit: number;
-   };
-}
-
-interface Transaction {
-   id: string;
-   cardId: string;
-   date: string;
-   amount: number;
-   method: "DEBIT" | "CREDIT";
-   type: "EXPENSE" | "INCOME";
-}
+import { CardType, TransactionType } from "@/utils/types/index";
 
 export default function Page() {
    const { id } = useParams();
-   const [card, setCard] = useState<Card>();
-   const [transactions, setTransactions] = useState<Transaction[]>([]);
+   const [card, setCard] = useState<CardType>();
+   const [transactions, setTransactions] = useState<TransactionType[]>([]);
    const [debitNet, setDebitNet] = useState<number>(0);
 
    useEffect(() => {
@@ -41,6 +19,7 @@ export default function Page() {
          try {
             const cardResponse = await axios.get(`/api/cards/${id}`);
             setCard(cardResponse.data);
+            console.log(cardResponse.data);
          } catch (error) {
             console.error(error);
          }
@@ -48,7 +27,7 @@ export default function Page() {
 
       const fetchTransactions = async () => {
          try {
-            const transactionsResponse = await axios.get<Transaction[]>("/api/transactions");
+            const transactionsResponse = await axios.get<TransactionType[]>("/api/transactions");
             const cardTransactions = transactionsResponse.data.filter((transaction) => transaction.cardId == id);
             setTransactions(cardTransactions);
 
@@ -88,7 +67,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.debitCard?.balance || 0}
+                           end={card.balance || 0}
                            decimals={2}
                         />
                      </div>
@@ -127,7 +106,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.creditCard?.creditLimit || 0}
+                           end={card.limit || 0}
                            decimals={2}
                         />
                      </div>
@@ -144,7 +123,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.creditCard?.currentCredit || 0}
+                           end={card.usedLimit || 0}
                            decimals={2}
                         />
                      </div>

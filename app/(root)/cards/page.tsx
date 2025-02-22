@@ -9,33 +9,13 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { handleChangeType } from "@/utils/types/handleChange";
-
-interface Issuer {
-   id: string;
-   name: string;
-   icon: string;
-   color: string;
-}
-
-interface CardData {
-   nickname: string;
-   issuerId: string;
-   number: string;
-   expiration: string;
-   cvv: string;
-   credit: boolean;
-   debit: boolean;
-   creditLimit?: number;
-   currentCredit?: number;
-   balance?: number;
-}
+import { CardType, IssuerType, handleChangeType } from "@/utils/types/index";
 
 export default function Page() {
    const router = useRouter();
    const { data: session } = useSession();
-   const [issuers, setIssuers] = useState<Issuer[]>([]);
-   const [cardData, setCardData] = useState<CardData>({
+   const [issuers, setIssuers] = useState<IssuerType[]>([]);
+   const [cardData, setCardData] = useState<CardType>({
       nickname: "",
       issuerId: "",
       number: "",
@@ -98,7 +78,7 @@ export default function Page() {
                <Select
                   name="issuerId"
                   label="Banco"
-                  options={issuers.map((issuer) => ({ value: issuer.id, text: issuer.name }))}
+                  options={issuers.filter((issuer) => issuer.id).map((issuer) => ({ value: issuer.id as string, text: issuer.name }))}
                   onChange={handleChange}
                   required
                />
@@ -150,7 +130,7 @@ export default function Page() {
                   <h2>Informações de crédito</h2>
 
                   <Input
-                     name="creditLimit"
+                     name="limit"
                      label="Limite de crédito"
                      onChange={handleChange}
                      currency={"R$"}
@@ -158,7 +138,7 @@ export default function Page() {
                   />
 
                   <Input
-                     name="currentCredit"
+                     name="usedLimit"
                      label="Crédito atual"
                      onChange={handleChange}
                      currency={"R$"}

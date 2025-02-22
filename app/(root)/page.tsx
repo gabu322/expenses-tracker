@@ -6,33 +6,11 @@ import { lighten, darken } from "polished";
 import axios from "axios";
 
 import Button from "@/components/Button";
-
-interface Issuer {
-   id: string;
-   name: string;
-   icon: string;
-   color: string;
-}
-
-interface Card {
-   id: string;
-   number: string;
-   debit: boolean;
-   credit: boolean;
-   debitCard: {
-      balance: number;
-   };
-   creditCard: {
-      creditLimit: number;
-      currentCredit: number;
-   };
-   issuerId: string;
-   nickname: string;
-}
+import { CardType, IssuerType } from "@/utils/types/index";
 
 export default function Home() {
-   const [cardList, setCardList] = useState<Card[]>([]);
-   const [issuers, setIssuers] = useState<Issuer[]>([]);
+   const [cardList, setCardList] = useState<CardType[]>([]);
+   const [issuers, setIssuers] = useState<IssuerType[]>([]);
 
    useEffect(() => {
       try {
@@ -64,8 +42,8 @@ export default function Home() {
 
 interface CardProps {
    className?: string;
-   card: Card;
-   issuer?: Issuer;
+   card: CardType;
+   issuer?: IssuerType;
 }
 
 export function Card({ className, card, issuer }: CardProps) {
@@ -89,12 +67,12 @@ export function Card({ className, card, issuer }: CardProps) {
          </div>
 
          <div className="flex-grow flex flex-col justify-between">
-            {card.debit ? <h3 className="leading-none">$ {card.debitCard.balance.toFixed(2)}</h3> : <div />}
+            {card.debit ? <h3 className="leading-none">$ {card.balance?.toFixed(2)}</h3> : <div />}
 
             {card.credit && (
                <div className="flex flex-col mb-1">
-                  <h6 className="text-gray-300 leading-none">Used credit: (of ${card.creditCard?.creditLimit} limit)</h6>
-                  <h3>$ {card.creditCard?.currentCredit}</h3>
+                  <h6 className="text-gray-300 leading-none">Used credit: (of ${card.limit} limit)</h6>
+                  <h3>$ {card.usedLimit}</h3>
                </div>
             )}
          </div>

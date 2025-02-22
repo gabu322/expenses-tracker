@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getIdFromRequest } from "@/utils/functions/api/getIdFromRequest";
 import { updateIssuerSchema } from "@/lib/validation/issuerValidation";
+import { ParamsType } from "@/utils/params";
+import { GET } from "../route";
 
-export async function handler(req: NextRequest) {
-   const { id, error } = getIdFromRequest(req);
-   if (error) return error;
+export async function handler(req: NextRequest, context: ParamsType) {
+   const { id } = context.params;
 
    try {
       const issuer = await prisma.issuer.findUnique({ where: { id } });
+      console.log(issuer);
       if (!issuer) return NextResponse.json({ error: "Issuer not found" }, { status: 404 });
 
       switch (req.method) {
@@ -45,3 +46,5 @@ export async function handler(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
    }
 }
+
+export { handler as GET, handler as PUT, handler as DELETE };

@@ -14,7 +14,7 @@ interface User {
 declare module "next-auth" {
    interface Session {
       user: {
-         id: number;
+         id: string;
          email: string;
          name: string | null;
       };
@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
             email: { label: "Email", type: "text" },
             password: { label: "Password", type: "password" },
          },
-         async authorize(credentials): Promise<User | null> {
+         async authorize(credentials): Promise<User> {
             if (!credentials?.email || !credentials?.password) throw new Error("Email and password are required");
 
             const user = await prisma.user.findUnique({
@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
             if (!isValidPassword) throw new Error("Invalid email or password");
 
             return {
-               id: user.id.toString(),
+               id: user.id,
                email: user.email,
                name: user.name,
             };
@@ -54,19 +54,18 @@ export const authOptions: NextAuthOptions = {
       }),
    ],
    callbacks: {
-      // TODO - Fix the any types
-      async jwt({ token, user }: { token: any; user?: any }) {
+      async jwt({ token, user }: { token: any; user: any }) {
          if (user) {
-            token.id = Number(user.id);
-            token.email = user.email ?? "";
-            token.name = user.name ?? "";
+            token.id = user.id;
+            token.email = user.email;
+            token.name = user.name;
          }
          return token;
       },
 
       async session({ session, token }: { session: any; token: JWT }) {
          session.user = {
-            id: Number(token.id),
+            id: token.id,
             email: token.email,
             name: token.name,
          };

@@ -6,14 +6,13 @@ import bcrypt from "bcrypt";
 export async function POST(req: NextRequest): Promise<NextResponse> {
    try {
       const reqData = await req.json();
-
       const userData = createUserSchema.parse(reqData);
 
       // Check if the user already exists
-      const existingUser = await prisma.user.findUnique({ where: { email: userData.email } });
-      if (existingUser) {
-         return NextResponse.json({ error: "User already exists" }, { status: 400 });
-      }
+      const existingUser = await prisma.user.findFirst({
+         where: { OR: [{ email: userData.email }, { cpf: userData.cpf }] },
+      });
+      if (existingUser) return NextResponse.json({ error: "User already exists" }, { status: 400 });
 
       // Hash the password
       const hashedPassword = await bcrypt.hash(userData.password, 10);

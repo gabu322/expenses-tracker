@@ -1,7 +1,6 @@
 // Interface for context.params and context in Next.js API routes
 export interface ParamsType {
    params: {
-      id: string;
       [key: string]: string;
    };
 }
@@ -12,9 +11,5 @@ export interface ParamsType {
  * @returns The context object with `id` as a number
  */
 export function getParams(context: ParamsType) {
-   const { id, ...rest } = context.params;
-   return {
-      id: Number(id),
-      ...rest,
-   };
+   return context.params;
 }

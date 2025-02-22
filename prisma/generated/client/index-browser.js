@@ -133,8 +133,8 @@ exports.Prisma.CardScalarFieldEnum = {
 
 exports.Prisma.CreditCardScalarFieldEnum = {
   id: 'id',
-  creditLimit: 'creditLimit',
-  currentCredit: 'currentCredit',
+  limit: 'limit',
+  usedLimit: 'usedLimit',
   cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

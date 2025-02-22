@@ -20,10 +20,10 @@ enum TransactionMethod {
 }
 
 model Card {
-  id         Int     @id @default(autoincrement())
+  id         String  @id @default(uuid())
   nickname   String
-  issuerId   Int
-  userId     Int
+  issuerId   String
+  userId     String
   number     String? @unique
   expiration String?
   cvv        String?
@@ -32,7 +32,7 @@ model Card {
 
   // Foreign keys
   issuer Issuer @relation(fields: [issuerId], references: [id])
-  user   User?  @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   // Relations
   creditCard  CreditCard?
@@ -45,10 +45,10 @@ model Card {
 }
 
 model CreditCard {
-  id            Int   @id @default(autoincrement())
-  creditLimit   Float
-  currentCredit Float @default(0.0)
-  cardId        Int   @unique
+  id        String @id @default(uuid())
+  limit     Float
+  usedLimit Float  @default(0.0)
+  cardId    String @unique
 
   // Foreign keys
   card Card @relation(fields: [cardId], references: [id])
@@ -59,9 +59,9 @@ model CreditCard {
 }
 
 model DebitCard {
-  id      Int   @id @default(autoincrement())
-  balance Float @default(0.0)
-  cardId  Int   @unique
+  id      String @id @default(uuid())
+  balance Float  @default(0.0)
+  cardId  String @unique
 
   // Foreign keys
   card Card @relation(fields: [cardId], references: [id])
@@ -72,7 +72,7 @@ model DebitCard {
 }
 
 model Issuer {
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(uuid())
   name  String
   color String
   icon  String?
@@ -86,13 +86,13 @@ model Issuer {
 }
 
 model Transaction {
-  id          Int               @id @default(autoincrement())
+  id          String            @id @default(uuid())
   type        TransactionType
   amount      Float
   date        DateTime
   method      TransactionMethod
-  cardId      Int
-  userId      Int
+  cardId      String
+  userId      String
   currency    String            @default("USD")
   description String?
 
@@ -105,7 +105,7 @@ model Transaction {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(uuid())
   email    String  @unique
   password String
   name     String?
@@ -122,8 +122,8 @@ model User {
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
-  userId       Int
+  id           String   @id @default(uuid())
+  userId       String
   sessionToken String   @unique
   expires      DateTime
 

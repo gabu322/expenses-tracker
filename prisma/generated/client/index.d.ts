@@ -1549,29 +1549,15 @@ export namespace Prisma {
 
   export type AggregateCard = {
     _count: CardCountAggregateOutputType | null
-    _avg: CardAvgAggregateOutputType | null
-    _sum: CardSumAggregateOutputType | null
     _min: CardMinAggregateOutputType | null
     _max: CardMaxAggregateOutputType | null
   }
 
-  export type CardAvgAggregateOutputType = {
-    id: number | null
-    issuerId: number | null
-    userId: number | null
-  }
-
-  export type CardSumAggregateOutputType = {
-    id: number | null
-    issuerId: number | null
-    userId: number | null
-  }
-
   export type CardMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     nickname: string | null
-    issuerId: number | null
-    userId: number | null
+    issuerId: string | null
+    userId: string | null
     number: string | null
     expiration: string | null
     cvv: string | null
@@ -1582,10 +1568,10 @@ export namespace Prisma {
   }
 
   export type CardMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     nickname: string | null
-    issuerId: number | null
-    userId: number | null
+    issuerId: string | null
+    userId: string | null
     number: string | null
     expiration: string | null
     cvv: string | null
@@ -1610,18 +1596,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type CardAvgAggregateInputType = {
-    id?: true
-    issuerId?: true
-    userId?: true
-  }
-
-  export type CardSumAggregateInputType = {
-    id?: true
-    issuerId?: true
-    userId?: true
-  }
 
   export type CardMinAggregateInputType = {
     id?: true
@@ -1704,18 +1678,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CardAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CardSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CardMinAggregateInputType
@@ -1746,17 +1708,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CardCountAggregateInputType | true
-    _avg?: CardAvgAggregateInputType
-    _sum?: CardSumAggregateInputType
     _min?: CardMinAggregateInputType
     _max?: CardMaxAggregateInputType
   }
 
   export type CardGroupByOutputType = {
-    id: number
+    id: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number: string | null
     expiration: string | null
     cvv: string | null
@@ -1765,8 +1725,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: CardCountAggregateOutputType | null
-    _avg: CardAvgAggregateOutputType | null
-    _sum: CardSumAggregateOutputType | null
     _min: CardMinAggregateOutputType | null
     _max: CardMaxAggregateOutputType | null
   }
@@ -1798,7 +1756,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     creditCard?: boolean | Card$creditCardArgs<ExtArgs>
     debitCard?: boolean | Card$debitCardArgs<ExtArgs>
     transaction?: boolean | Card$transactionArgs<ExtArgs>
@@ -1818,7 +1776,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1834,7 +1792,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectScalar = {
@@ -1854,7 +1812,7 @@ export namespace Prisma {
   export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "issuerId" | "userId" | "number" | "expiration" | "cvv" | "debit" | "credit" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
   export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     creditCard?: boolean | Card$creditCardArgs<ExtArgs>
     debitCard?: boolean | Card$debitCardArgs<ExtArgs>
     transaction?: boolean | Card$transactionArgs<ExtArgs>
@@ -1862,27 +1820,27 @@ export namespace Prisma {
   }
   export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type CardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
-    user?: boolean | Card$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Card"
     objects: {
       issuer: Prisma.$IssuerPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
       creditCard: Prisma.$CreditCardPayload<ExtArgs> | null
       debitCard: Prisma.$DebitCardPayload<ExtArgs> | null
       transaction: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       nickname: string
-      issuerId: number
-      userId: number
+      issuerId: string
+      userId: string
       number: string | null
       expiration: string | null
       cvv: string | null
@@ -2285,7 +2243,7 @@ export namespace Prisma {
   export interface Prisma__CardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     issuer<T extends IssuerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IssuerDefaultArgs<ExtArgs>>): Prisma__IssuerClient<$Result.GetResult<Prisma.$IssuerPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    user<T extends Card$userArgs<ExtArgs> = {}>(args?: Subset<T, Card$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     creditCard<T extends Card$creditCardArgs<ExtArgs> = {}>(args?: Subset<T, Card$creditCardArgs<ExtArgs>>): Prisma__CreditCardClient<$Result.GetResult<Prisma.$CreditCardPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     debitCard<T extends Card$debitCardArgs<ExtArgs> = {}>(args?: Subset<T, Card$debitCardArgs<ExtArgs>>): Prisma__DebitCardClient<$Result.GetResult<Prisma.$DebitCardPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     transaction<T extends Card$transactionArgs<ExtArgs> = {}>(args?: Subset<T, Card$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
@@ -2318,10 +2276,10 @@ export namespace Prisma {
    * Fields of the Card model
    */ 
   interface CardFieldRefs {
-    readonly id: FieldRef<"Card", 'Int'>
+    readonly id: FieldRef<"Card", 'String'>
     readonly nickname: FieldRef<"Card", 'String'>
-    readonly issuerId: FieldRef<"Card", 'Int'>
-    readonly userId: FieldRef<"Card", 'Int'>
+    readonly issuerId: FieldRef<"Card", 'String'>
+    readonly userId: FieldRef<"Card", 'String'>
     readonly number: FieldRef<"Card", 'String'>
     readonly expiration: FieldRef<"Card", 'String'>
     readonly cvv: FieldRef<"Card", 'String'>
@@ -2713,25 +2671,6 @@ export namespace Prisma {
   }
 
   /**
-   * Card.user
-   */
-  export type Card$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Card.creditCard
    */
   export type Card$creditCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2825,41 +2764,37 @@ export namespace Prisma {
   }
 
   export type CreditCardAvgAggregateOutputType = {
-    id: number | null
-    creditLimit: number | null
-    currentCredit: number | null
-    cardId: number | null
+    limit: number | null
+    usedLimit: number | null
   }
 
   export type CreditCardSumAggregateOutputType = {
-    id: number | null
-    creditLimit: number | null
-    currentCredit: number | null
-    cardId: number | null
+    limit: number | null
+    usedLimit: number | null
   }
 
   export type CreditCardMinAggregateOutputType = {
-    id: number | null
-    creditLimit: number | null
-    currentCredit: number | null
-    cardId: number | null
+    id: string | null
+    limit: number | null
+    usedLimit: number | null
+    cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CreditCardMaxAggregateOutputType = {
-    id: number | null
-    creditLimit: number | null
-    currentCredit: number | null
-    cardId: number | null
+    id: string | null
+    limit: number | null
+    usedLimit: number | null
+    cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CreditCardCountAggregateOutputType = {
     id: number
-    creditLimit: number
-    currentCredit: number
+    limit: number
+    usedLimit: number
     cardId: number
     createdAt: number
     updatedAt: number
@@ -2868,23 +2803,19 @@ export namespace Prisma {
 
 
   export type CreditCardAvgAggregateInputType = {
-    id?: true
-    creditLimit?: true
-    currentCredit?: true
-    cardId?: true
+    limit?: true
+    usedLimit?: true
   }
 
   export type CreditCardSumAggregateInputType = {
-    id?: true
-    creditLimit?: true
-    currentCredit?: true
-    cardId?: true
+    limit?: true
+    usedLimit?: true
   }
 
   export type CreditCardMinAggregateInputType = {
     id?: true
-    creditLimit?: true
-    currentCredit?: true
+    limit?: true
+    usedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2892,8 +2823,8 @@ export namespace Prisma {
 
   export type CreditCardMaxAggregateInputType = {
     id?: true
-    creditLimit?: true
-    currentCredit?: true
+    limit?: true
+    usedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2901,8 +2832,8 @@ export namespace Prisma {
 
   export type CreditCardCountAggregateInputType = {
     id?: true
-    creditLimit?: true
-    currentCredit?: true
+    limit?: true
+    usedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2996,10 +2927,10 @@ export namespace Prisma {
   }
 
   export type CreditCardGroupByOutputType = {
-    id: number
-    creditLimit: number
-    currentCredit: number
-    cardId: number
+    id: string
+    limit: number
+    usedLimit: number
+    cardId: string
     createdAt: Date
     updatedAt: Date
     _count: CreditCardCountAggregateOutputType | null
@@ -3025,8 +2956,8 @@ export namespace Prisma {
 
   export type CreditCardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    creditLimit?: boolean
-    currentCredit?: boolean
+    limit?: boolean
+    usedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3035,8 +2966,8 @@ export namespace Prisma {
 
   export type CreditCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    creditLimit?: boolean
-    currentCredit?: boolean
+    limit?: boolean
+    usedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3045,8 +2976,8 @@ export namespace Prisma {
 
   export type CreditCardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    creditLimit?: boolean
-    currentCredit?: boolean
+    limit?: boolean
+    usedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3055,14 +2986,14 @@ export namespace Prisma {
 
   export type CreditCardSelectScalar = {
     id?: boolean
-    creditLimit?: boolean
-    currentCredit?: boolean
+    limit?: boolean
+    usedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CreditCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creditLimit" | "currentCredit" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["creditCard"]>
+  export type CreditCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "limit" | "usedLimit" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["creditCard"]>
   export type CreditCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     card?: boolean | CardDefaultArgs<ExtArgs>
   }
@@ -3079,10 +3010,10 @@ export namespace Prisma {
       card: Prisma.$CardPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      creditLimit: number
-      currentCredit: number
-      cardId: number
+      id: string
+      limit: number
+      usedLimit: number
+      cardId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["creditCard"]>
@@ -3509,10 +3440,10 @@ export namespace Prisma {
    * Fields of the CreditCard model
    */ 
   interface CreditCardFieldRefs {
-    readonly id: FieldRef<"CreditCard", 'Int'>
-    readonly creditLimit: FieldRef<"CreditCard", 'Float'>
-    readonly currentCredit: FieldRef<"CreditCard", 'Float'>
-    readonly cardId: FieldRef<"CreditCard", 'Int'>
+    readonly id: FieldRef<"CreditCard", 'String'>
+    readonly limit: FieldRef<"CreditCard", 'Float'>
+    readonly usedLimit: FieldRef<"CreditCard", 'Float'>
+    readonly cardId: FieldRef<"CreditCard", 'String'>
     readonly createdAt: FieldRef<"CreditCard", 'DateTime'>
     readonly updatedAt: FieldRef<"CreditCard", 'DateTime'>
   }
@@ -3930,29 +3861,25 @@ export namespace Prisma {
   }
 
   export type DebitCardAvgAggregateOutputType = {
-    id: number | null
     balance: number | null
-    cardId: number | null
   }
 
   export type DebitCardSumAggregateOutputType = {
-    id: number | null
     balance: number | null
-    cardId: number | null
   }
 
   export type DebitCardMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     balance: number | null
-    cardId: number | null
+    cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type DebitCardMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     balance: number | null
-    cardId: number | null
+    cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3968,15 +3895,11 @@ export namespace Prisma {
 
 
   export type DebitCardAvgAggregateInputType = {
-    id?: true
     balance?: true
-    cardId?: true
   }
 
   export type DebitCardSumAggregateInputType = {
-    id?: true
     balance?: true
-    cardId?: true
   }
 
   export type DebitCardMinAggregateInputType = {
@@ -4091,9 +4014,9 @@ export namespace Prisma {
   }
 
   export type DebitCardGroupByOutputType = {
-    id: number
+    id: string
     balance: number
-    cardId: number
+    cardId: string
     createdAt: Date
     updatedAt: Date
     _count: DebitCardCountAggregateOutputType | null
@@ -4169,9 +4092,9 @@ export namespace Prisma {
       card: Prisma.$CardPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       balance: number
-      cardId: number
+      cardId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["debitCard"]>
@@ -4598,9 +4521,9 @@ export namespace Prisma {
    * Fields of the DebitCard model
    */ 
   interface DebitCardFieldRefs {
-    readonly id: FieldRef<"DebitCard", 'Int'>
+    readonly id: FieldRef<"DebitCard", 'String'>
     readonly balance: FieldRef<"DebitCard", 'Float'>
-    readonly cardId: FieldRef<"DebitCard", 'Int'>
+    readonly cardId: FieldRef<"DebitCard", 'String'>
     readonly createdAt: FieldRef<"DebitCard", 'DateTime'>
     readonly updatedAt: FieldRef<"DebitCard", 'DateTime'>
   }
@@ -5011,22 +4934,12 @@ export namespace Prisma {
 
   export type AggregateIssuer = {
     _count: IssuerCountAggregateOutputType | null
-    _avg: IssuerAvgAggregateOutputType | null
-    _sum: IssuerSumAggregateOutputType | null
     _min: IssuerMinAggregateOutputType | null
     _max: IssuerMaxAggregateOutputType | null
   }
 
-  export type IssuerAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type IssuerSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type IssuerMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     color: string | null
     icon: string | null
@@ -5035,7 +4948,7 @@ export namespace Prisma {
   }
 
   export type IssuerMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     color: string | null
     icon: string | null
@@ -5053,14 +4966,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type IssuerAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type IssuerSumAggregateInputType = {
-    id?: true
-  }
 
   export type IssuerMinAggregateInputType = {
     id?: true
@@ -5128,18 +5033,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: IssuerAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: IssuerSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: IssuerMinAggregateInputType
@@ -5170,22 +5063,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: IssuerCountAggregateInputType | true
-    _avg?: IssuerAvgAggregateInputType
-    _sum?: IssuerSumAggregateInputType
     _min?: IssuerMinAggregateInputType
     _max?: IssuerMaxAggregateInputType
   }
 
   export type IssuerGroupByOutputType = {
-    id: number
+    id: string
     name: string
     color: string
     icon: string | null
     createdAt: Date
     updatedAt: Date
     _count: IssuerCountAggregateOutputType | null
-    _avg: IssuerAvgAggregateOutputType | null
-    _sum: IssuerSumAggregateOutputType | null
     _min: IssuerMinAggregateOutputType | null
     _max: IssuerMaxAggregateOutputType | null
   }
@@ -5256,7 +5145,7 @@ export namespace Prisma {
       card: Prisma.$CardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       color: string
       icon: string | null
@@ -5686,7 +5575,7 @@ export namespace Prisma {
    * Fields of the Issuer model
    */ 
   interface IssuerFieldRefs {
-    readonly id: FieldRef<"Issuer", 'Int'>
+    readonly id: FieldRef<"Issuer", 'String'>
     readonly name: FieldRef<"Issuer", 'String'>
     readonly color: FieldRef<"Issuer", 'String'>
     readonly icon: FieldRef<"Issuer", 'String'>
@@ -6123,27 +6012,21 @@ export namespace Prisma {
   }
 
   export type TransactionAvgAggregateOutputType = {
-    id: number | null
     amount: number | null
-    cardId: number | null
-    userId: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
-    id: number | null
     amount: number | null
-    cardId: number | null
-    userId: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     type: $Enums.TransactionType | null
     amount: number | null
     date: Date | null
     method: $Enums.TransactionMethod | null
-    cardId: number | null
-    userId: number | null
+    cardId: string | null
+    userId: string | null
     currency: string | null
     description: string | null
     createdAt: Date | null
@@ -6151,13 +6034,13 @@ export namespace Prisma {
   }
 
   export type TransactionMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     type: $Enums.TransactionType | null
     amount: number | null
     date: Date | null
     method: $Enums.TransactionMethod | null
-    cardId: number | null
-    userId: number | null
+    cardId: string | null
+    userId: string | null
     currency: string | null
     description: string | null
     createdAt: Date | null
@@ -6181,17 +6064,11 @@ export namespace Prisma {
 
 
   export type TransactionAvgAggregateInputType = {
-    id?: true
     amount?: true
-    cardId?: true
-    userId?: true
   }
 
   export type TransactionSumAggregateInputType = {
-    id?: true
     amount?: true
-    cardId?: true
-    userId?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -6324,13 +6201,13 @@ export namespace Prisma {
   }
 
   export type TransactionGroupByOutputType = {
-    id: number
+    id: string
     type: $Enums.TransactionType
     amount: number
     date: Date
     method: $Enums.TransactionMethod
-    cardId: number
-    userId: number
+    cardId: string
+    userId: string
     currency: string
     description: string | null
     createdAt: Date
@@ -6432,13 +6309,13 @@ export namespace Prisma {
       card: Prisma.$CardPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       type: $Enums.TransactionType
       amount: number
       date: Date
       method: $Enums.TransactionMethod
-      cardId: number
-      userId: number
+      cardId: string
+      userId: string
       currency: string
       description: string | null
       createdAt: Date
@@ -6867,13 +6744,13 @@ export namespace Prisma {
    * Fields of the Transaction model
    */ 
   interface TransactionFieldRefs {
-    readonly id: FieldRef<"Transaction", 'Int'>
+    readonly id: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'TransactionType'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
     readonly method: FieldRef<"Transaction", 'TransactionMethod'>
-    readonly cardId: FieldRef<"Transaction", 'Int'>
-    readonly userId: FieldRef<"Transaction", 'Int'>
+    readonly cardId: FieldRef<"Transaction", 'String'>
+    readonly userId: FieldRef<"Transaction", 'String'>
     readonly currency: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
@@ -7286,22 +7163,12 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
 
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     email: string | null
     password: string | null
     name: string | null
@@ -7312,7 +7179,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     email: string | null
     password: string | null
     name: string | null
@@ -7334,14 +7201,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -7415,18 +7274,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -7457,14 +7304,12 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
 
   export type UserGroupByOutputType = {
-    id: number
+    id: string
     email: string
     password: string
     name: string | null
@@ -7473,8 +7318,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -7556,7 +7399,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       email: string
       password: string
       name: string | null
@@ -7989,7 +7832,7 @@ export namespace Prisma {
    * Fields of the User model
    */ 
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
+    readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
@@ -8445,25 +8288,13 @@ export namespace Prisma {
 
   export type AggregateSession = {
     _count: SessionCountAggregateOutputType | null
-    _avg: SessionAvgAggregateOutputType | null
-    _sum: SessionSumAggregateOutputType | null
     _min: SessionMinAggregateOutputType | null
     _max: SessionMaxAggregateOutputType | null
   }
 
-  export type SessionAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type SessionSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type SessionMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     sessionToken: string | null
     expires: Date | null
     createdAt: Date | null
@@ -8471,8 +8302,8 @@ export namespace Prisma {
   }
 
   export type SessionMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     sessionToken: string | null
     expires: Date | null
     createdAt: Date | null
@@ -8489,16 +8320,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type SessionAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type SessionSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type SessionMinAggregateInputType = {
     id?: true
@@ -8566,18 +8387,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: SessionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SessionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: SessionMinAggregateInputType
@@ -8608,22 +8417,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SessionCountAggregateInputType | true
-    _avg?: SessionAvgAggregateInputType
-    _sum?: SessionSumAggregateInputType
     _min?: SessionMinAggregateInputType
     _max?: SessionMaxAggregateInputType
   }
 
   export type SessionGroupByOutputType = {
-    id: number
-    userId: number
+    id: string
+    userId: string
     sessionToken: string
     expires: Date
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
-    _avg: SessionAvgAggregateOutputType | null
-    _sum: SessionSumAggregateOutputType | null
     _min: SessionMinAggregateOutputType | null
     _max: SessionMaxAggregateOutputType | null
   }
@@ -8698,8 +8503,8 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
+      id: string
+      userId: string
       sessionToken: string
       expires: Date
       createdAt: Date
@@ -9128,8 +8933,8 @@ export namespace Prisma {
    * Fields of the Session model
    */ 
   interface SessionFieldRefs {
-    readonly id: FieldRef<"Session", 'Int'>
-    readonly userId: FieldRef<"Session", 'Int'>
+    readonly id: FieldRef<"Session", 'String'>
+    readonly userId: FieldRef<"Session", 'String'>
     readonly sessionToken: FieldRef<"Session", 'String'>
     readonly expires: FieldRef<"Session", 'DateTime'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
@@ -9569,8 +9374,8 @@ export namespace Prisma {
 
   export const CreditCardScalarFieldEnum: {
     id: 'id',
-    creditLimit: 'creditLimit',
-    currentCredit: 'currentCredit',
+    limit: 'limit',
+    usedLimit: 'usedLimit',
     cardId: 'cardId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9675,20 +9480,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -9763,6 +9554,20 @@ export namespace Prisma {
    */
   export type ListEnumTransactionMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionMethod[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9772,10 +9577,10 @@ export namespace Prisma {
     AND?: CardWhereInput | CardWhereInput[]
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
-    id?: IntFilter<"Card"> | number
+    id?: StringFilter<"Card"> | string
     nickname?: StringFilter<"Card"> | string
-    issuerId?: IntFilter<"Card"> | number
-    userId?: IntFilter<"Card"> | number
+    issuerId?: StringFilter<"Card"> | string
+    userId?: StringFilter<"Card"> | string
     number?: StringNullableFilter<"Card"> | string | null
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
@@ -9784,7 +9589,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     creditCard?: XOR<CreditCardNullableScalarRelationFilter, CreditCardWhereInput> | null
     debitCard?: XOR<DebitCardNullableScalarRelationFilter, DebitCardWhereInput> | null
     transaction?: TransactionListRelationFilter
@@ -9810,14 +9615,14 @@ export namespace Prisma {
   }
 
   export type CardWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     number?: string
     AND?: CardWhereInput | CardWhereInput[]
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
     nickname?: StringFilter<"Card"> | string
-    issuerId?: IntFilter<"Card"> | number
-    userId?: IntFilter<"Card"> | number
+    issuerId?: StringFilter<"Card"> | string
+    userId?: StringFilter<"Card"> | string
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
     debit?: BoolFilter<"Card"> | boolean
@@ -9825,7 +9630,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     creditCard?: XOR<CreditCardNullableScalarRelationFilter, CreditCardWhereInput> | null
     debitCard?: XOR<DebitCardNullableScalarRelationFilter, DebitCardWhereInput> | null
     transaction?: TransactionListRelationFilter
@@ -9844,20 +9649,18 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CardCountOrderByAggregateInput
-    _avg?: CardAvgOrderByAggregateInput
     _max?: CardMaxOrderByAggregateInput
     _min?: CardMinOrderByAggregateInput
-    _sum?: CardSumOrderByAggregateInput
   }
 
   export type CardScalarWhereWithAggregatesInput = {
     AND?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
     OR?: CardScalarWhereWithAggregatesInput[]
     NOT?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Card"> | number
+    id?: StringWithAggregatesFilter<"Card"> | string
     nickname?: StringWithAggregatesFilter<"Card"> | string
-    issuerId?: IntWithAggregatesFilter<"Card"> | number
-    userId?: IntWithAggregatesFilter<"Card"> | number
+    issuerId?: StringWithAggregatesFilter<"Card"> | string
+    userId?: StringWithAggregatesFilter<"Card"> | string
     number?: StringNullableWithAggregatesFilter<"Card"> | string | null
     expiration?: StringNullableWithAggregatesFilter<"Card"> | string | null
     cvv?: StringNullableWithAggregatesFilter<"Card"> | string | null
@@ -9871,10 +9674,10 @@ export namespace Prisma {
     AND?: CreditCardWhereInput | CreditCardWhereInput[]
     OR?: CreditCardWhereInput[]
     NOT?: CreditCardWhereInput | CreditCardWhereInput[]
-    id?: IntFilter<"CreditCard"> | number
-    creditLimit?: FloatFilter<"CreditCard"> | number
-    currentCredit?: FloatFilter<"CreditCard"> | number
-    cardId?: IntFilter<"CreditCard"> | number
+    id?: StringFilter<"CreditCard"> | string
+    limit?: FloatFilter<"CreditCard"> | number
+    usedLimit?: FloatFilter<"CreditCard"> | number
+    cardId?: StringFilter<"CreditCard"> | string
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
     card?: XOR<CardScalarRelationFilter, CardWhereInput>
@@ -9882,8 +9685,8 @@ export namespace Prisma {
 
   export type CreditCardOrderByWithRelationInput = {
     id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9891,13 +9694,13 @@ export namespace Prisma {
   }
 
   export type CreditCardWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    cardId?: number
+    id?: string
+    cardId?: string
     AND?: CreditCardWhereInput | CreditCardWhereInput[]
     OR?: CreditCardWhereInput[]
     NOT?: CreditCardWhereInput | CreditCardWhereInput[]
-    creditLimit?: FloatFilter<"CreditCard"> | number
-    currentCredit?: FloatFilter<"CreditCard"> | number
+    limit?: FloatFilter<"CreditCard"> | number
+    usedLimit?: FloatFilter<"CreditCard"> | number
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
     card?: XOR<CardScalarRelationFilter, CardWhereInput>
@@ -9905,8 +9708,8 @@ export namespace Prisma {
 
   export type CreditCardOrderByWithAggregationInput = {
     id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9921,10 +9724,10 @@ export namespace Prisma {
     AND?: CreditCardScalarWhereWithAggregatesInput | CreditCardScalarWhereWithAggregatesInput[]
     OR?: CreditCardScalarWhereWithAggregatesInput[]
     NOT?: CreditCardScalarWhereWithAggregatesInput | CreditCardScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"CreditCard"> | number
-    creditLimit?: FloatWithAggregatesFilter<"CreditCard"> | number
-    currentCredit?: FloatWithAggregatesFilter<"CreditCard"> | number
-    cardId?: IntWithAggregatesFilter<"CreditCard"> | number
+    id?: StringWithAggregatesFilter<"CreditCard"> | string
+    limit?: FloatWithAggregatesFilter<"CreditCard"> | number
+    usedLimit?: FloatWithAggregatesFilter<"CreditCard"> | number
+    cardId?: StringWithAggregatesFilter<"CreditCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CreditCard"> | Date | string
   }
@@ -9933,9 +9736,9 @@ export namespace Prisma {
     AND?: DebitCardWhereInput | DebitCardWhereInput[]
     OR?: DebitCardWhereInput[]
     NOT?: DebitCardWhereInput | DebitCardWhereInput[]
-    id?: IntFilter<"DebitCard"> | number
+    id?: StringFilter<"DebitCard"> | string
     balance?: FloatFilter<"DebitCard"> | number
-    cardId?: IntFilter<"DebitCard"> | number
+    cardId?: StringFilter<"DebitCard"> | string
     createdAt?: DateTimeFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeFilter<"DebitCard"> | Date | string
     card?: XOR<CardScalarRelationFilter, CardWhereInput>
@@ -9951,8 +9754,8 @@ export namespace Prisma {
   }
 
   export type DebitCardWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    cardId?: number
+    id?: string
+    cardId?: string
     AND?: DebitCardWhereInput | DebitCardWhereInput[]
     OR?: DebitCardWhereInput[]
     NOT?: DebitCardWhereInput | DebitCardWhereInput[]
@@ -9979,9 +9782,9 @@ export namespace Prisma {
     AND?: DebitCardScalarWhereWithAggregatesInput | DebitCardScalarWhereWithAggregatesInput[]
     OR?: DebitCardScalarWhereWithAggregatesInput[]
     NOT?: DebitCardScalarWhereWithAggregatesInput | DebitCardScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"DebitCard"> | number
+    id?: StringWithAggregatesFilter<"DebitCard"> | string
     balance?: FloatWithAggregatesFilter<"DebitCard"> | number
-    cardId?: IntWithAggregatesFilter<"DebitCard"> | number
+    cardId?: StringWithAggregatesFilter<"DebitCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DebitCard"> | Date | string
   }
@@ -9990,7 +9793,7 @@ export namespace Prisma {
     AND?: IssuerWhereInput | IssuerWhereInput[]
     OR?: IssuerWhereInput[]
     NOT?: IssuerWhereInput | IssuerWhereInput[]
-    id?: IntFilter<"Issuer"> | number
+    id?: StringFilter<"Issuer"> | string
     name?: StringFilter<"Issuer"> | string
     color?: StringFilter<"Issuer"> | string
     icon?: StringNullableFilter<"Issuer"> | string | null
@@ -10010,7 +9813,7 @@ export namespace Prisma {
   }
 
   export type IssuerWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: IssuerWhereInput | IssuerWhereInput[]
     OR?: IssuerWhereInput[]
     NOT?: IssuerWhereInput | IssuerWhereInput[]
@@ -10030,17 +9833,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: IssuerCountOrderByAggregateInput
-    _avg?: IssuerAvgOrderByAggregateInput
     _max?: IssuerMaxOrderByAggregateInput
     _min?: IssuerMinOrderByAggregateInput
-    _sum?: IssuerSumOrderByAggregateInput
   }
 
   export type IssuerScalarWhereWithAggregatesInput = {
     AND?: IssuerScalarWhereWithAggregatesInput | IssuerScalarWhereWithAggregatesInput[]
     OR?: IssuerScalarWhereWithAggregatesInput[]
     NOT?: IssuerScalarWhereWithAggregatesInput | IssuerScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Issuer"> | number
+    id?: StringWithAggregatesFilter<"Issuer"> | string
     name?: StringWithAggregatesFilter<"Issuer"> | string
     color?: StringWithAggregatesFilter<"Issuer"> | string
     icon?: StringNullableWithAggregatesFilter<"Issuer"> | string | null
@@ -10052,13 +9853,13 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
-    id?: IntFilter<"Transaction"> | number
+    id?: StringFilter<"Transaction"> | string
     type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
-    cardId?: IntFilter<"Transaction"> | number
-    userId?: IntFilter<"Transaction"> | number
+    cardId?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
     currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -10082,7 +9883,7 @@ export namespace Prisma {
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
@@ -10090,8 +9891,8 @@ export namespace Prisma {
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
-    cardId?: IntFilter<"Transaction"> | number
-    userId?: IntFilter<"Transaction"> | number
+    cardId?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
     currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -10122,13 +9923,13 @@ export namespace Prisma {
     AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Transaction"> | number
+    id?: StringWithAggregatesFilter<"Transaction"> | string
     type?: EnumTransactionTypeWithAggregatesFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     method?: EnumTransactionMethodWithAggregatesFilter<"Transaction"> | $Enums.TransactionMethod
-    cardId?: IntWithAggregatesFilter<"Transaction"> | number
-    userId?: IntWithAggregatesFilter<"Transaction"> | number
+    cardId?: StringWithAggregatesFilter<"Transaction"> | string
+    userId?: StringWithAggregatesFilter<"Transaction"> | string
     currency?: StringWithAggregatesFilter<"Transaction"> | string
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -10139,7 +9940,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
+    id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
@@ -10165,7 +9966,7 @@ export namespace Prisma {
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     cpf?: string
     AND?: UserWhereInput | UserWhereInput[]
@@ -10190,17 +9991,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
+    id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -10214,8 +10013,8 @@ export namespace Prisma {
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
-    id?: IntFilter<"Session"> | number
-    userId?: IntFilter<"Session"> | number
+    id?: StringFilter<"Session"> | string
+    userId?: StringFilter<"Session"> | string
     sessionToken?: StringFilter<"Session"> | string
     expires?: DateTimeFilter<"Session"> | Date | string
     createdAt?: DateTimeFilter<"Session"> | Date | string
@@ -10234,12 +10033,12 @@ export namespace Prisma {
   }
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     sessionToken?: string
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
-    userId?: IntFilter<"Session"> | number
+    userId?: StringFilter<"Session"> | string
     expires?: DateTimeFilter<"Session"> | Date | string
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
@@ -10254,18 +10053,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
-    _avg?: SessionAvgOrderByAggregateInput
     _max?: SessionMaxOrderByAggregateInput
     _min?: SessionMinOrderByAggregateInput
-    _sum?: SessionSumOrderByAggregateInput
   }
 
   export type SessionScalarWhereWithAggregatesInput = {
     AND?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
     OR?: SessionScalarWhereWithAggregatesInput[]
     NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Session"> | number
-    userId?: IntWithAggregatesFilter<"Session"> | number
+    id?: StringWithAggregatesFilter<"Session"> | string
+    userId?: StringWithAggregatesFilter<"Session"> | string
     sessionToken?: StringWithAggregatesFilter<"Session"> | string
     expires?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
@@ -10273,6 +10070,7 @@ export namespace Prisma {
   }
 
   export type CardCreateInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -10282,17 +10080,17 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
-    user?: UserCreateNestedOneWithoutCardInput
+    user: UserCreateNestedOneWithoutCardInput
     creditCard?: CreditCardCreateNestedOneWithoutCardInput
     debitCard?: DebitCardCreateNestedOneWithoutCardInput
     transaction?: TransactionCreateNestedManyWithoutCardInput
   }
 
   export type CardUncheckedCreateInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -10306,6 +10104,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10315,17 +10114,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
-    user?: UserUpdateOneWithoutCardNestedInput
+    user?: UserUpdateOneRequiredWithoutCardNestedInput
     creditCard?: CreditCardUpdateOneWithoutCardNestedInput
     debitCard?: DebitCardUpdateOneWithoutCardNestedInput
     transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
 
   export type CardUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10339,10 +10138,10 @@ export namespace Prisma {
   }
 
   export type CardCreateManyInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -10353,6 +10152,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10364,10 +10164,10 @@ export namespace Prisma {
   }
 
   export type CardUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10378,65 +10178,69 @@ export namespace Prisma {
   }
 
   export type CreditCardCreateInput = {
-    creditLimit: number
-    currentCredit?: number
+    id?: string
+    limit: number
+    usedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     card: CardCreateNestedOneWithoutCreditCardInput
   }
 
   export type CreditCardUncheckedCreateInput = {
-    id?: number
-    creditLimit: number
-    currentCredit?: number
-    cardId: number
+    id?: string
+    limit: number
+    usedLimit?: number
+    cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CreditCardUpdateInput = {
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     card?: CardUpdateOneRequiredWithoutCreditCardNestedInput
   }
 
   export type CreditCardUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
-    cardId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreditCardCreateManyInput = {
-    id?: number
-    creditLimit: number
-    currentCredit?: number
-    cardId: number
+    id?: string
+    limit: number
+    usedLimit?: number
+    cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CreditCardUpdateManyMutationInput = {
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreditCardUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
-    cardId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardCreateInput = {
+    id?: string
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10444,14 +10248,15 @@ export namespace Prisma {
   }
 
   export type DebitCardUncheckedCreateInput = {
-    id?: number
+    id?: string
     balance?: number
-    cardId: number
+    cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type DebitCardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10459,36 +10264,38 @@ export namespace Prisma {
   }
 
   export type DebitCardUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
-    cardId?: IntFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardCreateManyInput = {
-    id?: number
+    id?: string
     balance?: number
-    cardId: number
+    cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type DebitCardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
-    cardId?: IntFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IssuerCreateInput = {
+    id?: string
     name: string
     color: string
     icon?: string | null
@@ -10498,7 +10305,7 @@ export namespace Prisma {
   }
 
   export type IssuerUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     color: string
     icon?: string | null
@@ -10508,6 +10315,7 @@ export namespace Prisma {
   }
 
   export type IssuerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10517,7 +10325,7 @@ export namespace Prisma {
   }
 
   export type IssuerUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10527,7 +10335,7 @@ export namespace Prisma {
   }
 
   export type IssuerCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     color: string
     icon?: string | null
@@ -10536,6 +10344,7 @@ export namespace Prisma {
   }
 
   export type IssuerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10544,7 +10353,7 @@ export namespace Prisma {
   }
 
   export type IssuerUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10553,11 +10362,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    userId: number
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -10566,13 +10376,13 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateInput = {
-    id?: number
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    cardId: number
-    userId: number
+    cardId: string
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -10580,11 +10390,12 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10593,13 +10404,13 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    cardId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10607,13 +10418,13 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyInput = {
-    id?: number
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    cardId: number
-    userId: number
+    cardId: string
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -10621,11 +10432,12 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10633,13 +10445,13 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    cardId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    cardId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10647,6 +10459,7 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -10659,7 +10472,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: number
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -10672,6 +10485,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10684,7 +10498,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10697,7 +10511,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    id?: number
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -10708,6 +10522,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10718,7 +10533,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10729,6 +10544,7 @@ export namespace Prisma {
   }
 
   export type SessionCreateInput = {
+    id?: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -10737,8 +10553,8 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -10746,6 +10562,7 @@ export namespace Prisma {
   }
 
   export type SessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10754,8 +10571,8 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10763,8 +10580,8 @@ export namespace Prisma {
   }
 
   export type SessionCreateManyInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -10772,6 +10589,7 @@ export namespace Prisma {
   }
 
   export type SessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10779,23 +10597,12 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10849,9 +10656,9 @@ export namespace Prisma {
     isNot?: IssuerWhereInput
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type CreditCardNullableScalarRelationFilter = {
@@ -10893,12 +10700,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CardAvgOrderByAggregateInput = {
-    id?: SortOrder
-    issuerId?: SortOrder
-    userId?: SortOrder
-  }
-
   export type CardMaxOrderByAggregateInput = {
     id?: SortOrder
     nickname?: SortOrder
@@ -10925,28 +10726,6 @@ export namespace Prisma {
     credit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type CardSumOrderByAggregateInput = {
-    id?: SortOrder
-    issuerId?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -11025,24 +10804,22 @@ export namespace Prisma {
 
   export type CreditCardCountOrderByAggregateInput = {
     id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CreditCardAvgOrderByAggregateInput = {
-    id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
-    cardId?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
   }
 
   export type CreditCardMaxOrderByAggregateInput = {
     id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11050,18 +10827,16 @@ export namespace Prisma {
 
   export type CreditCardMinOrderByAggregateInput = {
     id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CreditCardSumOrderByAggregateInput = {
-    id?: SortOrder
-    creditLimit?: SortOrder
-    currentCredit?: SortOrder
-    cardId?: SortOrder
+    limit?: SortOrder
+    usedLimit?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -11089,9 +10864,7 @@ export namespace Prisma {
   }
 
   export type DebitCardAvgOrderByAggregateInput = {
-    id?: SortOrder
     balance?: SortOrder
-    cardId?: SortOrder
   }
 
   export type DebitCardMaxOrderByAggregateInput = {
@@ -11111,9 +10884,7 @@ export namespace Prisma {
   }
 
   export type DebitCardSumOrderByAggregateInput = {
-    id?: SortOrder
     balance?: SortOrder
-    cardId?: SortOrder
   }
 
   export type CardListRelationFilter = {
@@ -11135,10 +10906,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IssuerAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type IssuerMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11155,10 +10922,6 @@ export namespace Prisma {
     icon?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type IssuerSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type EnumTransactionTypeFilter<$PrismaModel = never> = {
@@ -11190,10 +10953,7 @@ export namespace Prisma {
   }
 
   export type TransactionAvgOrderByAggregateInput = {
-    id?: SortOrder
     amount?: SortOrder
-    cardId?: SortOrder
-    userId?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -11225,10 +10985,7 @@ export namespace Prisma {
   }
 
   export type TransactionSumOrderByAggregateInput = {
-    id?: SortOrder
     amount?: SortOrder
-    cardId?: SortOrder
-    userId?: SortOrder
   }
 
   export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11272,10 +11029,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -11298,15 +11051,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -11314,11 +11058,6 @@ export namespace Prisma {
     expires?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type SessionAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type SessionMaxOrderByAggregateInput = {
@@ -11337,11 +11076,6 @@ export namespace Prisma {
     expires?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type SessionSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type IssuerCreateNestedOneWithoutCardInput = {
@@ -11418,12 +11152,10 @@ export namespace Prisma {
     update?: XOR<XOR<IssuerUpdateToOneWithWhereWithoutCardInput, IssuerUpdateWithoutCardInput>, IssuerUncheckedUpdateWithoutCardInput>
   }
 
-  export type UserUpdateOneWithoutCardNestedInput = {
+  export type UserUpdateOneRequiredWithoutCardNestedInput = {
     create?: XOR<UserCreateWithoutCardInput, UserUncheckedCreateWithoutCardInput>
     connectOrCreate?: UserCreateOrConnectWithoutCardInput
     upsert?: UserUpsertWithoutCardInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCardInput, UserUpdateWithoutCardInput>, UserUncheckedUpdateWithoutCardInput>
   }
@@ -11460,14 +11192,6 @@ export namespace Prisma {
     update?: TransactionUpdateWithWhereUniqueWithoutCardInput | TransactionUpdateWithWhereUniqueWithoutCardInput[]
     updateMany?: TransactionUpdateManyWithWhereWithoutCardInput | TransactionUpdateManyWithWhereWithoutCardInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type CreditCardUncheckedUpdateOneWithoutCardNestedInput = {
@@ -11702,17 +11426,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11757,33 +11470,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11799,6 +11485,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11849,6 +11546,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -11902,6 +11610,7 @@ export namespace Prisma {
   }
 
   export type IssuerCreateWithoutCardInput = {
+    id?: string
     name: string
     color: string
     icon?: string | null
@@ -11910,7 +11619,7 @@ export namespace Prisma {
   }
 
   export type IssuerUncheckedCreateWithoutCardInput = {
-    id?: number
+    id?: string
     name: string
     color: string
     icon?: string | null
@@ -11924,6 +11633,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCardInput = {
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -11935,7 +11645,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutCardInput = {
-    id?: number
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -11952,16 +11662,17 @@ export namespace Prisma {
   }
 
   export type CreditCardCreateWithoutCardInput = {
-    creditLimit: number
-    currentCredit?: number
+    id?: string
+    limit: number
+    usedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CreditCardUncheckedCreateWithoutCardInput = {
-    id?: number
-    creditLimit: number
-    currentCredit?: number
+    id?: string
+    limit: number
+    usedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11972,13 +11683,14 @@ export namespace Prisma {
   }
 
   export type DebitCardCreateWithoutCardInput = {
+    id?: string
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type DebitCardUncheckedCreateWithoutCardInput = {
-    id?: number
+    id?: string
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11990,11 +11702,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutCardInput = {
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    userId: number
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -12002,12 +11715,12 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateWithoutCardInput = {
-    id?: number
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    userId: number
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -12036,6 +11749,7 @@ export namespace Prisma {
   }
 
   export type IssuerUpdateWithoutCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12044,7 +11758,7 @@ export namespace Prisma {
   }
 
   export type IssuerUncheckedUpdateWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12064,6 +11778,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12075,7 +11790,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12098,16 +11813,17 @@ export namespace Prisma {
   }
 
   export type CreditCardUpdateWithoutCardInput = {
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreditCardUncheckedUpdateWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    creditLimit?: FloatFieldUpdateOperationsInput | number
-    currentCredit?: FloatFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    limit?: FloatFieldUpdateOperationsInput | number
+    usedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12124,13 +11840,14 @@ export namespace Prisma {
   }
 
   export type DebitCardUpdateWithoutCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardUncheckedUpdateWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12156,13 +11873,13 @@ export namespace Prisma {
     AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    id?: IntFilter<"Transaction"> | number
+    id?: StringFilter<"Transaction"> | string
     type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
-    cardId?: IntFilter<"Transaction"> | number
-    userId?: IntFilter<"Transaction"> | number
+    cardId?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
     currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -12170,6 +11887,7 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutCreditCardInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -12179,16 +11897,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
-    user?: UserCreateNestedOneWithoutCardInput
+    user: UserCreateNestedOneWithoutCardInput
     debitCard?: DebitCardCreateNestedOneWithoutCardInput
     transaction?: TransactionCreateNestedManyWithoutCardInput
   }
 
   export type CardUncheckedCreateWithoutCreditCardInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12217,6 +11935,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateWithoutCreditCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12226,16 +11945,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
-    user?: UserUpdateOneWithoutCardNestedInput
+    user?: UserUpdateOneRequiredWithoutCardNestedInput
     debitCard?: DebitCardUpdateOneWithoutCardNestedInput
     transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
 
   export type CardUncheckedUpdateWithoutCreditCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12248,6 +11967,7 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutDebitCardInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -12257,16 +11977,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
-    user?: UserCreateNestedOneWithoutCardInput
+    user: UserCreateNestedOneWithoutCardInput
     creditCard?: CreditCardCreateNestedOneWithoutCardInput
     transaction?: TransactionCreateNestedManyWithoutCardInput
   }
 
   export type CardUncheckedCreateWithoutDebitCardInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12295,6 +12015,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateWithoutDebitCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12304,16 +12025,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
-    user?: UserUpdateOneWithoutCardNestedInput
+    user?: UserUpdateOneRequiredWithoutCardNestedInput
     creditCard?: CreditCardUpdateOneWithoutCardNestedInput
     transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
 
   export type CardUncheckedUpdateWithoutDebitCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12326,6 +12047,7 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutIssuerInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -12334,16 +12056,16 @@ export namespace Prisma {
     credit?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutCardInput
+    user: UserCreateNestedOneWithoutCardInput
     creditCard?: CreditCardCreateNestedOneWithoutCardInput
     debitCard?: DebitCardCreateNestedOneWithoutCardInput
     transaction?: TransactionCreateNestedManyWithoutCardInput
   }
 
   export type CardUncheckedCreateWithoutIssuerInput = {
-    id?: number
+    id?: string
     nickname: string
-    userId: number
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12386,10 +12108,10 @@ export namespace Prisma {
     AND?: CardScalarWhereInput | CardScalarWhereInput[]
     OR?: CardScalarWhereInput[]
     NOT?: CardScalarWhereInput | CardScalarWhereInput[]
-    id?: IntFilter<"Card"> | number
+    id?: StringFilter<"Card"> | string
     nickname?: StringFilter<"Card"> | string
-    issuerId?: IntFilter<"Card"> | number
-    userId?: IntFilter<"Card"> | number
+    issuerId?: StringFilter<"Card"> | string
+    userId?: StringFilter<"Card"> | string
     number?: StringNullableFilter<"Card"> | string | null
     expiration?: StringNullableFilter<"Card"> | string | null
     cvv?: StringNullableFilter<"Card"> | string | null
@@ -12400,6 +12122,7 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutTransactionInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -12409,16 +12132,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
-    user?: UserCreateNestedOneWithoutCardInput
+    user: UserCreateNestedOneWithoutCardInput
     creditCard?: CreditCardCreateNestedOneWithoutCardInput
     debitCard?: DebitCardCreateNestedOneWithoutCardInput
   }
 
   export type CardUncheckedCreateWithoutTransactionInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
-    userId: number
+    issuerId: string
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12447,6 +12170,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12456,16 +12180,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
-    user?: UserUpdateOneWithoutCardNestedInput
+    user?: UserUpdateOneRequiredWithoutCardNestedInput
     creditCard?: CreditCardUpdateOneWithoutCardNestedInput
     debitCard?: DebitCardUpdateOneWithoutCardNestedInput
   }
 
   export type CardUncheckedUpdateWithoutTransactionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12478,6 +12202,7 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutUserInput = {
+    id?: string
     nickname: string
     number?: string | null
     expiration?: string | null
@@ -12493,9 +12218,9 @@ export namespace Prisma {
   }
 
   export type CardUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
+    issuerId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12519,6 +12244,7 @@ export namespace Prisma {
   }
 
   export type SessionCreateWithoutUserInput = {
+    id?: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -12526,7 +12252,7 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -12579,8 +12305,8 @@ export namespace Prisma {
     AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
     OR?: SessionScalarWhereInput[]
     NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: IntFilter<"Session"> | number
-    userId?: IntFilter<"Session"> | number
+    id?: StringFilter<"Session"> | string
+    userId?: StringFilter<"Session"> | string
     sessionToken?: StringFilter<"Session"> | string
     expires?: DateTimeFilter<"Session"> | Date | string
     createdAt?: DateTimeFilter<"Session"> | Date | string
@@ -12588,6 +12314,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutSessionsInput = {
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -12599,7 +12326,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
-    id?: number
+    id?: string
     email: string
     password: string
     name?: string | null
@@ -12627,6 +12354,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12638,7 +12366,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12650,12 +12378,12 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyCardInput = {
-    id?: number
+    id?: string
     type: $Enums.TransactionType
     amount: number
     date: Date | string
     method: $Enums.TransactionMethod
-    userId: number
+    userId: string
     currency?: string
     description?: string | null
     createdAt?: Date | string
@@ -12663,11 +12391,12 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateWithoutCardInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12675,12 +12404,12 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12688,12 +12417,12 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateManyWithoutCardInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12701,9 +12430,9 @@ export namespace Prisma {
   }
 
   export type CardCreateManyIssuerInput = {
-    id?: number
+    id?: string
     nickname: string
-    userId: number
+    userId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12714,6 +12443,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateWithoutIssuerInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12722,16 +12452,16 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutCardNestedInput
+    user?: UserUpdateOneRequiredWithoutCardNestedInput
     creditCard?: CreditCardUpdateOneWithoutCardNestedInput
     debitCard?: DebitCardUpdateOneWithoutCardNestedInput
     transaction?: TransactionUpdateManyWithoutCardNestedInput
   }
 
   export type CardUncheckedUpdateWithoutIssuerInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12745,9 +12475,9 @@ export namespace Prisma {
   }
 
   export type CardUncheckedUpdateManyWithoutIssuerInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12758,9 +12488,9 @@ export namespace Prisma {
   }
 
   export type CardCreateManyUserInput = {
-    id?: number
+    id?: string
     nickname: string
-    issuerId: number
+    issuerId: string
     number?: string | null
     expiration?: string | null
     cvv?: string | null
@@ -12771,7 +12501,7 @@ export namespace Prisma {
   }
 
   export type SessionCreateManyUserInput = {
-    id?: number
+    id?: string
     sessionToken: string
     expires: Date | string
     createdAt?: Date | string
@@ -12779,6 +12509,7 @@ export namespace Prisma {
   }
 
   export type CardUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12794,9 +12525,9 @@ export namespace Prisma {
   }
 
   export type CardUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12810,9 +12541,9 @@ export namespace Prisma {
   }
 
   export type CardUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
-    issuerId?: IntFieldUpdateOperationsInput | number
+    issuerId?: StringFieldUpdateOperationsInput | string
     number?: NullableStringFieldUpdateOperationsInput | string | null
     expiration?: NullableStringFieldUpdateOperationsInput | string | null
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12823,6 +12554,7 @@ export namespace Prisma {
   }
 
   export type SessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12830,7 +12562,7 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12838,7 +12570,7 @@ export namespace Prisma {
   }
 
   export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

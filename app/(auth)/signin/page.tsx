@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -23,11 +23,10 @@ export default function Page() {
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
       setLogin((prev) => ({ ...prev, [name]: value }));
-   }
+   };
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       try {
          const loginResponse = await signIn("credentials", {
             redirect: false,
@@ -35,9 +34,7 @@ export default function Page() {
             password: login.password,
          });
 
-         if (!loginResponse || loginResponse.ok) {
-            throw new Error("Failed to login");
-         }
+         if (!loginResponse || !loginResponse.ok) throw new Error("Failed to login");
 
          router.push("/");
       } catch (error) {
@@ -45,40 +42,45 @@ export default function Page() {
          // May imply that the email or password is incorrect, or that the user is not registered
          console.error("Login failed:", error);
       }
-   }
+   };
 
-   return <div className="flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
-      <h1 className="text-3xl">Login</h1>
+   return (
+      <div className="flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
+         <h1 className="text-3xl">Login</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-         <Input
-            name="email"
-            label="Email"
-            type="email"
-            onChange={handleChange}
-            required
-         />
+         <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 w-full"
+         >
+            <Input
+               name="email"
+               label="Email"
+               type="email"
+               onChange={handleChange}
+               required
+            />
 
-         <Input
-            name="password"
-            label="Senha"
-            type="password"
-            onChange={handleChange}
-            required
-         />
+            <Input
+               name="password"
+               label="Senha"
+               type="password"
+               onChange={handleChange}
+               required
+            />
 
-         <Button
-            type="submit"
-            text={"Entrar"}
-         />
-         <hr />
+            <Button
+               type="submit"
+               text={"Entrar"}
+            />
+            <hr />
 
-         <p className="text-left">Ainda não possui cadastro?</p>
-         <Button
-            className="w-full"
-            text={"Cadastrar"}
-            href={"/signup"}
-         />
-      </form>
-   </div>;
-};
+            <p className="text-left">Ainda não possui cadastro?</p>
+            <Button
+               className="w-full"
+               text={"Cadastrar"}
+               href={"/signup"}
+            />
+         </form>
+      </div>
+   );
+}

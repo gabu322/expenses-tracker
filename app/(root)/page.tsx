@@ -7,18 +7,17 @@ import axios from "axios";
 
 import Button from "@/components/Button";
 import { CardType, IssuerType } from "@/utils/types/index";
+import { useCards } from "./contex";
 
 export default function Home() {
-   const [cardList, setCardList] = useState<CardType[]>([]);
+   const { cards }: { cards: CardType[] } = useCards();
    const [issuers, setIssuers] = useState<IssuerType[]>([]);
 
    useEffect(() => {
       try {
          axios.get("/api/issuers").then((response) => setIssuers(response.data));
-         axios.get("/api/cards").then((response) => setCardList(response.data));
       } catch (error) {
-         console.log("error");
-         console.error(error);
+         console.error("Failed to fetch issuers:", error);
       }
    }, []);
 
@@ -29,7 +28,7 @@ export default function Home() {
             <Button href={"/cards"}>Novo Cartão</Button>
          </div>
 
-         {cardList.map((card) => (
+         {cards.map((card) => (
             <Card
                key={card.id}
                card={card}

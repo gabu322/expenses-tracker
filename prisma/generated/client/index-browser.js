@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.1
- * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
+ * Prisma Client JS version: 5.21.1
+ * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
  */
 Prisma.prismaVersion = {
-  client: "6.2.1",
-  engine: "4123509d24aa4dede1e864b46351bf2790323b69"
+  client: "5.21.1",
+  engine: "bf0e5e8a04cada8225617067eaa03d041e2bba36"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -48,6 +48,11 @@ In case this error is unexpected for you, please report it in https://pris.ly/pr
 Prisma.PrismaClientValidationError = () => {
   const runtimeName = getRuntime().prettyName;
   throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
+In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
+)}
+Prisma.NotFoundError = () => {
+  const runtimeName = getRuntime().prettyName;
+  throw new Error(`NotFoundError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
 In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
 )}
 Prisma.Decimal = Decimal
@@ -120,13 +125,21 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.CardScalarFieldEnum = {
   id: 'id',
   nickname: 'nickname',
-  issuerId: 'issuerId',
-  userId: 'userId',
   number: 'number',
   expiration: 'expiration',
   cvv: 'cvv',
   debit: 'debit',
   credit: 'credit',
+  issuerId: 'issuerId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DebitCardScalarFieldEnum = {
+  id: 'id',
+  balance: 'balance',
+  cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -135,14 +148,6 @@ exports.Prisma.CreditCardScalarFieldEnum = {
   id: 'id',
   limit: 'limit',
   usedLimit: 'usedLimit',
-  cardId: 'cardId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.DebitCardScalarFieldEnum = {
-  id: 'id',
-  balance: 'balance',
   cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -160,13 +165,12 @@ exports.Prisma.IssuerScalarFieldEnum = {
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   type: 'type',
+  method: 'method',
   amount: 'amount',
   date: 'date',
-  method: 'method',
-  cardId: 'cardId',
-  userId: 'userId',
   currency: 'currency',
   description: 'description',
+  cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -185,8 +189,8 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  sessionToken: 'sessionToken',
-  expires: 'expires',
+  token: 'token',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -218,8 +222,8 @@ exports.TransactionMethod = exports.$Enums.TransactionMethod = {
 
 exports.Prisma.ModelName = {
   Card: 'Card',
-  CreditCard: 'CreditCard',
   DebitCard: 'DebitCard',
+  CreditCard: 'CreditCard',
   Issuer: 'Issuer',
   Transaction: 'Transaction',
   User: 'User',

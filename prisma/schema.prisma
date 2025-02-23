@@ -22,22 +22,35 @@ enum TransactionMethod {
 model Card {
    id         String  @id @default(uuid())
    nickname   String
-   issuerId   String
-   userId     String
    number     String? @unique
    expiration String?
    cvv        String?
    debit      Boolean @default(false)
    credit     Boolean @default(false)
+   issuerId   String
+   userId     String
 
    // Foreign keys
    issuer Issuer @relation(fields: [issuerId], references: [id])
    user   User   @relation(fields: [userId], references: [id])
 
    // Relations
-   creditCard  CreditCard?
    debitCard   DebitCard?
+   creditCard  CreditCard?
    transaction Transaction[]
+
+   // Timestamps
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+}
+
+model DebitCard {
+   id      String @id @default(uuid())
+   balance Float  @default(0.0)
+   cardId  String @unique
+
+   // Foreign keys
+   card Card @relation(fields: [cardId], references: [id])
 
    // Timestamps
    createdAt DateTime @default(now())
@@ -49,19 +62,6 @@ model CreditCard {
    limit     Float
    usedLimit Float  @default(0.0)
    cardId    String @unique
-
-   // Foreign keys
-   card Card @relation(fields: [cardId], references: [id])
-
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
-}
-
-model DebitCard {
-   id      String @id @default(uuid())
-   balance Float  @default(0.0)
-   cardId  String @unique
 
    // Foreign keys
    card Card @relation(fields: [cardId], references: [id])
@@ -88,13 +88,12 @@ model Issuer {
 model Transaction {
    id          String            @id @default(uuid())
    type        TransactionType
+   method      TransactionMethod
    amount      Float
    date        DateTime
-   method      TransactionMethod
-   cardId      String
-   userId      String
    currency    String            @default("USD")
    description String?
+   cardId      String
 
    // Foreign keys
    card Card @relation(fields: [cardId], references: [id])
@@ -122,10 +121,10 @@ model User {
 }
 
 model Session {
-   id           String   @id @default(uuid())
-   userId       String
-   sessionToken String   @unique
-   expires      DateTime
+   id     String  @id @default(uuid())
+   userId String
+   token  String  @unique
+   status Boolean @default(true)
 
    // Foreign keys
    user User @relation(fields: [userId], references: [id])

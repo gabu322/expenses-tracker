@@ -16,7 +16,7 @@ interface SelectProps {
    options: Option[];
    onChange?: (event: { target: { name: string; value: string | null } }) => void;
    size?: "sm" | "md" | "lg" | "xl";
-   initialValue?: string;
+   initialValue?: string | null;
    searchable?: boolean;
    showOptionValue?: boolean;
    rounded?: boolean;
@@ -70,7 +70,7 @@ export default function Select({ id, className = "", name, label, options, onCha
    }, [isFocused]);
 
    useEffect(() => {
-      if (initialValue == "") {
+      if (initialValue == "" || initialValue == null) {
          handleErase();
       } else if (initialValue) {
          const selectedOption = options.find((option) => option.value === initialValue);
@@ -119,7 +119,9 @@ export default function Select({ id, className = "", name, label, options, onCha
             setIsFocused(false);
             setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
          }}
-         onClick={() => setIsFocused(true)}
+         onClick={() => {
+            if (!disabled) setIsFocused(true);
+         }}
          style={{ outlineColor: infoColor.outline }}
       >
          <input
@@ -139,7 +141,7 @@ export default function Select({ id, className = "", name, label, options, onCha
          {label && (
             <label
                htmlFor={id || name}
-               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-200" : "bg-white"}`}
+               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-100" : "bg-white"}`}
                style={{ color: infoColor.text }}
             >
                {label}
@@ -166,7 +168,7 @@ export default function Select({ id, className = "", name, label, options, onCha
 
          {/* Clear Button */}
          <div
-            className="absolute right-1 top-1 p-2 bg-white z-2 rounded-full"
+            className={`absolute right-1 top-1 p-2 z-2 rounded-full ${disabled ? "bg-gray-100" : "bg-white"}`}
             onClick={handleErase}
          >
             <svg

@@ -7,46 +7,27 @@ import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
 import { handleChangeType } from "@/utils/types/handleChange";
-
-interface TransactionProps {
-   isOpen: boolean;
-   toggleNavbar: () => void;
-}
-
-interface Card {
-   id: string;
-   nickname: string;
-   debit?: boolean;
-   credit?: boolean;
-}
-
-interface TransactionData {
-   cardId: string | undefined;
-   userId: number;
-   amount: number;
-   type: string;
-   date: string;
-   hour: string;
-   description: string;
-   method: string;
-}
+import { CardType, TransactionType } from "@/utils/types";
 
 interface Option {
    value: string;
    text: string;
 }
 
+interface TransactionProps {
+   isOpen: boolean;
+   toggleNavbar: () => void;
+}
+
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
-   const [cards, setCards] = useState<Card[]>([]);
-   const [transaction, setTransaction] = useState<TransactionData>({
-      cardId: undefined,
-      userId: 1,
+   const [cards, setCards] = useState<CardType[]>([]);
+   const [transaction, setTransaction] = useState<TransactionType>({
+      cardId: null,
+      type: null,
+      method: null,
       amount: 0,
-      type: "",
       date: "",
-      hour: "",
       description: "",
-      method: "",
    });
 
    useEffect(() => {
@@ -56,6 +37,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          .catch((error) => console.error("Error fetching cards:", error));
    }, []);
 
+   useEffect(() => {
+      if (transaction.cardId === null) setTransaction((prev) => ({ ...prev, method: null, type: null }));
+   }, [transaction.cardId]);
+
    const [cardMethods, setCardMethods] = useState<Option[]>([]);
    useEffect(() => {
       const currentSelectedCard = cards.find((card) => card.id === transaction.cardId);
@@ -63,10 +48,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
       const methods = [];
       if (currentSelectedCard?.debit) {
-         methods.push({ value: "debit", text: "Débito" });
+         methods.push({ value: "DEBIT", text: "Débito" });
       }
       if (currentSelectedCard?.credit) {
-         methods.push({ value: "credit", text: "Crédito" });
+         methods.push({ value: "CREDIT", text: "Crédito" });
       }
       setCardMethods(methods);
    }, [transaction.cardId, cards]);
@@ -78,14 +63,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleClear = () => {
       setTransaction({
-         cardId: undefined,
-         userId: 1,
+         cardId: null,
          amount: 0,
-         type: "",
+         type: null,
          date: "",
-         hour: "",
          description: "",
-         method: "",
+         method: null,
       });
    };
 
@@ -124,8 +107,8 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                className="w-1/2"
                name="cardId"
                label="Cartão"
-               options={cards.map((card) => ({ value: card.id, text: card.nickname }))}
-               initialValue={transaction?.cardId}
+               options={cards.filter((card) => card.id !== undefined).map((card) => ({ value: card.id as string, text: card.nickname }))}
+               initialValue={transaction.cardId}
                onChange={handleChange}
                rounded
                required
@@ -141,7 +124,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                initialValue={transaction.method}
                onChange={handleChange}
                rounded
-               disabled={transaction.cardId === undefined}
+               disabled={transaction.cardId == null}
                required
             />
 
@@ -150,13 +133,13 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="type"
                label="Tipo"
                options={[
-                  { value: "income", text: transaction.method === "debit" ? "Receita" : "Pagamento de Fatura" },
-                  { value: "expense", text: transaction.method === "debit" ? "Despesa" : "Compra" },
+                  { value: "INCOME", text: transaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
+                  { value: "EXPENSE", text: transaction.method === "DEBIT" ? "Despesa" : "Compra" },
                ]}
                initialValue={transaction.type}
                onChange={handleChange}
                rounded
-               disabled={transaction.cardId === undefined}
+               disabled={transaction.cardId === null}
                required
             />
          </div>
@@ -194,7 +177,8 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                className="w-full"
                text="Cancelar"
                color="red"
-               onClick={handleClear}
+               // onClick={handleClear}
+               onClick={() => console.log(transaction)}
             />
          </div>
       </form>

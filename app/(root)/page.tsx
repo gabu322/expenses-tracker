@@ -10,7 +10,7 @@ import { CardType, IssuerType } from "@/utils/types/index";
 import { useCards } from "./contex";
 
 export default function Home() {
-   const { cards }: { cards: CardType[] } = useCards();
+   const { cards } = useCards();
    const [issuers, setIssuers] = useState<IssuerType[]>([]);
 
    useEffect(() => {

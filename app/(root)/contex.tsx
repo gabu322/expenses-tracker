@@ -21,7 +21,6 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
          try {
             const response = await axios.get("/api/cards");
             setCards(response.data);
-            console.log("Fetched cards:", response.data);
          } catch (error) {
             console.error("Failed to fetch cards:", error);
          }
@@ -33,4 +32,10 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    return <CardContext.Provider value={{ cards, setCards }}>{children}</CardContext.Provider>;
 };
 
-export const useCards = () => useContext(CardContext) as CardContextType;
+export function useCards() {
+   const context = useContext<CardContextType | null>(CardContext);
+
+   if (!context) throw new Error("useCards must be used within a CardProvider");
+
+   return context;
+}

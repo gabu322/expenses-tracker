@@ -7,7 +7,7 @@ import { TransactionType, TransactionMethod } from "@/prisma/generated/client";
 import { getParams, ParamsType } from "@/utils/params";
 
 async function handler(req: NextRequest, context: ParamsType) {
-   const { cardId } = getParams(context);
+   const { cardId } = await getParams(context);
 
    try {
       const session = await getServerSession(authOptions);

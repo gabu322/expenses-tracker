@@ -7,7 +7,7 @@ import { getParams, ParamsType } from "@/utils/params";
 import { CardType } from "@/utils/types";
 
 async function handler(req: NextRequest, context: ParamsType) {
-   const { id } = getParams(context);
+   const { id } = await getParams(context);
 
    try {
       const session = await getServerSession(authOptions);

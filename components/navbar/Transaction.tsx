@@ -74,9 +74,11 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      if (transaction.cardId === null) return;
+
       try {
          // Submit the transaction and if successful, clear the form and close the navbar
-         await axios.post("/api/transactions", transaction).then(() => {
+         await axios.post(`/api/transactions/${transaction.cardId}`, transaction).then(() => {
             handleClear();
             toggleNavbar();
          });

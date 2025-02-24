@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { handleChangeType } from "@/utils/types/handleChange";
 import { IssuerType } from "@/utils/types";
-import { Issuer } from "./Issuer";
+import { Issuer } from "@/components/pages/Issuer";
 
 export default function Page() {
    const [issuers, setIssuers] = useState<IssuerType[]>([]);

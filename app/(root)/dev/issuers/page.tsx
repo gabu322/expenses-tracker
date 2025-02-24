@@ -7,16 +7,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { handleChangeType } from "@/utils/types/handleChange";
-
-interface Issuer {
-   id: number;
-   name: string;
-   icon: string;
-   color: string;
-}
+import { IssuerType } from "@/utils/types";
 
 export default function Page() {
-   const [issuers, setIssuers] = useState<Issuer[]>([]);
+   const [issuers, setIssuers] = useState<IssuerType[]>([]);
    const [filter, setFilter] = useState<string>("");
    const [newIssuer, setNewIssuer] = useState({
       name: "",
@@ -48,7 +42,7 @@ export default function Page() {
       }
    };
 
-   const handleDelete = async (id: number) => {
+   const handleDelete = async (id: string) => {
       try {
          await axios.delete(`/api/issuers/${id}`);
          setIssuers(issuers.filter((issuer) => issuer.id !== id));
@@ -61,10 +55,6 @@ export default function Page() {
       <div className="flex flex-col gap-4">
          <div className="flex flex-row justify-between">
             <h1>Bancos</h1>
-            <Button
-               text={"cl"}
-               onClick={() => console.log(issuers)}
-            />
          </div>
 
          <h2>Adicionar banco</h2>
@@ -102,23 +92,25 @@ export default function Page() {
             id="Filter"
             name="Filter"
             label="Filtro"
-            initialValue=""
             onChange={(e) => setFilter(e.target.value as string)}
          />
-         {issuers.map((issuer) => (
-            <Issuer
-               key={issuer.id}
-               issuer={issuer}
-               handleDelete={handleDelete}
-            />
-         ))}
+
+         {issuers
+            .filter((issuer) => issuer.name.toLowerCase().includes(filter.toLowerCase()))
+            .map((issuer) => (
+               <Issuer
+                  key={issuer.id}
+                  issuer={issuer}
+                  handleDelete={handleDelete}
+               />
+            ))}
       </div>
    );
 }
 
 interface IssuerProps {
-   issuer: Issuer;
-   handleDelete: (id: number) => void;
+   issuer: IssuerType;
+   handleDelete: (id: string) => void;
 }
 
 export function Issuer({ issuer, handleDelete }: IssuerProps) {
@@ -152,7 +144,7 @@ export function Issuer({ issuer, handleDelete }: IssuerProps) {
             />
 
             <Image
-               onClick={() => handleDelete(issuer.id)}
+               onClick={() => issuer.id && handleDelete(issuer.id)}
                className="cursor-pointer"
                src={"/icons/white/x.svg"}
                alt="x"

@@ -2,10 +2,31 @@
 
 import { useCurrentCard } from "./contex";
 import IDollar from "@/public/icons/dynamic/dollar";
+import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 
 export default function Page() {
-   const { card, debitNet } = useCurrentCard();
+   const { card, setCard, transactions, loading } = useCurrentCard();
+   const [debitNet, setDebitNet] = useState<number>(0);
+
+   useEffect(() => {
+      const debitTransactions = transactions.filter((transaction) => transaction.method === "DEBIT");
+
+      const net = debitTransactions.reduce((acc, transaction) => {
+         if (transaction.type === "EXPENSE") return acc - transaction.amount;
+         if (transaction.type === "INCOME") return acc + transaction.amount;
+         return acc;
+      }, 0);
+
+      setDebitNet(net);
+   }, [transactions]);
+
+   if (loading)
+      return (
+         <div className="flex flex-col gap-4">
+            <h2>Carregando...</h2>
+         </div>
+      );
 
    return (
       <div className="flex flex-col gap-4">

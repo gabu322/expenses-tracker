@@ -16,16 +16,16 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    const { data: session } = useSession();
    const [cards, setCards] = useState<CardType[]>([]);
 
-   useEffect(() => {
-      const fetchCards = async () => {
-         try {
-            const response = await axios.get("/api/cards");
-            setCards(response.data);
-         } catch (error) {
-            console.error("Failed to fetch cards:", error);
-         }
-      };
+   const fetchCards = async () => {
+      try {
+         const response = await axios.get("/api/cards");
+         setCards(response.data);
+      } catch (error) {
+         console.error("Failed to fetch cards:", error);
+      }
+   };
 
+   useEffect(() => {
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 

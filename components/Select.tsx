@@ -76,6 +76,7 @@ export default function Select({ id, className = "", name, label, options, onCha
          const selectedOption = options.find((option) => option.value === initialValue);
          setValue(selectedOption ? selectedOption.text : "");
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [initialValue]);
 
    const handleOptionClick = (option: Option) => {

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 
 export default function Page() {
-   const { card, setCard, transactions, loading } = useCurrentCard();
+   const { card, transactions, loading } = useCurrentCard();
    const [debitNet, setDebitNet] = useState<number>(0);
 
    useEffect(() => {

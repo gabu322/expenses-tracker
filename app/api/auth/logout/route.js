@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function POST(req, res) {
+export async function POST(req) {
    try {
       // Create a response object for redirect
       const response = NextResponse.redirect(new URL('/signin', req.url));

@@ -6,7 +6,8 @@ export async function GET() {
       const users = await prisma.user.findMany();
 
       return NextResponse.json(users, { status: 200 });
-   } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+   } catch (error: unknown) {
+      if (error instanceof Error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ error: "Unknown error" }, { status: 500 });
    }
 }

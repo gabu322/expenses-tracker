@@ -1,8 +1,8 @@
 // Interface for context.params and context in Next.js API routes
 export interface ParamsType {
-   params: {
+   params: Promise<{
       [key: string]: string;
-   };
+   }>;
 }
 
 /**
@@ -10,6 +10,7 @@ export interface ParamsType {
  * @param {ParamsType} context The context object from a Next.js API route
  * @returns The context object with `id` as a number
  */
-export function getParams(context: ParamsType) {
-   return context.params;
+export async function getParams(context: ParamsType) {
+   const params = await context.params;
+   return params;
 }

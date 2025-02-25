@@ -9,32 +9,13 @@ import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import { handleChangeType } from "@/utils/types/handleChange";
-
-interface Issuer {
-   id: string;
-   name: string;
-   icon: string;
-   color: string;
-}
-
-interface CardData {
-   nickname: string;
-   issuerId: string;
-   number: string;
-   expiration: string;
-   cvv: string;
-   credit: boolean;
-   debit: boolean;
-   creditLimit?: number;
-   currentCredit?: number;
-   balance?: number;
-}
+import { CardType, IssuerType } from "@/utils/types";
 
 export default function Page() {
    const { id } = useParams();
    const router = useRouter();
-   const [issuers, setIssuers] = useState<Issuer[]>([]);
-   const [cardData, setCardData] = useState<CardData>({
+   const [issuers, setIssuers] = useState<IssuerType[]>([]);
+   const [cardData, setCardData] = useState<CardType>({
       nickname: "",
       issuerId: "",
       number: "",
@@ -51,7 +32,7 @@ export default function Page() {
       } catch (error) {
          console.error(error);
       }
-   }, []);
+   }, [id]);
 
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
@@ -120,7 +101,7 @@ export default function Page() {
                <Select
                   name="issuer"
                   label="Banco"
-                  options={issuers.map((issuer) => ({ value: issuer.id, text: issuer.name }))}
+                  options={issuers.map((issuer) => ({ value: issuer.id || "", text: issuer.name }))}
                   onChange={handleChange}
                   initialValue={cardData.issuerId}
                   required
@@ -155,7 +136,7 @@ export default function Page() {
                      onChange={handleChange}
                      currency={"R$"}
                      required={cardData.credit}
-                     initialValue={cardData.creditLimit}
+                     initialValue={cardData.limit}
                   />
 
                   <Input
@@ -164,7 +145,7 @@ export default function Page() {
                      onChange={handleChange}
                      currency={"R$"}
                      required={cardData.credit}
-                     initialValue={cardData.currentCredit}
+                     initialValue={cardData.usedLimit}
                   />
                </div>
             )}

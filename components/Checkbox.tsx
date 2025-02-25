@@ -22,7 +22,7 @@ export default function Checkbox({ id, className, name, label, onChange, initial
    }, [initialChecked]);
 
    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let newValue = e.target.checked;
+      const newValue = e.target.checked;
       setIsChecked(newValue);
       if (onChange) onChange({ target: { name, checked: newValue } } as React.ChangeEvent<HTMLInputElement>);
    };

@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import { TransactionType, TransactionMethod } from "@/prisma/generated/client";
 import { getParams, ParamsType } from "@/utils/params";
+import { ZodError } from "zod";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { cardId } = await getParams(context);
@@ -63,10 +64,10 @@ async function handler(req: NextRequest, context: ParamsType) {
          default:
             return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
       }
-   } catch (error: any) {
-      if (error.name === "ZodError") return NextResponse.json({ errors: error.errors }, { status: 400 });
-
-      return NextResponse.json({ error: error.message }, { status: 500 });
+   } catch (error: unknown) {
+      if (error instanceof ZodError) return NextResponse.json({ errors: error.errors }, { status: 400 });
+      if (error instanceof Error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ error: "Unknown error" }, { status: 500 });
    }
 }
 

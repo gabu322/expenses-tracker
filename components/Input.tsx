@@ -65,11 +65,12 @@ export default function Input({ id, className = "", name, label, type = "text", 
       }
 
       setValue(formattedValue);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [initialValue, currency, mask, type]);
 
    useEffect(() => {
       if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });
-   }, [isFocused]);
+   }, [isFocused, infoColor.outline]);
 
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let newValue = e.target.value;
@@ -125,7 +126,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
 
       // If the value is not a number or is a single character, return a default value
       if (isNaN(+cleanValue) || String(value).length <= 1) {
-         let returnValue = !isNaN(+cleanValue) && cleanValue != "" ? cleanValue : 0;
+         const returnValue = !isNaN(+cleanValue) && cleanValue != "" ? cleanValue : 0;
          return currency + "0.0" + returnValue;
       }
 

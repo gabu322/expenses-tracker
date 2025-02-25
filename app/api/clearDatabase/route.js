@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
+export async function GET(req) {
    try {
       await prisma.creditCard.deleteMany();
       await prisma.debitCard.deleteMany();

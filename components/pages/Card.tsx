@@ -1,4 +1,5 @@
 import { CardType, IssuerType } from "@/utils/types";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { darken, lighten } from "polished";
 
@@ -20,10 +21,12 @@ export function Card({ className, card, issuer }: CardProps) {
          style={{ background: `linear-gradient(to bottom, ${darkenedColor}, ${lightenedColor})` }}
       >
          <div className="flex flex-row justify-between mb-2 h-10">
-            <img
-               src={issuer?.icon}
-               alt={issuer?.name}
+            <Image
+               src={issuer?.icon || "/default-icon.png"}
+               alt={issuer?.name || "Issuer Icon"}
                className="h-10 w-16"
+               width={64}
+               height={40}
             />
             <h4>{card.nickname}</h4>
          </div>

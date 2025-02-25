@@ -21,23 +21,23 @@ export function CurrentCardProvider({ children }: { children: React.ReactNode })
    const [transactions, setTransactions] = useState<TransactionType[]>([]);
    const [loading, setLoading] = useState(true);
 
-   const fetchTransactions = async () => {
-      try {
-         const response = await axios.get(`/api/transactions/${id}`);
-         setTransactions(response.data);
-         setLoading(false);
-      } catch (error) {
-         console.error("Failed to fetch transactions:", error);
-      }
-   };
-
    useEffect(() => {
       const foundCard = cards.find((card) => card.id === id || null);
 
-      if (id && foundCard) {
-         setCard(foundCard);
-         fetchTransactions();
-      }
+      if (!id || !foundCard) return;
+
+      const fetchTransactions = async () => {
+         try {
+            const response = await axios.get(`/api/transactions/${id}`);
+            setTransactions(response.data);
+            setLoading(false);
+         } catch (error) {
+            console.error("Failed to fetch transactions:", error);
+         }
+      };
+
+      setCard(foundCard);
+      fetchTransactions();
    }, [id, cards]);
 
    return <CurrentCardContext.Provider value={{ card, setCard, transactions, setTransactions, loading }}>{children}</CurrentCardContext.Provider>;

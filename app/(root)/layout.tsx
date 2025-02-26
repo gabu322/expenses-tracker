@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/navbar/Navbar";
 import { SessionProvider } from "next-auth/react";
-import { CardProvider } from "./contex";
+import { CardProvider } from "./CardContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
    return (

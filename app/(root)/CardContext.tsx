@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { CardType } from "@/utils/types";
+import { CardType, TransactionType } from "@/utils/types";
 import axios from "axios";
 
 interface CardContextType {
    cards: CardType[];
    setCards: React.Dispatch<React.SetStateAction<CardType[]>>;
+   transactions: TransactionType[] | null;
+   setTransactions: React.Dispatch<React.SetStateAction<TransactionType[] | null>>;
 }
 
 const CardContext = createContext<CardContextType | null>(null);
@@ -15,6 +17,7 @@ const CardContext = createContext<CardContextType | null>(null);
 export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    const { data: session } = useSession();
    const [cards, setCards] = useState<CardType[]>([]);
+   const [transactions, setTransactions] = useState<TransactionType[] | null>(null);
 
    const fetchCards = async () => {
       try {
@@ -29,7 +32,7 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 
-   return <CardContext.Provider value={{ cards, setCards }}>{children}</CardContext.Provider>;
+   return <CardContext.Provider value={{ cards, setCards, transactions, setTransactions }}>{children}</CardContext.Provider>;
 };
 
 export function useCards() {

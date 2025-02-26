@@ -5,7 +5,7 @@ import axios from "axios";
 
 import Button from "@/components/Button";
 import { IssuerType } from "@/utils/types/index";
-import { useCards } from "./contex";
+import { useCards } from "./CardContext";
 import { Card } from "@/components/pages/Card";
 
 export default function Home() {

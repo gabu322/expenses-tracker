@@ -1,16 +1,42 @@
 "use client";
 
-import { useCurrentCard } from "./contex";
 import IDollar from "@/public/icons/dynamic/dollar";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
+import { useCards } from "@/app/(root)/CardContext";
+import axios from "axios";
 
 export default function Page() {
-   const { card, transactions, loading } = useCurrentCard();
+   const { id } = useParams();
+   const { cards, transactions, setTransactions } = useCards();
    const [debitNet, setDebitNet] = useState<number>(0);
+   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
 
    useEffect(() => {
-      const debitTransactions = transactions.filter((transaction) => transaction.method === "DEBIT");
+      console.log(id, cards, currentCardIndex);
+      const currentCard = cards.findIndex((card) => card.id === id);
+      if (currentCard === -1) return;
+      setCurrentCardIndex(currentCard);
+   }, [id, cards]);
+
+   useEffect(() => {
+      const fetchTransactions = async () => {
+         try {
+            const response = await axios.get(`/api/transactions/${id}`);
+            setTransactions(response.data);
+         } catch (error) {
+            console.error("Failed to fetch transactions:", error);
+         }
+      };
+
+      fetchTransactions();
+   }, [id]);
+
+   useEffect(() => {
+      const debitTransactions = transactions?.filter((transaction) => transaction.method === "DEBIT");
+
+      if (!debitTransactions) return;
 
       const net = debitTransactions.reduce((acc, transaction) => {
          if (transaction.type === "EXPENSE") return acc - transaction.amount;
@@ -18,23 +44,17 @@ export default function Page() {
          return acc;
       }, 0);
 
+      console.log("calculate debit");
       setDebitNet(net);
    }, [transactions]);
 
-   if (loading)
-      return (
-         <div className="flex flex-col gap-4">
-            <h2>Carregando...</h2>
-         </div>
-      );
-
    return (
       <div className="flex flex-col gap-4">
-         <h2>{card?.nickname}</h2>
+         <h2>{cards[currentCardIndex]?.nickname}</h2>
 
          <div className="w-full grid grid-cols-2 gap-4">
             {/* Debit card info */}
-            {card?.debit && (
+            {cards[currentCardIndex]?.debit && (
                <>
                   <div className="card h-16 flex-row-4">
                      <IDollar
@@ -46,7 +66,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.balance || 0}
+                           end={cards[currentCardIndex]?.balance || 0}
                            decimals={2}
                         />
                      </div>
@@ -70,7 +90,7 @@ export default function Page() {
             )}
 
             {/* Credit card info */}
-            {card?.credit && (
+            {cards[currentCardIndex]?.credit && (
                <>
                   <div className="card h-16 flex-row-4">
                      <IDollar
@@ -82,7 +102,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.limit || 0}
+                           end={cards[currentCardIndex]?.limit || 0}
                            decimals={2}
                         />
                      </div>
@@ -97,7 +117,7 @@ export default function Page() {
                         <CountUp
                            className="font-bold"
                            prefix="$"
-                           end={card.usedLimit || 0}
+                           end={cards[currentCardIndex]?.usedLimit || 0}
                            decimals={2}
                         />
                      </div>

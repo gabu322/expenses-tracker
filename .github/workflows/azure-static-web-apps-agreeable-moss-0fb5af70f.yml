@@ -20,10 +20,6 @@ jobs:
               submodules: true
               lfs: false
 
-         # Add this step to set proper permissions
-         - name: Set git config permissions
-           run: sudo chown -R $USER:$USER .git
-
          - name: Build And Deploy
            id: builddeploy
            uses: Azure/static-web-apps-deploy@v1

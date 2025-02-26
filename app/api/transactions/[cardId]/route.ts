@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createTransactionSchema } from "@/lib/validation/transactionValidation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { TransactionType, TransactionMethod } from "@/prisma/generated/client";
 import { getParams, ParamsType } from "@/utils/params";
 import { ZodError } from "zod";

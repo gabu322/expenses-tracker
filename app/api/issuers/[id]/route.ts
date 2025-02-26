@@ -9,7 +9,6 @@ export async function handler(req: NextRequest, context: ParamsType) {
 
    try {
       const issuer = await prisma.issuer.findUnique({ where: { id } });
-      console.log(issuer);
       if (!issuer) return NextResponse.json({ error: "Issuer not found" }, { status: 404 });
 
       switch (req.method) {

@@ -7,7 +7,7 @@ import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
 import { handleChangeType } from "@/utils/types/handleChange";
-import { CardType, TransactionType } from "@/utils/types";
+import { TransactionType } from "@/utils/types";
 import { useCards } from "@/app/(root)/CardContext";
 
 interface Option {

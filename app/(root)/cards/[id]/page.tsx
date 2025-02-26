@@ -43,6 +43,7 @@ export default function Page() {
       };
 
       fetchTransactions();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [id]);
 
    useEffect(() => {
@@ -69,6 +70,7 @@ export default function Page() {
             usedLimit: currentValues?.usedLimit || 0,
          });
       }, 2050);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [currentCardIndex, cards, transactions]);
 
    return (

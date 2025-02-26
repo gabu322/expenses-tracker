@@ -4,7 +4,7 @@ import { updateIssuerSchema } from "@/lib/validation/issuerValidation";
 import { getParams, ParamsType } from "@/utils/params";
 import { ZodError } from "zod";
 
-export async function handler(req: NextRequest, context: ParamsType) {
+async function handler(req: NextRequest, context: ParamsType) {
    const { id } = await getParams(context);
 
    try {

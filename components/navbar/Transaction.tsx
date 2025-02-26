@@ -8,6 +8,7 @@ import Input from "../Input";
 import Select from "../Select";
 import { handleChangeType } from "@/utils/types/handleChange";
 import { CardType, TransactionType } from "@/utils/types";
+import { useCards } from "@/app/(root)/CardContext";
 
 interface Option {
    value: string;
@@ -20,8 +21,8 @@ interface TransactionProps {
 }
 
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
-   const [cards, setCards] = useState<CardType[]>([]);
-   const [transaction, setTransaction] = useState<TransactionType>({
+   const { cards, fetchCards, setTransactions } = useCards();
+   const [newTransaction, setNewTransaction] = useState<TransactionType>({
       cardId: null,
       type: null,
       method: null,
@@ -31,19 +32,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
    });
 
    useEffect(() => {
-      axios
-         .get("/api/cards")
-         .then((response) => setCards(response.data))
-         .catch((error) => console.error("Error fetching cards:", error));
-   }, []);
-
-   useEffect(() => {
-      if (transaction.cardId === null) setTransaction((prev) => ({ ...prev, method: null, type: null }));
-   }, [transaction.cardId]);
+      if (newTransaction.cardId === null) setNewTransaction((prev) => ({ ...prev, method: null, type: null }));
+   }, [newTransaction.cardId]);
 
    const [cardMethods, setCardMethods] = useState<Option[]>([]);
    useEffect(() => {
-      const currentSelectedCard = cards.find((card) => card.id === transaction.cardId);
+      const currentSelectedCard = cards.find((card) => card.id === newTransaction.cardId);
       setCardMethods([]);
 
       const methods = [];
@@ -54,15 +48,15 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          methods.push({ value: "CREDIT", text: "Crédito" });
       }
       setCardMethods(methods);
-   }, [transaction.cardId, cards]);
+   }, [newTransaction.cardId, cards]);
 
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
-      setTransaction((prev) => ({ ...prev, [name]: value }));
+      setNewTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
    const handleClear = () => {
-      setTransaction({
+      setNewTransaction({
          cardId: null,
          amount: 0,
          type: null,
@@ -74,14 +68,15 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (transaction.cardId === null) return;
+      if (newTransaction.cardId === null) return;
 
       try {
          // Submit the transaction and if successful, clear the form and close the navbar
-         await axios.post(`/api/transactions/${transaction.cardId}`, transaction).then(() => {
-            handleClear();
-            toggleNavbar();
-         });
+         await axios.post(`/api/transactions/${newTransaction.cardId}`, newTransaction);
+         handleClear();
+         toggleNavbar();
+         fetchCards();
+         setTransactions((prev) => [...(prev ?? []), newTransaction]);
       } catch (error) {
          console.error("Error saving transaction:", error);
       }
@@ -110,7 +105,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="cardId"
                label="Cartão"
                options={cards.filter((card) => card.id !== undefined).map((card) => ({ value: card.id as string, text: card.nickname }))}
-               initialValue={transaction.cardId}
+               initialValue={newTransaction.cardId}
                onChange={handleChange}
                rounded
                required
@@ -123,10 +118,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="method"
                label="Método de pagamento"
                options={cardMethods}
-               initialValue={transaction.method}
+               initialValue={newTransaction.method}
                onChange={handleChange}
                rounded
-               disabled={transaction.cardId == null}
+               disabled={newTransaction.cardId == null}
                required
             />
 
@@ -135,13 +130,13 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="type"
                label="Tipo"
                options={[
-                  { value: "INCOME", text: transaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
-                  { value: "EXPENSE", text: transaction.method === "DEBIT" ? "Despesa" : "Compra" },
+                  { value: "INCOME", text: newTransaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
+                  { value: "EXPENSE", text: newTransaction.method === "DEBIT" ? "Despesa" : "Compra" },
                ]}
-               initialValue={transaction.type}
+               initialValue={newTransaction.type}
                onChange={handleChange}
                rounded
-               disabled={transaction.cardId === null}
+               disabled={newTransaction.cardId === null}
                required
             />
          </div>
@@ -151,7 +146,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
             name="date"
             label="Data"
             type="datetime-local"
-            initialValue={transaction.date}
+            initialValue={newTransaction.date}
             onChange={handleChange}
             rounded
             required
@@ -161,7 +156,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
             className="w-full"
             name="description"
             label="Descrição"
-            initialValue={transaction.description}
+            initialValue={newTransaction.description}
             onChange={handleChange}
             rounded
             required
@@ -180,7 +175,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                text="Cancelar"
                color="red"
                // onClick={handleClear}
-               onClick={() => console.log(transaction)}
+               onClick={() => console.log(newTransaction)}
             />
          </div>
       </form>

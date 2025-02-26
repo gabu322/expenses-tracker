@@ -8,10 +8,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
    return (
       <main>
          <SessionProvider>
-            <CardProvider>{children}</CardProvider>
-         </SessionProvider>
+            <CardProvider>
+               {children}
 
-         <Navbar />
+               <Navbar />
+            </CardProvider>
+         </SessionProvider>
       </main>
    );
 }

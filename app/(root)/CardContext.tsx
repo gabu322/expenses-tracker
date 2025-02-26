@@ -8,6 +8,7 @@ import axios from "axios";
 interface CardContextType {
    cards: CardType[];
    setCards: React.Dispatch<React.SetStateAction<CardType[]>>;
+   fetchCards: () => Promise<void>;
    transactions: TransactionType[] | null;
    setTransactions: React.Dispatch<React.SetStateAction<TransactionType[] | null>>;
 }
@@ -32,7 +33,7 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 
-   return <CardContext.Provider value={{ cards, setCards, transactions, setTransactions }}>{children}</CardContext.Provider>;
+   return <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions }}>{children}</CardContext.Provider>;
 };
 
 export function useCards() {

@@ -14,7 +14,6 @@ export default function Page() {
    const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
 
    useEffect(() => {
-      console.log(id, cards, currentCardIndex);
       const currentCard = cards.findIndex((card) => card.id === id);
       if (currentCard === -1) return;
       setCurrentCardIndex(currentCard);
@@ -44,7 +43,6 @@ export default function Page() {
          return acc;
       }, 0);
 
-      console.log("calculate debit");
       setDebitNet(net);
    }, [transactions]);
 

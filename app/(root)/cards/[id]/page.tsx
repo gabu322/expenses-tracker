@@ -7,11 +7,24 @@ import CountUp from "react-countup";
 import { useCards } from "@/app/(root)/CardContext";
 import axios from "axios";
 
+interface CurrentValuesType {
+   balance: number;
+   net: number;
+   limit: number;
+   usedLimit: number;
+}
+
 export default function Page() {
    const { id } = useParams();
    const { cards, transactions, setTransactions } = useCards();
    const [debitNet, setDebitNet] = useState<number>(0);
    const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
+   const [currentValues, setCurrentValues] = useState<CurrentValuesType>({
+      balance: 0,
+      net: 0,
+      limit: 0,
+      usedLimit: 0,
+   });
 
    useEffect(() => {
       const currentCard = cards.findIndex((card) => card.id === id);
@@ -46,6 +59,18 @@ export default function Page() {
       setDebitNet(net);
    }, [transactions]);
 
+   useEffect(() => {
+      setTimeout(() => {
+         const currentValues = cards[currentCardIndex];
+         setCurrentValues({
+            balance: currentValues?.balance || 0,
+            net: debitNet,
+            limit: currentValues?.limit || 0,
+            usedLimit: currentValues?.usedLimit || 0,
+         });
+      }, 2050);
+   }, [currentCardIndex, cards, transactions]);
+
    return (
       <div className="flex flex-col gap-4">
          <h2>{cards[currentCardIndex]?.nickname}</h2>
@@ -63,7 +88,8 @@ export default function Page() {
                         <span>Saldo</span>
                         <CountUp
                            className="font-bold"
-                           prefix="$"
+                           prefix="R$"
+                           start={currentValues.balance}
                            end={cards[currentCardIndex]?.balance || 0}
                            decimals={2}
                         />
@@ -78,7 +104,8 @@ export default function Page() {
                         <span>Total do mês</span>
                         <CountUp
                            className="font-bold"
-                           prefix="$"
+                           prefix="R$"
+                           start={currentValues.net}
                            end={debitNet}
                            decimals={2}
                         />
@@ -99,7 +126,8 @@ export default function Page() {
                         <span>Limite</span>
                         <CountUp
                            className="font-bold"
-                           prefix="$"
+                           prefix="R$"
+                           start={currentValues.limit}
                            end={cards[currentCardIndex]?.limit || 0}
                            decimals={2}
                         />
@@ -114,7 +142,8 @@ export default function Page() {
                         <span>Limite gasto</span>
                         <CountUp
                            className="font-bold"
-                           prefix="$"
+                           prefix="R$"
+                           start={currentValues.usedLimit}
                            end={cards[currentCardIndex]?.usedLimit || 0}
                            decimals={2}
                         />

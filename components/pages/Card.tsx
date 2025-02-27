@@ -24,9 +24,10 @@ export function Card({ className, card, issuer }: CardProps) {
             <Image
                src={issuer?.icon || "/default-icon.png"}
                alt={issuer?.name || "Issuer Icon"}
-               className="h-10 w-16"
-               width={64}
+               className="h-10"
+               width={200}
                height={40}
+               style={{ objectFit: "contain", objectPosition: "left" }}
             />
             <h4>{card.nickname}</h4>
          </div>

@@ -18,7 +18,7 @@ export default function Page() {
    const { id } = useParams();
    const { cards, transactions, setTransactions } = useCards();
    const [debitNet, setDebitNet] = useState<number>(0);
-   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
+   const [currentCardIndex, setCurrentCardIndex] = useState<number>(-1);
    const [currentValues, setCurrentValues] = useState<CurrentValuesType>({
       balance: 0,
       net: 0,
@@ -60,19 +60,6 @@ export default function Page() {
       setDebitNet(net);
    }, [transactions]);
 
-   useEffect(() => {
-      setTimeout(() => {
-         const currentValues = cards[currentCardIndex];
-         setCurrentValues({
-            balance: currentValues?.balance || 0,
-            net: debitNet,
-            limit: currentValues?.limit || 0,
-            usedLimit: currentValues?.usedLimit || 0,
-         });
-      }, 2050);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [currentCardIndex, cards, transactions]);
-
    return (
       <div className="flex flex-col gap-4">
          <h2>{cards[currentCardIndex]?.nickname}</h2>
@@ -93,6 +80,7 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.balance}
                            end={cards[currentCardIndex]?.balance || 0}
+                           onEnd={() => setCurrentValues((prev) => ({ ...prev, balance: cards[currentCardIndex]?.balance || 0, net: debitNet }))}
                            decimals={2}
                         />
                      </div>
@@ -109,6 +97,7 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.net}
                            end={debitNet}
+                           onEnd={() => setCurrentValues((prev) => ({ ...prev, net: debitNet, balance: cards[currentCardIndex]?.balance || 0 }))}
                            decimals={2}
                         />
                      </div>
@@ -131,6 +120,7 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.limit}
                            end={cards[currentCardIndex]?.limit || 0}
+                           onEnd={() => setCurrentValues((prev) => ({ ...prev, limit: cards[currentCardIndex]?.limit || 0 }))}
                            decimals={2}
                         />
                      </div>
@@ -147,6 +137,7 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.usedLimit}
                            end={cards[currentCardIndex]?.usedLimit || 0}
+                           onEnd={() => setCurrentValues((prev) => ({ ...prev, usedLimit: cards[currentCardIndex]?.usedLimit || 0 }))}
                            decimals={2}
                         />
                      </div>

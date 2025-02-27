@@ -22,6 +22,7 @@ interface TransactionProps {
 
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
    const { cards, fetchCards, setTransactions } = useCards();
+   const [transactionInitialValue, setTransactionInitialValue] = useState<number>(0);
    const [newTransaction, setNewTransaction] = useState<TransactionType>({
       cardId: null,
       type: null,
@@ -64,6 +65,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          description: "",
          method: null,
       });
+      setTransactionInitialValue(0); // TODO: PROVISORY FIX
    };
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,6 +98,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                label="Valor"
                currency="R$"
                onChange={handleChange}
+               initialValue={transactionInitialValue}
                rounded
                required
             />

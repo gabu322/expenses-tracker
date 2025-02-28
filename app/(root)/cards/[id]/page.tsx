@@ -38,7 +38,7 @@ export default function Page() {
    useEffect(() => {
       const fetchTransactions = async () => {
          try {
-            const response = await axios.get(`/api/transactions/${id}`);
+            const response = await axios.get(`/api/transactions`, { params: { cardId: id } });
             setTransactions(response.data);
          } catch (error) {
             console.error("Failed to fetch transactions:", error);

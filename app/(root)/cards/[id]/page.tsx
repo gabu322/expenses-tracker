@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { useCards } from "@/app/(root)/CardContext";
 import axios from "axios";
+import { ChevronRight } from "lucide-react";
 
 interface CurrentValuesType {
    balance: number;
@@ -155,22 +156,25 @@ export default function Page() {
                   ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                   .map((transaction) => (
                      <div
-                        className="flex flex-col gap-2 p-3 border-t-2"
+                        className="flex flex-row gap-2 p-2 pr-0 border-t-2"
                         key={transaction.id}
                      >
-                        <div className="w-full flex flex-row justify-between font-bold">
-                           <span>{transaction.description}</span>
+                        <div className="flex flex-col gap-1 w-full">
+                           <div className="w-full flex flex-row justify-between font-bold">
+                              <span>{transaction.description}</span>
 
-                           <span className={transaction.type == "EXPENSE" ? "text-red-500" : "text-green-400"}>
-                              {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
-                           </span>
+                              <span className={transaction.type == "EXPENSE" ? "text-red-500" : "text-green-400"}>
+                                 {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
+                              </span>
+                           </div>
+
+                           <div className="w-full flex flex-row justify-between text-slate-400 text-[14px]">
+                              <div>{transaction.method === "DEBIT" ? "Débito" : "Crédito"}</div>
+
+                              <div>{new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" })}</div>
+                           </div>
                         </div>
-
-                        <div className="w-full flex flex-row justify-between text-slate-400">
-                           <div>{transaction.method === "DEBIT" ? "Débito" : "Crédito"}</div>
-
-                           <div>{new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" })}</div>
-                        </div>
+                        <ChevronRight className="h-[34px] w-[34px]" />
                      </div>
                   ))}
             </div>

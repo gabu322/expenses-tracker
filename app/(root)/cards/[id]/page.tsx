@@ -7,6 +7,7 @@ import CountUp from "react-countup";
 import { useCards } from "@/app/(root)/CardContext";
 import axios from "axios";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CurrentValuesType {
    balance: number;
@@ -17,6 +18,7 @@ interface CurrentValuesType {
 
 export default function Page() {
    const { id } = useParams();
+   const router = useRouter();
    const { cards, transactions, setTransactions } = useCards();
    const [debitNet, setDebitNet] = useState<number>(0);
    const [currentCardIndex, setCurrentCardIndex] = useState<number>(-1);
@@ -174,7 +176,10 @@ export default function Page() {
                               <div>{new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" })}</div>
                            </div>
                         </div>
-                        <ChevronRight className="h-[34px] w-[34px]" />
+                        <ChevronRight
+                           className="h-[34px] w-[34px] cursor-pointer"
+                           onClick={() => router.push(`/api/transactions/${id}`)}
+                        />
                      </div>
                   ))}
             </div>

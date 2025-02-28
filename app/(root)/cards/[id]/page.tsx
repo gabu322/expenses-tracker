@@ -128,7 +128,7 @@ export default function Page() {
                   <div className="card h-16 flex-row-4">
                      <IDollar
                         className="h-10 w-10 p-1 bg-red-200 rounded-md"
-                        color="red"
+                        color="rgb(185 28 28)"
                      />
                      <div className="flex flex-col justify-around">
                         <span>Limite gasto</span>
@@ -144,6 +144,36 @@ export default function Page() {
                   </div>
                </>
             )}
+         </div>
+
+         {/* Transactions */}
+         <div className="flex flex-col gap-2 card">
+            <h3>Transações</h3>
+
+            <div>
+               {transactions
+                  ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map((transaction) => (
+                     <div
+                        className="flex flex-col gap-2 p-3 border-t-2"
+                        key={transaction.id}
+                     >
+                        <div className="w-full flex flex-row justify-between font-bold">
+                           <span>{transaction.description}</span>
+
+                           <span className={transaction.type == "EXPENSE" ? "text-red-500" : "text-green-400"}>
+                              {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
+                           </span>
+                        </div>
+
+                        <div className="w-full flex flex-row justify-between text-slate-400">
+                           <div>{transaction.method === "DEBIT" ? "Débito" : "Crédito"}</div>
+
+                           <div>{new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" })}</div>
+                        </div>
+                     </div>
+                  ))}
+            </div>
          </div>
       </div>
    );

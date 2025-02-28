@@ -17,9 +17,7 @@
 } */
 
 body {
-   @apply bg-blue-50 text-slate-800;
-   color: rgb(var(--foreground-rgb));
-   background: bg-gray-100;
+   @apply bg-slate-100 text-slate-700;
    line-height: 1;
 }
 

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
+import { createTransactionSchema } from "@/lib/validation/transactionValidation";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = await getParams(context);
@@ -13,19 +14,31 @@ async function handler(req: NextRequest, context: ParamsType) {
 
       switch (req.method) {
          case "GET":
-            const transactions = await prisma.transaction.findUnique({
+            const transaction = await prisma.transaction.findUnique({
+               where: {
+                  id,
+                  card: { userId: session.user.id },
+               },
+            });
+
+            if (!transaction) throw new Error("Transaction not found");
+
+            return NextResponse.json(transaction, { status: 200 });
+
+         case "PUT":
+            const data = await req.json();
+            const transactionData = createTransactionSchema.parse(data);
+
+            const updatedTransaction = await prisma.transaction.update({
                where: { id },
+               data: {
+                  ...transactionData,
+                  type: transactionData.type as any,
+                  method: transactionData.method as any,
+               },
             });
 
-            const card = await prisma.card.findUnique({
-               where: { id: transactions?.cardId },
-               include: { debitCard: true, creditCard: true },
-            });
-
-            if (card?.userId !== session.user.id) throw new Error("Card does not belong to user");
-
-            return NextResponse.json(transactions, { status: 200 });
-
+            return NextResponse.json(updatedTransaction, { status: 200 });
          default:
             return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
       }
@@ -35,4 +48,4 @@ async function handler(req: NextRequest, context: ParamsType) {
    }
 }
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as PUT };

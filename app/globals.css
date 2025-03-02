@@ -56,5 +56,5 @@ h6 {
 }
 
 .card {
-   @apply bg-white shadow rounded p-3;
+   @apply bg-white shadow rounded;
 }

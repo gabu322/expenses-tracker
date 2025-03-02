@@ -127,7 +127,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
       // If the value is not a number or is a single character, return a default value
       if (isNaN(+cleanValue) || String(value).length <= 1) {
          const returnValue = !isNaN(+cleanValue) && cleanValue != "" ? cleanValue : 0;
-         return currency + "0.0" + returnValue;
+         return currency + returnValue.toString() + ".00";
       }
 
       let numericValue = parseFloat(cleanValue);

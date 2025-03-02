@@ -67,7 +67,6 @@ export default function Select({ id, className = "", name, label, options, onCha
 
    useEffect(() => {
       if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [isFocused]);
 
    useEffect(() => {
@@ -77,7 +76,6 @@ export default function Select({ id, className = "", name, label, options, onCha
          const selectedOption = options.find((option) => option.value === initialValue);
          setValue(selectedOption ? selectedOption.text : "");
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [initialValue]);
 
    const handleOptionClick = (option: Option) => {

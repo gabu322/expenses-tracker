@@ -37,7 +37,6 @@ export default function Page() {
       if (selectedCardMethods?.credit) methods.push({ value: "CREDIT", text: "Crédito" });
 
       setMethods(methods);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [cards]);
 
    useEffect(() => {

@@ -4,7 +4,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
 import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
 import { createTransactionSchema } from "@/lib/validation/transactionValidation";
-import { ParamsType } from "@/utils/params";
 
 async function handler(req: NextRequest) {
    try {

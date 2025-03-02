@@ -65,8 +65,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
       }
 
       setValue(formattedValue);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [initialValue, currency, mask, type]);
+   }, []);
 
    useEffect(() => {
       if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });

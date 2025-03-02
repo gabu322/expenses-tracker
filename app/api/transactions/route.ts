@@ -6,7 +6,7 @@ import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
 import { createTransactionSchema } from "@/lib/validation/transactionValidation";
 import { ParamsType } from "@/utils/params";
 
-async function handler(req: NextRequest, context: ParamsType) {
+async function handler(req: NextRequest) {
    try {
       const session = await getServerSession(authOptions);
       if (!session || !session.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

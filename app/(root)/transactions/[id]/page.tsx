@@ -18,7 +18,7 @@ interface Option {
 export default function Page() {
    const { id } = useParams();
    const { cards, transactions } = useCards();
-   const [transactionInitialValue, setTransactionInitialValue] = useState<number>(0);
+
    const [transaction, setTransaction] = useState<TransactionType>({
       cardId: null,
       type: null,
@@ -37,6 +37,7 @@ export default function Page() {
       if (selectedCardMethods?.credit) methods.push({ value: "CREDIT", text: "Crédito" });
 
       setMethods(methods);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [cards]);
 
    useEffect(() => {

@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
 import { createTransactionSchema } from "@/lib/validation/transactionValidation";
+import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = await getParams(context);
@@ -33,8 +34,8 @@ async function handler(req: NextRequest, context: ParamsType) {
                where: { id },
                data: {
                   ...transactionData,
-                  type: transactionData.type as any,
-                  method: transactionData.method as any,
+                  type: transactionData.type as TransactionType,
+                  method: transactionData.method as TransactionMethod,
                },
             });
 

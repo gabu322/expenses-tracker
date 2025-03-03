@@ -80,6 +80,7 @@ export default function Page() {
             initialValue={transaction.amount}
             required
          />
+
          <Select
             name="method"
             label="Método de pagamento"
@@ -88,6 +89,7 @@ export default function Page() {
             initialValue={transaction.method}
             required
          />
+
          <Select
             name="type"
             label="Tipo"
@@ -99,6 +101,7 @@ export default function Page() {
             onChange={handleChange}
             required
          />
+
          <Input
             name="date"
             label="Data"
@@ -107,13 +110,16 @@ export default function Page() {
             // initialValue={new Date(transaction.date).toISOString()}
             required
          />
+
          <Input
             name="description"
             label="Descrição"
             onChange={handleChange}
             initialValue={transaction.description}
          />
+
          <Button type="submit">Atualizar</Button>
+
          <Button
             type="button"
             onClick={() => console.log(transaction)}

@@ -42,7 +42,7 @@ export default function Button({ className = "", type = "button", onClick, color
    ) : (
       <button
          type={type}
-         className={`flex items-center justify-center relative h-10 px-3 shadow-sm hover:shadow transition-all duration-200 cursor-pointer font-semibold text-sm ${textColor} ${className} ${bg_color} ${hover_color} ${rounded ? "rounded-full" : "rounded"}`}
+         className={`flex items-center justify-center relative h-10 px-3 shadow-sm hover:shadow transition-all duration-200 font-semibold text-sm ${disabled ? "cursor-default" : "cursor-pointer"} ${textColor} ${className} ${bg_color} ${hover_color} ${rounded ? "rounded-full" : "rounded"}`}
          onClick={onClick}
          disabled={disabled}
       >

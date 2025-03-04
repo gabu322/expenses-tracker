@@ -1,5 +1,6 @@
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import { Slide, ToastContainer } from "react-toastify";
 
 const nunito = Nunito({
    subsets: ["latin"],
@@ -14,7 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
    return (
       <html lang="en">
-         <body className={nunito.className}>{children}</body>
+         <body className={nunito.className}>
+            {children}
+            <ToastContainer
+               autoClose={3000}
+               pauseOnHover={false}
+               position="bottom-right"
+               transition={Slide}
+            />
+         </body>
       </html>
    );
 }

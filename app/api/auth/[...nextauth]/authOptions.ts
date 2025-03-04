@@ -23,16 +23,16 @@ export const authOptions: NextAuthOptions = {
             password: { label: "Password", type: "password" },
          },
          async authorize(credentials): Promise<User> {
-            if (!credentials?.email || !credentials?.password) throw new Error("Email and password are required");
+            if (!credentials?.email || !credentials?.password) throw new Error("Email e senha são obrigatórios");
 
             const user = await prisma.user.findUnique({
                where: { email: credentials.email },
             });
 
-            if (!user) throw new Error("Invalid email or password");
+            if (!user) throw new Error("Email inválido");
 
             const isValidPassword = await bcrypt.compare(credentials.password, user.password);
-            if (!isValidPassword) throw new Error("Invalid email or password");
+            if (!isValidPassword) throw new Error("Senha incorreta");
 
             return {
                id: user.id,

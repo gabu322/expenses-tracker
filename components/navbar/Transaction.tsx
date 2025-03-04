@@ -22,7 +22,6 @@ interface TransactionProps {
 
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
    const { cards, fetchCards, setTransactions } = useCards();
-   const [transactionInitialValue, setTransactionInitialValue] = useState<number>(0);
    const [newTransaction, setNewTransaction] = useState<TransactionType>({
       cardId: null,
       type: null,
@@ -65,7 +64,6 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          description: "",
          method: null,
       });
-      setTransactionInitialValue(0); // TODO: PROVISORY FIX
    };
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +72,9 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
       try {
          // Submit the transaction and if successful, clear the form and close the navbar
-         await axios.post(`/api/transactions/${newTransaction.cardId}`, newTransaction);
+         console.log("here");
+         await axios.post(`/api/transactions/?cardId=${newTransaction.cardId}`, newTransaction);
+
          handleClear();
          toggleNavbar();
          fetchCards();
@@ -98,7 +98,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                label="Valor"
                currency="R$"
                onChange={handleChange}
-               initialValue={transactionInitialValue}
+               value={newTransaction.amount}
                rounded
                required
             />
@@ -149,7 +149,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
             name="date"
             label="Data"
             type="datetime-local"
-            initialValue={newTransaction.date}
+            value={newTransaction.date}
             onChange={handleChange}
             rounded
             required
@@ -159,7 +159,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
             className="w-full"
             name="description"
             label="Descrição"
-            initialValue={newTransaction.description}
+            value={newTransaction.description}
             onChange={handleChange}
             rounded
             required
@@ -177,8 +177,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                className="w-full"
                text="Cancelar"
                color="red"
-               // onClick={handleClear}
-               onClick={() => console.log(newTransaction)}
+               onClick={handleClear}
             />
          </div>
       </form>

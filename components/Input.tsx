@@ -1,5 +1,6 @@
 "use client";
 
+import { clear } from "console";
 import React, { useState, useEffect, useRef } from "react";
 
 interface InputProps {
@@ -9,6 +10,7 @@ interface InputProps {
    label?: string;
    type?: string;
    initialValue?: string | number;
+   value?: string | number;
    onChange?: (event: { target: { name: string; value: string | number } }) => void;
    size?: keyof typeof sizeConfig;
    mask?: string;
@@ -46,8 +48,8 @@ const sizeConfig = {
    },
 };
 
-export default function Input({ id, className = "", name, label, type = "text", initialValue = "", onChange, size = "md", mask, currency, underText, rounded, required, disabled }: InputProps) {
-   const [value, setValue] = useState<string | number>("");
+export default function Input({ id, className = "", name, label, type = "text", initialValue = "", value, onChange, size = "md", mask, currency, underText, rounded, required, disabled }: InputProps) {
+   const [internalValue, setInternalValue] = useState<string | number>("");
    const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
    const [isFocused, setIsFocused] = useState<boolean>(false);
    const sizes = sizeConfig[size];
@@ -55,41 +57,47 @@ export default function Input({ id, className = "", name, label, type = "text", 
 
    useEffect(() => {
       let formattedValue = initialValue.toString() || "";
+      formattedValue = formatValue(formattedValue);
 
-      if (currency) {
-         formattedValue = initialValue ? formatCurrency(formattedValue) : currency + "0.00";
-      } else if (mask) {
-         formattedValue = initialValue ? formatMask(formattedValue, mask) : "";
-      } else if (type === "color") {
-         formattedValue = initialValue ? formatColor(formattedValue) : "#000000";
-      }
-
-      setValue(formattedValue);
+      setInternalValue(formattedValue);
    }, []);
+
+   useEffect(() => {
+      let formattedValue = value?.toString() || "";
+
+      if (formatted) {
+         setFormatted(false);
+      } else {
+         formattedValue = formatValue(formattedValue);
+         setInternalValue(formattedValue);
+      }
+   }, [value]);
 
    useEffect(() => {
       if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });
    }, [isFocused, infoColor.outline]);
 
+   const [formatted, setFormatted] = useState<boolean>(false);
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let newValue = e.target.value;
 
-      if (mask) newValue = formatMask(newValue, mask);
-      if (currency) newValue = formatCurrency(newValue);
-      if (type === "color") newValue = formatColor(newValue);
+      newValue = formatValue(newValue);
+      setInternalValue(newValue);
 
-      setValue(newValue);
-
-      if (onChange)
+      if (onChange) {
          onChange({
             target: {
                name,
-               value: currency ? parseFloat(newValue.replace(/[^\d.]/g, "")) : newValue,
+               value: currency ? parseFloat(newValue.replace(currency, "")) : newValue,
             },
          });
+      }
+
+      setFormatted(true);
    };
 
-   const formatMask = (value: string, mask: string): string => {
+   const formatMask = (value: string): string => {
+      if (!mask) return value; // If there is no mask, return the value as is
       let formattedValue = "";
       let valueIndex = 0;
 
@@ -119,6 +127,8 @@ export default function Input({ id, className = "", name, label, type = "text", 
    };
 
    const formatCurrency = (value: string): string => {
+      if (value === currency) return currency + "0.00"; // If everything is deleted, return a default value
+
       const cleanValue = value
          .replace(/[^\d.]/g, "") // Remove invalid characters
          .replace(/(\..*)\./g, "$1"); // Remove extra dots
@@ -133,17 +143,24 @@ export default function Input({ id, className = "", name, label, type = "text", 
 
       // If the value has more than 2 decimal places, shift the value to the left
       const decimalPlaces = (cleanValue.split(".")[1] || "").length;
-      if (decimalPlaces > 2) {
-         numericValue = numericValue * 10;
-      } else if (decimalPlaces == 1) {
-         numericValue = numericValue / 10;
-      }
+      if (decimalPlaces > 2) numericValue = numericValue * 10;
+      else if (decimalPlaces == 1) numericValue = numericValue / 10;
 
       return currency + numericValue.toFixed(2);
    };
 
    const formatColor = (value: string): string => {
+      if (value === "#" || value === "") return "#000000"; // If everything is deleted, return a default value
+
       return "#" + value.replace(/[^a-fA-F0-9]/g, "").slice(0, 6);
+   };
+
+   const formatValue = (value: string): string => {
+      if (currency) return formatCurrency(value);
+      else if (mask) return formatMask(value);
+      else if (type === "color") return formatColor(value);
+
+      return value;
    };
 
    return (
@@ -160,7 +177,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
          {type === "color" && (
             <div
                className="rounded-md h-6 w-6 my-auto overflow-hidden relative cursor-pointer flex-shrink-0"
-               style={{ backgroundColor: value.toString() }}
+               style={{ backgroundColor: internalValue.toString() }}
                onClick={() => {
                   const colorInput = document.getElementById(`${id || name}-color`);
                   if (colorInput) colorInput.click();
@@ -170,7 +187,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
                   ref={inputRef}
                   id={`${id || name}-color`}
                   type="color"
-                  value={value}
+                  value={internalValue}
                   onChange={handleInputChange}
                   className="w-0 h-0 cursor-pointer absolute bottom-0"
                />
@@ -183,7 +200,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
             name={name}
             className={`outline-none w-full bg-transparent my-auto`}
             type={type == "color" ? "text" : type}
-            value={value}
+            value={internalValue}
             onChange={handleInputChange}
             onInvalid={() => setInfoColor({ outline: "#fca5a5", text: "#f87171" })}
             disabled={disabled}
@@ -196,7 +213,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
             <label
                htmlFor={id || name}
                className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 leading-1
-            ${isFocused || value || type == "date" || type == "month" || type == "color" || type == "datetime-local" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} 
+            ${isFocused || internalValue || type == "date" || type == "month" || type == "color" || type == "datetime-local" ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} 
             ${disabled ? "bg-gray-200" : "bg-white"}`}
                style={{ color: infoColor.text }}
             >

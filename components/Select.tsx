@@ -17,6 +17,7 @@ interface SelectProps {
    onChange?: (event: { target: { name: string; value: string | null } }) => void;
    size?: "sm" | "md" | "lg" | "xl";
    initialValue?: string | null;
+   value?: string | null;
    searchable?: boolean;
    showOptionValue?: boolean;
    rounded?: boolean;
@@ -59,8 +60,8 @@ const sizeConfig = {
    },
 };
 
-export default function Select({ id, className = "", name, label, options, onChange, size = "md", initialValue, searchable = true, showOptionValue = false, rounded, required, disabled }: SelectProps) {
-   const [value, setValue] = useState<string>("");
+export default function Select({ id, className = "", name, label, options, onChange, size = "md", initialValue, value, searchable = true, showOptionValue = false, rounded, required, disabled }: SelectProps) {
+   const [internalValue, setInternalValue] = useState<string>("");
    const [isFocused, setIsFocused] = useState<boolean>(false);
    const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
    const sizes = sizeConfig[size];
@@ -69,14 +70,33 @@ export default function Select({ id, className = "", name, label, options, onCha
       if (isFocused && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#3b82f6", text: "#3b82f6" });
    }, [isFocused]);
 
+   // Update value on render
    useEffect(() => {
       if (initialValue == "" || initialValue == null) {
          handleErase();
       } else if (initialValue) {
          const selectedOption = options.find((option) => option.value === initialValue);
-         setValue(selectedOption ? selectedOption.text : "");
+         setInternalValue(selectedOption ? selectedOption.text : "");
       }
-   }, [initialValue]);
+   }, []);
+
+   // Update value on changing
+   useEffect(() => {
+      if (value === "") {
+         handleErase();
+      } else if (value) {
+         setInternalValue(value);
+         const selectedOption = options.find((option) => option.value === value);
+         if (selectedOption) setInternalValue(selectedOption ? selectedOption.text : "");
+      }
+   }, [value]);
+
+   // Update value on option changing
+   useEffect(() => {
+      const selectedOption = options.find((option) => option.text === internalValue);
+
+      if (selectedOption) setInternalValue(selectedOption.text);
+   }, [options]);
 
    const handleOptionClick = (option: Option) => {
       if (option.disabled) return;
@@ -93,7 +113,7 @@ export default function Select({ id, className = "", name, label, options, onCha
    };
 
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value);
+      setInternalValue(e.target.value);
 
       if (onChange) {
          const selectedOption = options.find((option) => option.text === e.target.value);
@@ -107,7 +127,7 @@ export default function Select({ id, className = "", name, label, options, onCha
    };
 
    const handleErase = (): void => {
-      setValue("");
+      setInternalValue("");
       if (onChange) onChange({ target: { name, value: null } });
       setIsFocused(false);
    };
@@ -129,7 +149,7 @@ export default function Select({ id, className = "", name, label, options, onCha
             name={name}
             className={`outline-none w-full ${sizes.inputMargin}`}
             type="text"
-            value={value}
+            value={internalValue}
             onChange={handleInputChange}
             onInvalid={() => setInfoColor({ outline: "#fca5a5", text: "#f87171" })}
             autoComplete="off"
@@ -141,7 +161,7 @@ export default function Select({ id, className = "", name, label, options, onCha
          {label && (
             <label
                htmlFor={id || name}
-               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || value ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-100" : "bg-white"}`}
+               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || internalValue ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-100" : "bg-white"}`}
                style={{ color: infoColor.text }}
             >
                {label}
@@ -152,7 +172,7 @@ export default function Select({ id, className = "", name, label, options, onCha
          {isFocused && (
             <div className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-60 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                {options
-                  .filter((option) => option.text.toLowerCase().includes((value || "").toLowerCase()))
+                  .filter((option) => option.text.toLowerCase().includes((internalValue || "").toLowerCase()))
                   .map((option) => (
                      <div
                         key={option.value}

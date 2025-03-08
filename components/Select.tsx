@@ -75,8 +75,8 @@ export default function Select({ id, className = "", name, label, options, onCha
       if (initialValue == "" || initialValue == null) {
          handleErase();
       } else if (initialValue) {
-         const selectedOption = options.find((option) => option.value === initialValue);
-         setInternalValue(selectedOption ? selectedOption.text : "");
+         const selectedOption = options.find((option) => option.value === initialValue || option.text === initialValue);
+         if (selectedOption) setInternalValue(selectedOption.text);
       }
    }, []);
 
@@ -85,16 +85,15 @@ export default function Select({ id, className = "", name, label, options, onCha
       if (value === "") {
          handleErase();
       } else if (value) {
-         setInternalValue(value);
-         const selectedOption = options.find((option) => option.value === value);
-         if (selectedOption) setInternalValue(selectedOption ? selectedOption.text : "");
+         const selectedOption = options.find((option) => option.value === value || option.text === value);
+
+         if (selectedOption) setInternalValue(selectedOption.text);
       }
    }, [value]);
 
    // Update value on option changing
    useEffect(() => {
-      const selectedOption = options.find((option) => option.text === internalValue);
-
+      const selectedOption = options.find((option) => option.value === value || option.text === value);
       if (selectedOption) setInternalValue(selectedOption.text);
    }, [options]);
 

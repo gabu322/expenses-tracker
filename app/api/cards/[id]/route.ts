@@ -3,8 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { updateCardSchema } from "@/lib/validation/cardValidation.js";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { getParams, ParamsType } from "@/lib/functions/params";
-import { CardType } from "@/lib/types";
+import { getParams, ParamsType } from "@/utils/params";
+import { CardType } from "@/utils/types";
 import { ZodError } from "zod";
 
 async function handler(req: NextRequest, context: ParamsType) {

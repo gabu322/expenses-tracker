@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { handleChangeType } from "@/lib/types/handleChange";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface Issuer {
    name: string;
@@ -43,43 +43,39 @@ export default function Page() {
       } catch (error) {
          console.error(error);
       }
-   };
+   }
 
-   return (
-      <div className="flex-col-4">
-         <h1>Editar banco: {issuer?.name}</h1>
-         <form
-            onSubmit={handleSubmit}
-            className="flex-col-4"
-         >
-            <Input
-               name="name"
-               label="Nome"
-               initialValue={issuer?.name}
-               onChange={handleChange}
-            />
+   return <div className="flex-col-4">
+      <h1>Editar banco: {issuer?.name}</h1>
+      <form onSubmit={handleSubmit} className="flex-col-4">
+         <Input
+            name="name"
+            label="Nome"
+            initialValue={issuer?.name}
+            onChange={handleChange}
+         />
 
-            <Input
-               name="color"
-               label="Cor"
-               type="color"
-               initialValue={issuer?.color}
-               onChange={handleChange}
-            />
+         <Input
+            name="color"
+            label="Cor"
+            type="color"
+            initialValue={issuer?.color}
+            onChange={handleChange}
+         />
 
-            <Input
-               name="icon"
-               label="Ícone"
-               initialValue={issuer?.icon}
-               onChange={handleChange}
-            />
+         <Input
+            name="icon"
+            label="Ícone"
+            initialValue={issuer?.icon}
+            onChange={handleChange}
+         />
 
-            <Button
-               type="submit"
-               text="Salvar"
-               className="w-full"
-            />
-         </form>
-      </div>
-   );
-}
+         <Button
+            type="submit"
+            text="Salvar"
+            className="w-full"
+         />
+      </form>
+   </div>
+
+};

@@ -4,8 +4,8 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { handleChangeType } from "@/lib/types/handleChange";
-import { IssuerType } from "@/lib/types";
+import { handleChangeType } from "@/utils/types/handleChange";
+import { IssuerType } from "@/utils/types";
 import { Issuer } from "@/components/pages/Issuer";
 
 export default function Page() {

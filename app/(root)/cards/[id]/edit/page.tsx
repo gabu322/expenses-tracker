@@ -8,8 +8,8 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { handleChangeType } from "@/lib/types/handleChange";
-import { CardType, IssuerType } from "@/lib/types";
+import { handleChangeType } from "@/utils/types/handleChange";
+import { CardType, IssuerType } from "@/utils/types";
 
 export default function Page() {
    const { id } = useParams();

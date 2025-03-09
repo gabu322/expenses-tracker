@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 import axios from "axios";
-import { handleChangeType, TransactionType } from "@/lib/types";
+import { handleChangeType, TransactionType } from "@/utils/types";
 import Input from "@/components/Input";
 import { useCards } from "../../CardContext";
 import Select from "@/components/Select";

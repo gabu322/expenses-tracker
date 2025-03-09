@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getParams, ParamsType } from "@/lib/functions/params";
+import { getParams, ParamsType } from "@/utils/params";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = await getParams(context);

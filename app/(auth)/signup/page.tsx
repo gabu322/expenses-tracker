@@ -7,7 +7,7 @@ import axios from "axios";
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { handleChangeType } from "@/lib/types/handleChange";
+import { handleChangeType } from "@/utils/types/handleChange";
 
 interface SignupData {
    email: string;

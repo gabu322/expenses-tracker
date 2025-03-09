@@ -1,4 +1,4 @@
-import { CardType, IssuerType } from "@/lib/types";
+import { CardType, IssuerType } from "@/utils/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { darken, lighten } from "polished";

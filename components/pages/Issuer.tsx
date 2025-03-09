@@ -1,4 +1,4 @@
-import { IssuerType } from "@/lib/types";
+import { IssuerType } from "@/utils/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 

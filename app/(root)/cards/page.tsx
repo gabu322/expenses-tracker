@@ -9,7 +9,7 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { CardType, IssuerType, handleChangeType } from "@/lib/types/index";
+import { CardType, IssuerType, handleChangeType } from "@/utils/types/index";
 
 export default function Page() {
    const router = useRouter();

@@ -58,3 +58,14 @@ h6 {
 .card {
    @apply bg-white shadow rounded;
 }
+
+/* On mobile */
+@media (max-width: 640px) {
+   .Toastify__toast-container {
+      @apply p-4 gap-2 !important;
+   }
+
+   .Toastify__toast {
+      @apply overflow-hidden rounded-md !important;
+   }
+}

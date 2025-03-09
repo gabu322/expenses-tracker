@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { updateIssuerSchema } from "@/lib/validation/issuerValidation";
-import { getParams, ParamsType } from "@/utils/params";
+import { getParams, ParamsType } from "@/lib/functions/params";
 import { ZodError } from "zod";
 
 async function handler(req: NextRequest, context: ParamsType) {

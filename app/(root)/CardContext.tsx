@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { CardType, TransactionType } from "@/utils/types";
+import { CardType, TransactionType } from "@/lib/types";
 import axios from "axios";
 
 interface CardContextType {

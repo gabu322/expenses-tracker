@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Button from "@/components/Button";
-import { IssuerType } from "@/utils/types/index";
+import { IssuerType } from "@/lib/types/index";
 import { useCards } from "./CardContext";
 import { Card } from "@/components/pages/Card";
 

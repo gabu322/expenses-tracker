@@ -6,8 +6,8 @@ import axios from "axios";
 import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
-import { handleChangeType } from "@/utils/types/handleChange";
-import { TransactionType } from "@/utils/types";
+import { handleChangeType } from "@/lib/types/handleChange";
+import { TransactionType } from "@/lib/types";
 import { useCards } from "@/app/(root)/CardContext";
 
 interface Option {

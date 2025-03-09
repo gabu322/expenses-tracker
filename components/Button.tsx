@@ -46,6 +46,7 @@ export default function Button({ className = "", type = "button", onClick, color
          onClick={onClick}
          disabled={disabled}
       >
+         {disabled && <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full cursor-default"></div>}
          {children || text}
       </button>
    );

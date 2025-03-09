@@ -1,4 +1,4 @@
-import { getParams, ParamsType } from "@/utils/params";
+import { getParams, ParamsType } from "@/lib/functions/params";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";

@@ -7,7 +7,6 @@ import Button from "@/components/Button";
 import { IssuerType } from "@/utils/types/index";
 import { useCards } from "./CardContext";
 import { Card } from "@/components/pages/Card";
-import { toast } from "react-toastify";
 
 export default function Home() {
    const { cards } = useCards();
@@ -26,10 +25,6 @@ export default function Home() {
          <div className="flex flex-row justify-between">
             <h1>Seus cartões</h1>
             <Button href={"/cards"}>Novo Cartão</Button>
-            <Button
-               text="toast"
-               onClick={() => toast("Hello toast!")}
-            />
          </div>
 
          {cards.map((card) => (

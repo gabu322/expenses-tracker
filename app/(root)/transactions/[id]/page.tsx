@@ -30,24 +30,38 @@ export default function Page() {
 
    const [methods, setMethods] = useState<Option[]>([]);
    useEffect(() => {
-      const selectedCardMethods = cards.find((card) => card.id === transaction.cardId);
+      const selectedCard = cards.find((card) => card.id === transaction.cardId);
 
       const methods = [];
-      if (selectedCardMethods?.debit) methods.push({ value: "DEBIT", text: "Débito" });
-      if (selectedCardMethods?.credit) methods.push({ value: "CREDIT", text: "Crédito" });
+      if (selectedCard?.debit) methods.push({ value: "DEBIT", text: "Débito" });
+      if (selectedCard?.credit) methods.push({ value: "CREDIT", text: "Crédito" });
 
       setMethods(methods);
-   }, [cards]);
+   }, [cards, transaction.cardId]);
+
+   const [types, setTypes] = useState<Option[]>([]);
+   useEffect(() => {
+      if (transaction.method === null) setTransaction((prev) => ({ ...prev, type: null }));
+
+      const types = [];
+      types.push({ value: "INCOME", text: transaction.method === "DEBIT" ? "Receita" : "Pagamento de fatura" });
+      types.push({ value: "EXPENSE", text: transaction.method === "DEBIT" ? "Despesa" : "Compra" });
+      setTypes(types);
+   }, [cards, transaction.cardId, methods, transaction.method]);
 
    useEffect(() => {
-      const foundTransaction = transactions?.find((transaction) => transaction.id === id) || null;
-      if (foundTransaction) {
-         setTransaction(foundTransaction);
-      } else {
-         axios.get(`/api/transactions/${id}`).then((response) => {
-            setTransaction(response.data);
-         });
-      }
+      const getTransaction = async () => {
+         try {
+            let foundTransaction = transactions?.find((transaction) => transaction.id === id) || null;
+            if (!foundTransaction) foundTransaction = await axios.get(`/api/transactions/${id}`).then((response) => response.data);
+
+            if (foundTransaction) setTransaction(foundTransaction);
+         } catch (error) {
+            console.error("Failed to fetch transaction:", error);
+         }
+      };
+
+      getTransaction();
    }, [id]);
 
    const handleChange = (e: handleChangeType) => {
@@ -77,7 +91,7 @@ export default function Page() {
             label="Valor"
             currency="R$"
             onChange={handleChange}
-            initialValue={transaction.amount}
+            value={transaction.amount}
             required
          />
 
@@ -86,19 +100,17 @@ export default function Page() {
             label="Método de pagamento"
             options={methods}
             onChange={handleChange}
-            initialValue={transaction.method}
+            value={transaction.method}
             required
          />
 
          <Select
             name="type"
             label="Tipo"
-            options={[
-               { value: "INCOME", text: transaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
-               { value: "EXPENSE", text: transaction.method === "DEBIT" ? "Despesa" : "Compra" },
-            ]}
-            initialValue={transaction.type}
+            options={types}
+            value={transaction.type}
             onChange={handleChange}
+            disabled={transaction.method === null}
             required
          />
 
@@ -107,7 +119,7 @@ export default function Page() {
             label="Data"
             type="datetime-local"
             onChange={handleChange}
-            // initialValue={new Date(transaction.date).toISOString()}
+            value={transaction.date.substring(0, 16)}
             required
          />
 
@@ -115,7 +127,7 @@ export default function Page() {
             name="description"
             label="Descrição"
             onChange={handleChange}
-            initialValue={transaction.description}
+            value={transaction.description}
          />
 
          <Button type="submit">Atualizar</Button>

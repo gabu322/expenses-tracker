@@ -9,6 +9,7 @@ import Select from "../Select";
 import { handleChangeType } from "@/utils/types/handleChange";
 import { TransactionType } from "@/utils/types";
 import { useCards } from "@/app/(root)/CardContext";
+import { toast } from "react-toastify";
 
 interface Option {
    value: string;
@@ -56,13 +57,15 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
    };
 
    const handleClear = () => {
+      toggleNavbar();
+
       setNewTransaction({
          cardId: null,
          amount: 0,
          type: null,
+         method: null,
          date: "",
          description: "",
-         method: null,
       });
    };
 
@@ -70,17 +73,19 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
       e.preventDefault();
       if (newTransaction.cardId === null) return;
 
+      const toastId = toast.loading("Salvando transação...", { position: "top-center" });
       try {
          // Submit the transaction and if successful, clear the form and close the navbar
-         console.log("here");
          await axios.post(`/api/transactions/?cardId=${newTransaction.cardId}`, newTransaction);
 
          handleClear();
-         toggleNavbar();
          fetchCards();
          setTransactions((prev) => [...(prev ?? []), newTransaction]);
+
+         toast.update(toastId, { render: "Transação salva com sucesso!", type: "success", isLoading: false, autoClose: 3000 });
       } catch (error) {
          console.error("Error saving transaction:", error);
+         toast.update(toastId, { render: "Erro ao salvar transação: " + (error as Error).message, type: "error", isLoading: false, autoClose: 3000 });
       }
    };
 
@@ -108,7 +113,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="cardId"
                label="Cartão"
                options={cards.filter((card) => card.id !== undefined).map((card) => ({ value: card.id as string, text: card.nickname }))}
-               initialValue={newTransaction.cardId}
+               value={newTransaction.cardId}
                onChange={handleChange}
                rounded
                required
@@ -121,7 +126,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                name="method"
                label="Método de pagamento"
                options={cardMethods}
-               initialValue={newTransaction.method}
+               value={newTransaction.method}
                onChange={handleChange}
                rounded
                disabled={newTransaction.cardId == null}
@@ -136,7 +141,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                   { value: "INCOME", text: newTransaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
                   { value: "EXPENSE", text: newTransaction.method === "DEBIT" ? "Despesa" : "Compra" },
                ]}
-               initialValue={newTransaction.type}
+               value={newTransaction.type}
                onChange={handleChange}
                rounded
                disabled={newTransaction.cardId === null}
@@ -171,6 +176,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                text="Adicionar"
                color="green"
                type="submit"
+               disabled={newTransaction.cardId === null || newTransaction.method === null || newTransaction.type === null}
             />
 
             <Button

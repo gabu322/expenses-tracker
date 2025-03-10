@@ -35,7 +35,6 @@ export default function Home() {
          <div className="flex flex-row justify-between">
             <h1>Seus cartões</h1>
             <Button href={"/cards"}>Novo Cartão</Button>
-            <Button onClick={() => toast("Hello, world!")}>Toast</Button>
          </div>
 
          {loading ? (

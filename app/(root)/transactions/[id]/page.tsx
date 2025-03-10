@@ -131,13 +131,6 @@ export default function Page() {
          />
 
          <Button type="submit">Atualizar</Button>
-
-         <Button
-            type="button"
-            onClick={() => console.log(transaction)}
-         >
-            Log
-         </Button>
       </form>
    );
 }

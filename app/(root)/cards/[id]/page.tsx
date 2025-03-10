@@ -64,7 +64,7 @@ export default function Page() {
 
    return (
       <div className="flex flex-col gap-4">
-         <h1>{cards[currentCardIndex]?.nickname}</h1>
+         <h1>{cards[currentCardIndex]?.nickname || "Nome do cartão"}</h1>
 
          <div className="w-full grid grid-cols-2 gap-4">
             {/* Debit card info */}

@@ -22,7 +22,7 @@ body {
 }
 
 main {
-   @apply min-h-screen p-4;
+   @apply min-h-screen p-4 pb-20;
 }
 
 @layer utilities {

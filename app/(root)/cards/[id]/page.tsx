@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { useCards } from "@/app/(root)/CardContext";
 import axios from "axios";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, DollarSign } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface CurrentValuesType {
@@ -71,10 +71,8 @@ export default function Page() {
             {cards[currentCardIndex]?.debit && (
                <>
                   <div className="card p-3 h-16 flex-row-4">
-                     <IDollar
-                        className="h-10 w-10 p-1 bg-lime-200 rounded-md"
-                        color="darkgreen"
-                     />
+                     <DollarSign className="h-10 w-10 p-1 bg-lime-200 rounded-md text-green-800" />
+
                      <div className="flex flex-col justify-around">
                         <span>Saldo</span>
                         <CountUp
@@ -88,10 +86,7 @@ export default function Page() {
                      </div>
                   </div>
                   <div className="card p-3 h-16 flex-row-4">
-                     <IDollar
-                        className={`h-10 w-10 p-1 rounded-md ${debitNet > 0 ? "bg-lime-200" : "bg-red-200"}`}
-                        color={debitNet > 0 ? "darkgreen" : "red"}
-                     />
+                     <DollarSign className={`h-10 w-10 p-1 rounded-md ${debitNet > 0 ? "bg-lime-200 text-green-800" : "bg-red-200 text-red-700"}`} />
                      <div className="flex flex-col justify-around">
                         <span>Total do mês</span>
                         <CountUp
@@ -111,10 +106,7 @@ export default function Page() {
             {cards[currentCardIndex]?.credit && (
                <>
                   <div className="card p-3 h-16 flex-row-4">
-                     <IDollar
-                        className="h-10 w-10 p-1 bg-lime-200 rounded-md"
-                        color="darkgreen"
-                     />
+                     <DollarSign className="h-10 w-10 p-1 bg-lime-200 rounded-md text-green-800" />
                      <div className="flex flex-col justify-around">
                         <span>Limite</span>
                         <CountUp
@@ -128,10 +120,8 @@ export default function Page() {
                      </div>
                   </div>
                   <div className="card p-3 h-16 flex-row-4">
-                     <IDollar
-                        className="h-10 w-10 p-1 bg-red-200 rounded-md"
-                        color="rgb(185 28 28)"
-                     />
+                     <DollarSign className="h-10 w-10 p-1 bg-red-200 rounded-md text-red-700" />
+
                      <div className="flex flex-col justify-around">
                         <span>Limite gasto</span>
                         <CountUp

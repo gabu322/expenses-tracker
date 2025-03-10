@@ -1,5 +1,7 @@
 import { IssuerType } from "@/utils/types";
+import { PencilLine, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface IssuerProps {
@@ -28,22 +30,14 @@ export function Issuer({ issuer, handleDelete }: IssuerProps) {
          </div>
 
          <div className="flex flex-row gap-4">
-            <Image
-               onClick={() => router.push(`/dev/issuers/${issuer.id}`)}
-               className="cursor-pointer"
-               src={"/icons/white/edit.svg"}
-               alt="edit"
-               width={16}
-               height={16}
-            />
+            <Link href={`/dev/issuers/${issuer.id}`}>
+               <PencilLine size={20} />
+            </Link>
 
-            <Image
+            <X
+               size={20}
                onClick={() => issuer.id && handleDelete(issuer.id)}
                className="cursor-pointer"
-               src={"/icons/white/x.svg"}
-               alt="x"
-               width={16}
-               height={16}
             />
          </div>
       </div>

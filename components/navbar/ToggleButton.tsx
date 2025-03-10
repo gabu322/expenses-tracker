@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import Image from "next/image";
 
 interface ToggleButtonProps {
@@ -14,14 +15,21 @@ export default function ToggleButton({ isOpen, toggleNavbar }: ToggleButtonProps
          tabIndex={0}
          aria-label="Toggle Navbar"
       >
-         <Image
-            src="/icons/black/addCircled.svg"
-            alt="Toggle Navbar"
-            width={48}
-            height={48}
-            className="z-10"
-         />
          <div className="absolute w-12 h-12 bg-white rounded-full"></div>
+
+         <div className="bg-black rounded-full z-10 w-10 h-10">
+            <ChevronRight
+               size={40}
+               className={`absolute transition duration-500 ${isOpen ? "rotate-90 translate-x-0" : "-translate-x-[4.5px]"}`}
+               color="white"
+            />
+
+            <ChevronLeft
+               size={40}
+               className={`absolute transition duration-500 ${isOpen ? "-rotate-90 translate-x-0" : "translate-x-[4.5px]"}`}
+               color="white"
+            />
+         </div>
       </div>
    );
 }

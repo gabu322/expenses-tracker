@@ -1,5 +1,7 @@
 import { CardType, IssuerType } from "@/utils/types";
+import { Ellipsis } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { darken, lighten } from "polished";
 
@@ -45,49 +47,15 @@ export function Card({ className, card, issuer }: CardProps) {
          <div className="w-full flex flex-row justify-between">
             <div>{card.number}</div>
 
-            <div
-               className="flex cursor-pointer"
-               onClick={() => router.push("/cards/" + card.id)}
+            <Link
+               href={`/cards/${card.id}`}
+               className="h-4 -translate-y-3"
             >
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-               >
-                  <circle
-                     cx="10"
-                     cy="10"
-                     r="4"
-                  />
-               </svg>
-
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-               >
-                  <circle
-                     cx="10"
-                     cy="10"
-                     r="4"
-                  />
-               </svg>
-
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-               >
-                  <circle
-                     cx="10"
-                     cy="10"
-                     r="4"
-                  />
-               </svg>
-            </div>
+               <Ellipsis
+                  size={40}
+                  className="cursor-pointer"
+               />
+            </Link>
          </div>
       </div>
    );

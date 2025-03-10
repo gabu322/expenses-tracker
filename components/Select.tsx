@@ -82,7 +82,7 @@ export default function Select({ id, className = "", name, label, options, onCha
 
    // Update value on changing
    useEffect(() => {
-      if (value === "") {
+      if (value === "" || value === null) {
          handleErase();
       } else if (value) {
          const selectedOption = options.find((option) => option.value === value || option.text === value);

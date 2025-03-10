@@ -7,7 +7,6 @@ import Button from "@/components/Button";
 import { IssuerType } from "@/utils/types/index";
 import { useCards } from "./CardContext";
 import { Card } from "@/components/pages/Card";
-import { toast } from "react-toastify";
 import Skeleton from "@/components/Skeleton";
 
 export default function Home() {

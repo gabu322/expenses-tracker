@@ -1,6 +1,5 @@
 "use client";
 
-import IDollar from "@/public/icons/dynamic/dollar";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";

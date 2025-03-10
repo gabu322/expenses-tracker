@@ -2,7 +2,6 @@ import { CardType, IssuerType } from "@/utils/types";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { darken, lighten } from "polished";
 
 interface CardProps {
@@ -12,8 +11,6 @@ interface CardProps {
 }
 
 export function Card({ className, card, issuer }: CardProps) {
-   const router = useRouter();
-
    const lightenedColor = lighten(0.1, issuer?.color || "#000");
    const darkenedColor = darken(0.1, issuer?.color || "#000");
 

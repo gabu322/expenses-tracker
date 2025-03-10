@@ -2,7 +2,6 @@ import { IssuerType } from "@/utils/types";
 import { PencilLine, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 interface IssuerProps {
    issuer: IssuerType;
@@ -10,8 +9,6 @@ interface IssuerProps {
 }
 
 export function Issuer({ issuer, handleDelete }: IssuerProps) {
-   const router = useRouter();
-
    return (
       <div
          className="flex flex-row items-center justify-between rounded p-4 text-white font-bold"

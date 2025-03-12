@@ -3,6 +3,7 @@ import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { darken, lighten } from "polished";
+import CountUp from "react-countup";
 
 interface CardProps {
    className?: string;
@@ -32,12 +33,24 @@ export function Card({ className, card, issuer }: CardProps) {
          </div>
 
          <div className="flex-grow flex flex-col justify-between">
-            {card.debit ? <h3 className="leading-none">$ {card.balance?.toFixed(2)}</h3> : <div />}
+            {card.debit && (
+               <CountUp
+                  className="text-xl leading-none font-semibold"
+                  end={card.balance || 0}
+                  prefix={"R$"}
+                  decimals={2}
+               />
+            )}
 
             {card.credit && (
                <div className="flex flex-col mb-1">
                   <h6 className="text-gray-300 leading-none">Used credit: (of ${card.limit} limit)</h6>
-                  <h3>$ {card.usedLimit}</h3>
+                  <CountUp
+                     className="text-xl font-semibold"
+                     end={card.usedLimit || 0}
+                     prefix={"R$"}
+                     decimals={2}
+                  />
                </div>
             )}
          </div>

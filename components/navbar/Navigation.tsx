@@ -3,7 +3,7 @@ import { ChartColumnIncreasing, CircleUserRound, Settings, WalletCards } from "l
 
 export default function Navigation({ isOpen }: { isOpen: boolean }) {
    return (
-      <div className={`w-full h-16 p-3 gap-11 fixed flex justify-between bg-white transition-all duration-500 z-10 ${isOpen ? "-bottom-16" : "bottom-0"}`}>
+      <div className={`w-full h-16 p-3 gap-11 fixed flex justify-between bg-white transition-all duration-500 z-[32] ${isOpen ? "-bottom-16" : "bottom-0"}`}>
          <Link href="/">
             <WalletCards
                color="black"

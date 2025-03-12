@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus } from "lucide-react";
 
 interface ToggleButtonProps {
    isOpen: boolean;
@@ -8,27 +8,18 @@ interface ToggleButtonProps {
 export default function ToggleButton({ isOpen, toggleNavbar }: ToggleButtonProps) {
    return (
       <div
-         className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-16 flex items-center justify-center z-[12] scale-150 transition-all duration-500 ${isOpen ? "-translate-y-7" : "-translate-y-3"}`}
+         className={`absolute top-0 left-1/2 -translate-x-1/2 z-[33] bg-white rounded-full p-2 duration-500 ${isOpen ? "-translate-y-10" : "-translate-y-5"}`}
          onClick={toggleNavbar}
          role="button"
          tabIndex={0}
          aria-label="Toggle Navbar"
       >
-         <div className="absolute w-12 h-12 bg-white rounded-full"></div>
-
-         <div className="bg-black rounded-full z-10 w-10 h-10">
-            <ChevronRight
-               size={40}
-               className={`absolute transition duration-500 ${isOpen ? "rotate-90 translate-x-0" : "-translate-x-[4.5px]"}`}
-               color="white"
-            />
-
-            <ChevronLeft
-               size={40}
-               className={`absolute transition duration-500 ${isOpen ? "-rotate-90 translate-x-0" : "translate-x-[4.5px]"}`}
-               color="white"
-            />
-         </div>
+         <Plus
+            size={64}
+            strokeWidth={2.5}
+            className={`bg-black rounded-full duration-700 ease-in-out ${isOpen ? "rotate-45" : "rotate-0 "}`}
+            color="white"
+         />
       </div>
    );
 }

@@ -51,6 +51,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
    const [internalValue, setInternalValue] = useState<string | number>("");
    const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
    const [isFocused, setIsFocused] = useState<boolean>(false);
+   const [errorMessage, setErrorMessage] = useState<string>("");
    const sizes = sizeConfig[size];
    const inputRef = useRef<HTMLInputElement>(null);
 
@@ -93,6 +94,11 @@ export default function Input({ id, className = "", name, label, type = "text", 
       }
 
       setFormatted(true);
+
+      if (errorMessage) {
+         setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
+         setErrorMessage("");
+      }
    };
 
    const formatMask = (value: string): string => {
@@ -162,13 +168,18 @@ export default function Input({ id, className = "", name, label, type = "text", 
       return value;
    };
 
+   const handleInvalid = (e: React.InvalidEvent<HTMLInputElement>) => {
+      setInfoColor({ outline: "#fca5a5", text: "#f87171" });
+      setErrorMessage(e.target.validationMessage);
+   };
+
    return (
       <div
          className={`flex flex-row gap-2 px-2 relative transition-all text-black box-border outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 ${rounded ? "rounded-full" : "rounded"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
          onFocus={() => setIsFocused(true)}
          onBlur={() => {
             setIsFocused(false);
-            setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
+            if (!errorMessage && infoColor.outline != "#fca5a5") setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
          }}
          onClick={() => inputRef.current && inputRef.current.focus()}
          style={{ outlineColor: infoColor.outline }}
@@ -201,11 +212,10 @@ export default function Input({ id, className = "", name, label, type = "text", 
             type={type == "color" ? "text" : type}
             value={internalValue}
             onChange={handleInputChange}
-            onInvalid={() => setInfoColor({ outline: "#fca5a5", text: "#f87171" })}
+            onInvalid={handleInvalid}
             disabled={disabled}
             required={required}
             aria-label={label}
-            aria-invalid={infoColor.outline === "#fca5a5"}
          />
 
          {label && (
@@ -221,7 +231,7 @@ export default function Input({ id, className = "", name, label, type = "text", 
             </label>
          )}
 
-         {underText && <div className={`absolute left-1.5 ${sizes.underText} text-left text-gray-400`}>{underText}</div>}
+         {(errorMessage || underText) && <div className={`absolute left-1 truncate ${sizes.underText} text-left ${errorMessage ? "text-red-400" : "text-gray-400"}`}>{errorMessage || underText}</div>}
       </div>
    );
 }

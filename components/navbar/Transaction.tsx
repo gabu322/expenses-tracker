@@ -92,7 +92,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
    return (
       <form
          onSubmit={handleSubmit}
-         className={`w-full h-96 px-4 pt-7 fixed bg-white flex flex-col gap-4 items-center transition-all duration-500 z-[31] ${isOpen ? "-bottom-0" : "-bottom-80"}`}
+         className={`w-full p-4 absolute bg-white flex flex-col gap-4 items-center transition-all duration-500 z-[33] left-0 bottom-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}
       >
          <h2 className="text-2xl font-bold text-left w-full">Nova transação</h2>
 
@@ -186,8 +186,6 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                onClick={handleClear}
             />
          </div>
-
-         <span className="text-white"> Will be removed later TODO </span>
       </form>
    );
 }

@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
    try {
+      return;
       await prisma.creditCard.deleteMany();
       await prisma.debitCard.deleteMany();
       await prisma.transaction.deleteMany();

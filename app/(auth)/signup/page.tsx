@@ -8,6 +8,9 @@ import axios from "axios";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { handleChangeType } from "@/utils/types/handleChange";
+import { toast } from "react-toastify";
+import { handleToastError } from "@/lib/functions/handleToastError";
+import { ChevronLeft } from "lucide-react";
 
 interface SignupData {
    email: string;
@@ -20,6 +23,7 @@ interface SignupData {
 
 export default function Page() {
    const router = useRouter();
+   const [loading, setLoading] = useState<boolean>(false);
    const [signup, setSignup] = useState<SignupData>({
       email: "",
       name: "",
@@ -37,18 +41,14 @@ export default function Page() {
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (signup.password !== signup.confirmPassword) {
-         console.error("Passwords do not match");
-         return;
-      }
-
+      setLoading(true);
+      const toastId = toast.loading("Fazendo cadastro...");
       try {
+         if (signup.password !== signup.confirmPassword) throw new Error("Senhas diferentes");
+
          // Call the custom register API
          const response = await axios.post("/api/auth/register", signup);
-
-         if (!(response.status === 201)) {
-            throw new Error("Failed to register");
-         }
+         if (!(response.status === 201)) throw new Error("Contate o suporte");
 
          // Automatically log in the user
          const loginResponse = await signIn("credentials", {
@@ -57,23 +57,30 @@ export default function Page() {
             password: signup.password,
          });
 
-         if (!loginResponse || !loginResponse.ok) {
-            throw new Error("Failed to login");
-         }
+         if (!loginResponse || !loginResponse.ok) throw new Error("Contate o suporte");
 
+         toast.update(toastId, { render: "Cadastro bem-sucedido!", type: "success", isLoading: false, autoClose: 3000 });
          router.push("/");
       } catch (error) {
-         console.error("Signup failed:", error);
+         handleToastError(error, toastId);
+      } finally {
+         setLoading(false);
       }
    };
 
    return (
-      <div className="flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
+      <div className="relative flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
+         <ChevronLeft
+            className="cursor-pointer absolute top-4 left-3"
+            size={40}
+            onClick={() => router.back()}
+         />
+
          <h1 className="text-3xl">Signup</h1>
 
          <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-4 w-full"
+            className="flex flex-col gap-5 w-full"
          >
             <Input
                name="email"
@@ -126,6 +133,7 @@ export default function Page() {
                className="w-full"
                type="submit"
                text={"Sign Up"}
+               disabled={loading}
             />
          </form>
       </div>

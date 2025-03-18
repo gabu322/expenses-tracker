@@ -82,31 +82,35 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          fetchCards();
          setTransactions((prev) => [...(prev ?? []), newTransaction]);
 
-         toast.update(toastId, { render: "Transação salva com sucesso!", type: "success", isLoading: false, autoClose: 3000 });
+         toast.update(toastId, {
+            render: "Transação salva com sucesso!",
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+         });
       } catch (error) {
          console.error("Error saving transaction:", error);
-         toast.update(toastId, { render: "Erro ao salvar transação: " + (error as Error).message, type: "error", isLoading: false, autoClose: 3000 });
+         toast.update(toastId, {
+            render: "Erro ao salvar transação: " + (error as Error).message,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+         });
       }
    };
 
    return (
-      <div className={`w-full p-4 absolute bg-white duration-500 z-[33] left-0 bottom-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}>
+      <div
+         className={`w-full p-4 absolute bg-white duration-500 z-[33] left-0 bottom-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+      >
          {cards.length === 0 ? (
             <div className="flex flex-col gap-4 items-center">
                <h2 className="text-2xl font-bold text-left">Sem cartões disponíveis</h2>
                <p className="text-center">Você precisa ter um cartão cadastrado para adicionar transações</p>
-               <Button
-                  text="Adicionar cartão"
-                  color="blue"
-                  href="/cards"
-                  className="w-full"
-               />
+               <Button text="Adicionar cartão" color="blue" href="/cards" className="w-full" />
             </div>
          ) : (
-            <form
-               onSubmit={handleSubmit}
-               className={`flex flex-col gap-4 items-center `}
-            >
+            <form onSubmit={handleSubmit} className={`flex flex-col gap-4 items-center `}>
                <h2 className="text-2xl font-bold text-left w-full">Nova transação</h2>
 
                <div className="flex flex-row gap-4 w-full">
@@ -125,7 +129,9 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      className="w-1/2"
                      name="cardId"
                      label="Cartão"
-                     options={cards.filter((card) => card.id !== undefined).map((card) => ({ value: card.id as string, text: card.nickname }))}
+                     options={cards
+                        .filter((card) => card.id !== undefined)
+                        .map((card) => ({ value: card.id as string, text: card.nickname }))}
                      value={newTransaction.cardId}
                      onChange={handleChange}
                      rounded
@@ -151,7 +157,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      name="type"
                      label="Tipo"
                      options={[
-                        { value: "INCOME", text: newTransaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura" },
+                        {
+                           value: "INCOME",
+                           text: newTransaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura",
+                        },
                         { value: "EXPENSE", text: newTransaction.method === "DEBIT" ? "Despesa" : "Compra" },
                      ]}
                      value={newTransaction.type}
@@ -189,15 +198,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      text="Adicionar"
                      color="green"
                      type="submit"
-                     disabled={newTransaction.cardId === null || newTransaction.method === null || newTransaction.type === null}
+                     disabled={
+                        newTransaction.cardId === null || newTransaction.method === null || newTransaction.type === null
+                     }
                   />
 
-                  <Button
-                     className="w-full"
-                     text="Cancelar"
-                     color="red"
-                     onClick={handleClear}
-                  />
+                  <Button className="w-full" text="Cancelar" color="red" onClick={handleClear} />
                </div>
             </form>
          )}

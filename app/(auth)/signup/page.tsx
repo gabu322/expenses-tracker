@@ -59,7 +59,12 @@ export default function Page() {
 
          if (!loginResponse || !loginResponse.ok) throw new Error("Contate o suporte");
 
-         toast.update(toastId, { render: "Cadastro bem-sucedido!", type: "success", isLoading: false, autoClose: 3000 });
+         toast.update(toastId, {
+            render: "Cadastro bem-sucedido!",
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+         });
          router.push("/");
       } catch (error) {
          handleToastError(error, toastId);
@@ -70,71 +75,24 @@ export default function Page() {
 
    return (
       <div className="relative flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
-         <ChevronLeft
-            className="cursor-pointer absolute top-4 left-3"
-            size={40}
-            onClick={() => router.back()}
-         />
+         <ChevronLeft className="cursor-pointer absolute top-4 left-3" size={40} onClick={() => router.back()} />
 
          <h1 className="text-3xl">Signup</h1>
 
-         <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-5 w-full"
-         >
-            <Input
-               name="email"
-               label="Email"
-               type="email"
-               onChange={handleChange}
-               required
-            />
+         <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
+            <Input name="email" label="Email" type="email" onChange={handleChange} required />
 
-            <Input
-               name="name"
-               label="Name"
-               type="text"
-               onChange={handleChange}
-            />
+            <Input name="name" label="Name" type="text" onChange={handleChange} />
 
-            <Input
-               name="cpf"
-               label="CPF"
-               type="text"
-               mask={"000.000.000-00"}
-               onChange={handleChange}
-            />
+            <Input name="cpf" label="CPF" type="text" mask={"000.000.000-00"} onChange={handleChange} />
 
-            <Input
-               name="phone"
-               label="Phone"
-               type="text"
-               mask={"(00) 00000-0000"}
-               onChange={handleChange}
-            />
+            <Input name="phone" label="Phone" type="text" mask={"(00) 00000-0000"} onChange={handleChange} />
 
-            <Input
-               name="password"
-               label="Password"
-               type="password"
-               onChange={handleChange}
-               required
-            />
+            <Input name="password" label="Password" type="password" onChange={handleChange} required />
 
-            <Input
-               name="confirmPassword"
-               label="Confirm Password"
-               type="password"
-               onChange={handleChange}
-               required
-            />
+            <Input name="confirmPassword" label="Confirm Password" type="password" onChange={handleChange} required />
 
-            <Button
-               className="w-full"
-               type="submit"
-               text={"Sign Up"}
-               disabled={loading}
-            />
+            <Button className="w-full" type="submit" text={"Sign Up"} disabled={loading} />
          </form>
       </div>
    );

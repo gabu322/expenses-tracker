@@ -47,9 +47,28 @@ const sizeConfig = {
    },
 };
 
-export default function Input({ id, className = "", name, label, type = "text", initialValue = "", value, onChange, size = "md", mask, currency, underText, rounded, required, disabled }: InputProps) {
+export default function Input({
+   id,
+   className = "",
+   name,
+   label,
+   type = "text",
+   initialValue = "",
+   value,
+   onChange,
+   size = "md",
+   mask,
+   currency,
+   underText,
+   rounded,
+   required,
+   disabled,
+}: InputProps) {
    const [internalValue, setInternalValue] = useState<string | number>("");
-   const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
+   const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({
+      outline: "#d1d5db",
+      text: "#9ca3af",
+   });
    const [isFocused, setIsFocused] = useState<boolean>(false);
    const [errorMessage, setErrorMessage] = useState<string>("");
    const sizes = sizeConfig[size];
@@ -114,7 +133,11 @@ export default function Input({ id, className = "", name, label, type = "text", 
          const maskChar = mask[maskIndex];
          const valueChar = value[valueIndex];
 
-         if ((maskChar === "a" && /[a-zA-Z]/.test(valueChar)) || (maskChar === "0" && /\d/.test(valueChar)) || (maskChar === "_" && /[a-zA-Z0-9]/.test(valueChar))) {
+         if (
+            (maskChar === "a" && /[a-zA-Z]/.test(valueChar)) ||
+            (maskChar === "0" && /\d/.test(valueChar)) ||
+            (maskChar === "_" && /[a-zA-Z0-9]/.test(valueChar))
+         ) {
             formattedValue += valueChar;
             valueIndex++;
          } else if (maskChar !== "a" && maskChar !== "0" && maskChar !== "_") {
@@ -231,7 +254,13 @@ export default function Input({ id, className = "", name, label, type = "text", 
             </label>
          )}
 
-         {(errorMessage || underText) && <div className={`absolute left-1 truncate ${sizes.underText} text-left ${errorMessage ? "text-red-400" : "text-gray-400"}`}>{errorMessage || underText}</div>}
+         {(errorMessage || underText) && (
+            <div
+               className={`absolute left-1 truncate ${sizes.underText} text-left ${errorMessage ? "text-red-400" : "text-gray-400"}`}
+            >
+               {errorMessage || underText}
+            </div>
+         )}
       </div>
    );
 }

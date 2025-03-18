@@ -20,7 +20,8 @@ async function handler(req: NextRequest, context: ParamsType) {
       });
       if (!card) return NextResponse.json({ error: "Card not found" }, { status: 404 });
 
-      if (card.userId !== session.user.id) return NextResponse.json({ error: "Card does not belong to user" }, { status: 401 });
+      if (card.userId !== session.user.id)
+         return NextResponse.json({ error: "Card does not belong to user" }, { status: 401 });
 
       switch (req.method) {
          case "GET":

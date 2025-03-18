@@ -17,12 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
          <body className={nunito.className}>
             {children}
-            <ToastContainer
-               autoClose={3000}
-               pauseOnHover={false}
-               position="bottom-right"
-               transition={Slide}
-            />
+            <ToastContainer autoClose={3000} pauseOnHover={false} position="bottom-right" transition={Slide} />
          </body>
       </html>
    );

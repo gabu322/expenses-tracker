@@ -44,7 +44,12 @@ export default function Page() {
          toast.update(toastId, { render: "Login bem-sucedido!", type: "success", isLoading: false, autoClose: 3000 });
          router.push("/");
       } catch (error) {
-         toast.update(toastId, { render: "Falha no login: " + (error as Error).message, type: "error", isLoading: false, autoClose: 3000 });
+         toast.update(toastId, {
+            render: "Falha no login: " + (error as Error).message,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+         });
       } finally {
          setLoading(false);
       }
@@ -54,39 +59,16 @@ export default function Page() {
       <div className="flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
          <h1 className="text-3xl">Login</h1>
 
-         <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-4 w-full"
-         >
-            <Input
-               name="email"
-               label="Email"
-               type="email"
-               onChange={handleChange}
-               required
-            />
+         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+            <Input name="email" label="Email" type="email" onChange={handleChange} required />
 
-            <Input
-               name="password"
-               label="Senha"
-               type="password"
-               onChange={handleChange}
-               required
-            />
+            <Input name="password" label="Senha" type="password" onChange={handleChange} required />
 
-            <Button
-               type="submit"
-               text={"Entrar"}
-               disabled={loading}
-            />
+            <Button type="submit" text={"Entrar"} disabled={loading} />
             <hr />
 
             <p className="text-left">Ainda não possui cadastro?</p>
-            <Button
-               className="w-full"
-               text={"Cadastrar"}
-               href={"/signup"}
-            />
+            <Button className="w-full" text={"Cadastrar"} href={"/signup"} />
          </form>
       </div>
    );

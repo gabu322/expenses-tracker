@@ -29,7 +29,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
          },
       });
 
-      return NextResponse.json({ message: "User registered", user: { id: user.id, email: user.email, name: user.name } }, { status: 201 });
+      return NextResponse.json(
+         { message: "User registered", user: { id: user.id, email: user.email, name: user.name } },
+         { status: 201 }
+      );
    } catch (error: unknown) {
       if (error instanceof ZodError) return NextResponse.json({ errors: error.errors }, { status: 400 });
       if (error instanceof Error) return NextResponse.json({ error: error.message }, { status: 500 });

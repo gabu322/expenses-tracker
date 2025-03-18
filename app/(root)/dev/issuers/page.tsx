@@ -55,30 +55,12 @@ export default function Page() {
          <div className="form">
             <h2>Adicionar banco</h2>
 
-            <form
-               className="flex flex-col gap-5"
-               onSubmit={handleSubmit}
-            >
-               <Input
-                  name="name"
-                  label="Nome do banco"
-                  onChange={handleChange}
-                  required
-               />
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+               <Input name="name" label="Nome do banco" onChange={handleChange} required />
 
-               <Input
-                  name="color"
-                  label="Cor"
-                  type="color"
-                  onChange={handleChange}
-                  required
-               />
+               <Input name="color" label="Cor" type="color" onChange={handleChange} required />
 
-               <Input
-                  name="icon"
-                  label="Ícone"
-                  onChange={handleChange}
-               />
+               <Input name="icon" label="Ícone" onChange={handleChange} />
 
                <Button type="submit">Criar banco</Button>
             </form>
@@ -86,22 +68,13 @@ export default function Page() {
 
          <div className="form">
             <h2>Listagem de bancos</h2>
-            <Input
-               id="Filter"
-               name="Filter"
-               label="Filtro"
-               onChange={(e) => setFilter(e.target.value as string)}
-            />
+            <Input id="Filter" name="Filter" label="Filtro" onChange={(e) => setFilter(e.target.value as string)} />
          </div>
 
          {issuers
             .filter((issuer) => issuer.name.toLowerCase().includes(filter.toLowerCase()))
             .map((issuer) => (
-               <Issuer
-                  key={issuer.id}
-                  issuer={issuer}
-                  handleDelete={handleDelete}
-               />
+               <Issuer key={issuer.id} issuer={issuer} handleDelete={handleDelete} />
             ))}
       </div>
    );

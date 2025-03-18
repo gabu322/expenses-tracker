@@ -46,39 +46,16 @@ export default function Page() {
    };
 
    return (
-      <form
-         onSubmit={handleSubmit}
-         className="form"
-      >
+      <form onSubmit={handleSubmit} className="form">
          <h2>Editar banco</h2>
 
-         <Input
-            name="name"
-            label="Nome"
-            value={issuer?.name}
-            onChange={handleChange}
-         />
+         <Input name="name" label="Nome" value={issuer?.name} onChange={handleChange} />
 
-         <Input
-            name="color"
-            label="Cor"
-            type="color"
-            value={issuer?.color}
-            onChange={handleChange}
-         />
+         <Input name="color" label="Cor" type="color" value={issuer?.color} onChange={handleChange} />
 
-         <Input
-            name="icon"
-            label="Ícone"
-            value={issuer?.icon}
-            onChange={handleChange}
-         />
+         <Input name="icon" label="Ícone" value={issuer?.icon} onChange={handleChange} />
 
-         <Button
-            type="submit"
-            text="Salvar"
-            className="w-full"
-         />
+         <Button type="submit" text="Salvar" className="w-full" />
       </form>
    );
 }

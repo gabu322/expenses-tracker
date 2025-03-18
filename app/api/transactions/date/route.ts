@@ -14,8 +14,12 @@ export async function GET(req: NextRequest) {
       const searchParams = new URL(req.url).searchParams;
       const now = new Date();
 
-      const startDate = searchParams.get("start") ? new Date(searchParams.get("start") as string) : new Date(now.getFullYear(), now.getMonth(), 1);
-      const endDate = searchParams.get("end") ? new Date(searchParams.get("end") as string) : new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      const startDate = searchParams.get("start")
+         ? new Date(searchParams.get("start") as string)
+         : new Date(now.getFullYear(), now.getMonth(), 1);
+      const endDate = searchParams.get("end")
+         ? new Date(searchParams.get("end") as string)
+         : new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
       const whereClause = {
          userId: session.user.id,

@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import crypto from "crypto";
 
 /**
  * Generates a secure session token
@@ -11,9 +11,7 @@ export function generateSessionToken(secret, email) {
    const data = `${email}${timestamp}`;
 
    // Generate a secure token using HMAC and SHA-256
-   const token = crypto.createHmac('sha256', secret)
-      .update(data)
-      .digest('hex');
+   const token = crypto.createHmac("sha256", secret).update(data).digest("hex");
 
    return token;
-};
+}

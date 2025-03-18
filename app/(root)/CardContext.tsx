@@ -35,7 +35,11 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 
-   return <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions }}>{children}</CardContext.Provider>;
+   return (
+      <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions }}>
+         {children}
+      </CardContext.Provider>
+   );
 };
 
 export function useCards() {

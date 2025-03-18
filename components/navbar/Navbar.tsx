@@ -12,20 +12,11 @@ export default function Navbar() {
 
    return (
       <div className={` fixed w-full z-30 left-0 bottom-0`}>
-         <Navigation
-            isOpen={isOpen}
-            toggleNavbar={toggleNavbar}
-         />
+         <Navigation isOpen={isOpen} toggleNavbar={toggleNavbar} />
 
-         <Overlay
-            isOpen={isOpen}
-            toggleNavbar={toggleNavbar}
-         />
+         <Overlay isOpen={isOpen} toggleNavbar={toggleNavbar} />
 
-         <Transaction
-            isOpen={isOpen}
-            toggleNavbar={toggleNavbar}
-         />
+         <Transaction isOpen={isOpen} toggleNavbar={toggleNavbar} />
       </div>
    );
 }

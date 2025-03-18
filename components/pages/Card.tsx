@@ -45,26 +45,15 @@ export function Card({ className, card, issuer }: CardProps) {
             {card.credit && (
                <div className="flex flex-col mb-1">
                   <h6 className="text-gray-300 leading-none">Used credit: (of ${card.limit} limit)</h6>
-                  <CountUp
-                     className="text-xl font-semibold"
-                     end={card.usedLimit || 0}
-                     prefix={"R$"}
-                     decimals={2}
-                  />
+                  <CountUp className="text-xl font-semibold" end={card.usedLimit || 0} prefix={"R$"} decimals={2} />
                </div>
             )}
          </div>
          <div className="w-full flex flex-row justify-between">
             <div>{card.number}</div>
 
-            <Link
-               href={`/cards/${card.id}`}
-               className="h-4 -translate-y-3"
-            >
-               <Ellipsis
-                  size={40}
-                  className="cursor-pointer"
-               />
+            <Link href={`/cards/${card.id}`} className="h-4 -translate-y-3">
+               <Ellipsis size={40} className="cursor-pointer" />
             </Link>
          </div>
       </div>

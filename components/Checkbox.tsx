@@ -13,7 +13,16 @@ interface CheckboxProps {
    required?: boolean;
 }
 
-export default function Checkbox({ id, className, name, label, onChange, initialChecked = false, disabled, required }: CheckboxProps) {
+export default function Checkbox({
+   id,
+   className,
+   name,
+   label,
+   onChange,
+   initialChecked = false,
+   disabled,
+   required,
+}: CheckboxProps) {
    const [isChecked, setIsChecked] = useState<boolean>(initialChecked);
    const htmlFor = id || name;
 
@@ -28,7 +37,9 @@ export default function Checkbox({ id, className, name, label, onChange, initial
    };
 
    return (
-      <div className={`flex items-center relative ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} ${className || ""}`}>
+      <div
+         className={`flex items-center relative ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} ${className || ""}`}
+      >
          <input
             id={htmlFor}
             className={`cursor-pointer ${disabled ? "bg-gray-200" : "bg-white"} border-gray-300   rounded-sm mr-2`}

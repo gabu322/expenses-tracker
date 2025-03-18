@@ -53,7 +53,8 @@ export default function Page() {
       const getTransaction = async () => {
          try {
             let foundTransaction = transactions?.find((transaction) => transaction.id === id) || null;
-            if (!foundTransaction) foundTransaction = await axios.get(`/api/transactions/${id}`).then((response) => response.data);
+            if (!foundTransaction)
+               foundTransaction = await axios.get(`/api/transactions/${id}`).then((response) => response.data);
 
             if (foundTransaction) setTransaction(foundTransaction);
          } catch (error) {
@@ -82,10 +83,7 @@ export default function Page() {
 
    return (
       <div className="flex flex-col gap-4">
-         <form
-            className="form"
-            onSubmit={handleSubmit}
-         >
+         <form className="form" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-left w-full">Atualizar transação</h2>
             <Input
                name="amount"
@@ -124,12 +122,7 @@ export default function Page() {
                required
             />
 
-            <Input
-               name="description"
-               label="Descrição"
-               onChange={handleChange}
-               value={transaction.description}
-            />
+            <Input name="description" label="Descrição" onChange={handleChange} value={transaction.description} />
          </form>
 
          <Button type="submit">Atualizar</Button>

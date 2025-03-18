@@ -15,14 +15,7 @@ export function Issuer({ issuer, handleDelete }: IssuerProps) {
          style={{ backgroundColor: issuer.color }}
       >
          <div className="flex-row-3">
-            {issuer.icon && (
-               <Image
-                  src={issuer.icon}
-                  alt="icon"
-                  width={32}
-                  height={128}
-               />
-            )}
+            {issuer.icon && <Image src={issuer.icon} alt="icon" width={32} height={128} />}
             <p>{issuer.name}</p>
          </div>
 
@@ -31,11 +24,7 @@ export function Issuer({ issuer, handleDelete }: IssuerProps) {
                <PencilLine size={20} />
             </Link>
 
-            <X
-               size={20}
-               onClick={() => issuer.id && handleDelete(issuer.id)}
-               className="cursor-pointer"
-            />
+            <X size={20} onClick={() => issuer.id && handleDelete(issuer.id)} className="cursor-pointer" />
          </div>
       </div>
    );

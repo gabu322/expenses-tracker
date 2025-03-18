@@ -59,24 +59,18 @@ export default function Page() {
    };
 
    return (
-      <form
-         className="flex flex-col gap-4"
-         onSubmit={handleSubmit}
-      >
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
          <div className="form">
             <h1 className="">Criando novo cartão</h1>
 
-            <Input
-               name="nickname"
-               label="Nome do cartão"
-               onChange={handleChange}
-               required
-            />
+            <Input name="nickname" label="Nome do cartão" onChange={handleChange} required />
 
             <Select
                name="issuerId"
                label="Banco"
-               options={issuers.filter((issuer) => issuer.id).map((issuer) => ({ value: issuer.id as string, text: issuer.name }))}
+               options={issuers
+                  .filter((issuer) => issuer.id)
+                  .map((issuer) => ({ value: issuer.id as string, text: issuer.name }))}
                onChange={handleChange}
                required
             />
@@ -90,35 +84,17 @@ export default function Page() {
                required
             />
 
-            <Input
-               name="expiration"
-               label="Data de expiração"
-               onChange={handleChange}
-               type="month"
-            />
+            <Input name="expiration" label="Data de expiração" onChange={handleChange} type="month" />
 
-            <Input
-               name="cvv"
-               label="CVV"
-               onChange={handleChange}
-               mask="000"
-            />
+            <Input name="cvv" label="CVV" onChange={handleChange} mask="000" />
 
             <div className="flex justify-between">
                <div>Tipo do cartão</div>
 
                <div className="flex gap-4">
-                  <Checkbox
-                     name="credit"
-                     onChange={handleCheckboxChange}
-                     label={"Crédito"}
-                  />
+                  <Checkbox name="credit" onChange={handleCheckboxChange} label={"Crédito"} />
 
-                  <Checkbox
-                     name="debit"
-                     onChange={handleCheckboxChange}
-                     label="Débito"
-                  />
+                  <Checkbox name="debit" onChange={handleCheckboxChange} label="Débito" />
                </div>
             </div>
          </div>
@@ -159,10 +135,7 @@ export default function Page() {
             </div>
          )}
 
-         <Button
-            type={"submit"}
-            className={"text-white"}
-         >
+         <Button type={"submit"} className={"text-white"}>
             Adicionar
          </Button>
       </form>

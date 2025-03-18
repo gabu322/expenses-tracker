@@ -4,7 +4,10 @@ export function handleToastError(error: unknown, toastId: Id) {
    let errorMessage = "Ocorreu um erro inesperado.";
 
    if (typeof error === "object" && error !== null) {
-      const err = error as { response?: { data?: { error?: string; errors?: { message: string }[] } }; message?: string };
+      const err = error as {
+         response?: { data?: { error?: string; errors?: { message: string }[] } };
+         message?: string;
+      };
 
       if (err.response?.data?.error) {
          errorMessage = err.response.data.error;

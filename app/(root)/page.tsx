@@ -48,20 +48,13 @@ export default function Home() {
             >
                <h2 className="text-2xl font-bold text-left">Sem cartões disponíveis</h2>
                Você ainda não possui cartões cadastrados.
-               <Button
-                  href={"/cards"}
-                  className="w-full mt-auto"
-               >
+               <Button href={"/cards"} className="w-full mt-auto">
                   Criar cartão{" "}
                </Button>
             </div>
          ) : (
             cards.map((card) => (
-               <Card
-                  key={card.id}
-                  card={card}
-                  issuer={issuers.find((issuer) => issuer.id === card.issuerId)}
-               />
+               <Card key={card.id} card={card} issuer={issuers.find((issuer) => issuer.id === card.issuerId)} />
             ))
          )}
       </div>

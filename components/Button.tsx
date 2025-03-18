@@ -28,7 +28,22 @@ interface ButtonProps {
    disabled?: boolean;
 }
 
-export default function Button({ className = "", type = "button", onClick, color = "blue", bgColor, hoverColor, text, textColor = "text-white", href, blank = false, children, rounded = false, loading = false, disabled = false }: ButtonProps) {
+export default function Button({
+   className = "",
+   type = "button",
+   onClick,
+   color = "blue",
+   bgColor,
+   hoverColor,
+   text,
+   textColor = "text-white",
+   href,
+   blank = false,
+   children,
+   rounded = false,
+   loading = false,
+   disabled = false,
+}: ButtonProps) {
    const colors = bgColors[color] || bgColors.blue;
    const bg_color = disabled ? colors.disabled : bgColor || colors.bg;
    const hover_color = disabled ? "" : hoverColor || colors.hover;

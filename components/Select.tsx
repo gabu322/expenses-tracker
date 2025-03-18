@@ -60,10 +60,28 @@ const sizeConfig = {
    },
 };
 
-export default function Select({ id, className = "", name, label, options, onChange, size = "md", initialValue, value, searchable = true, showOptionValue = false, rounded, required, disabled }: SelectProps) {
+export default function Select({
+   id,
+   className = "",
+   name,
+   label,
+   options,
+   onChange,
+   size = "md",
+   initialValue,
+   value,
+   searchable = true,
+   showOptionValue = false,
+   rounded,
+   required,
+   disabled,
+}: SelectProps) {
    const [internalValue, setInternalValue] = useState<string>("");
    const [isFocused, setIsFocused] = useState<boolean>(false);
-   const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({ outline: "#d1d5db", text: "#9ca3af" });
+   const [infoColor, setInfoColor] = useState<{ outline: string; text: string }>({
+      outline: "#d1d5db",
+      text: "#9ca3af",
+   });
    const sizes = sizeConfig[size];
 
    useEffect(() => {
@@ -169,7 +187,9 @@ export default function Select({ id, className = "", name, label, options, onCha
          )}
 
          {isFocused && (
-            <div className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-60 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+            <div
+               className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-60 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+            >
                {options
                   .filter((option) => option.text.toLowerCase().includes((internalValue || "").toLowerCase()))
                   .map((option) => (
@@ -198,13 +218,7 @@ export default function Select({ id, className = "", name, label, options, onCha
                fill="none"
                xmlns="http://www.w3.org/2000/svg"
             >
-               <path
-                  d="M21 3L12 12L3 3"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-               />
+               <path d="M21 3L12 12L3 3" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                <path
                   d="M3 21L12 12L21 21"
                   stroke="black"

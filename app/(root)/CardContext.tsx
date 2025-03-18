@@ -30,6 +30,8 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    };
 
    useEffect(() => {
+      if (window.location.pathname === "/") return; // Return early if the path is "/"
+
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 

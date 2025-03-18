@@ -79,13 +79,21 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.balance}
                            end={cards[currentCardIndex]?.balance || 0}
-                           onEnd={() => setCurrentValues((prev) => ({ ...prev, balance: cards[currentCardIndex]?.balance || 0, net: debitNet }))}
+                           onEnd={() =>
+                              setCurrentValues((prev) => ({
+                                 ...prev,
+                                 balance: cards[currentCardIndex]?.balance || 0,
+                                 net: debitNet,
+                              }))
+                           }
                            decimals={2}
                         />
                      </div>
                   </div>
                   <div className="card p-3 h-16 flex-row-4">
-                     <DollarSign className={`h-10 w-10 p-1 rounded-md ${debitNet > 0 ? "bg-lime-200 text-green-800" : "bg-red-200 text-red-700"}`} />
+                     <DollarSign
+                        className={`h-10 w-10 p-1 rounded-md ${debitNet > 0 ? "bg-lime-200 text-green-800" : "bg-red-200 text-red-700"}`}
+                     />
                      <div className="flex flex-col justify-around">
                         <span>Total do mês</span>
                         <CountUp
@@ -93,7 +101,13 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.net}
                            end={debitNet}
-                           onEnd={() => setCurrentValues((prev) => ({ ...prev, net: debitNet, balance: cards[currentCardIndex]?.balance || 0 }))}
+                           onEnd={() =>
+                              setCurrentValues((prev) => ({
+                                 ...prev,
+                                 net: debitNet,
+                                 balance: cards[currentCardIndex]?.balance || 0,
+                              }))
+                           }
                            decimals={2}
                         />
                      </div>
@@ -113,7 +127,9 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.limit}
                            end={cards[currentCardIndex]?.limit || 0}
-                           onEnd={() => setCurrentValues((prev) => ({ ...prev, limit: cards[currentCardIndex]?.limit || 0 }))}
+                           onEnd={() =>
+                              setCurrentValues((prev) => ({ ...prev, limit: cards[currentCardIndex]?.limit || 0 }))
+                           }
                            decimals={2}
                         />
                      </div>
@@ -128,7 +144,12 @@ export default function Page() {
                            prefix="R$"
                            start={currentValues.usedLimit}
                            end={cards[currentCardIndex]?.usedLimit || 0}
-                           onEnd={() => setCurrentValues((prev) => ({ ...prev, usedLimit: cards[currentCardIndex]?.usedLimit || 0 }))}
+                           onEnd={() =>
+                              setCurrentValues((prev) => ({
+                                 ...prev,
+                                 usedLimit: cards[currentCardIndex]?.usedLimit || 0,
+                              }))
+                           }
                            decimals={2}
                         />
                      </div>
@@ -144,10 +165,7 @@ export default function Page() {
             {transactions
                ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                .map((transaction, index) => (
-                  <div
-                     className={`flex flex-row gap-2 pl-3 pr-1 py-2 ${index > 0 ? "border-t-2" : ""}`}
-                     key={index}
-                  >
+                  <div className={`flex flex-row gap-2 pl-3 pr-1 py-2 ${index > 0 ? "border-t-2" : ""}`} key={index}>
                      <div className="flex flex-col gap-1 w-full">
                         <div className="w-full flex flex-row justify-between font-bold">
                            <span>{transaction.description}</span>
@@ -160,7 +178,13 @@ export default function Page() {
                         <div className="w-full flex flex-row justify-between text-slate-400 text-[14px]">
                            <div>{transaction.method === "DEBIT" ? "Débito" : "Crédito"}</div>
 
-                           <div>{new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" })}</div>
+                           <div>
+                              {new Date(transaction.date).toLocaleDateString("pt-BR", {
+                                 day: "2-digit",
+                                 month: "2-digit",
+                                 year: "2-digit",
+                              })}
+                           </div>
                         </div>
                      </div>
 

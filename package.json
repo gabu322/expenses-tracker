@@ -7,7 +7,15 @@
       "build": "next build",
       "start": "next start",
       "lint": "next lint",
-      "postinstall": "prisma generate"
+      "postinstall": "prisma generate",
+      "format": "prettier --write ."
+   },
+   "lint-staged": {
+      "*.{js,jsx,ts,tsx}": [
+         "next lint --fix",
+         "prettier --write"
+      ],
+      "*.{json,css,md}": "prettier --write"
    },
    "dependencies": {
       "@prisma/client": "^6.1.0",
@@ -31,7 +39,10 @@
       "@types/react-dom": "^19",
       "eslint": "^9.20.1",
       "eslint-config-next": "15.1.7",
+      "husky": "^9.1.7",
+      "lint-staged": "^15.5.0",
       "postcss": "^8.5.1",
+      "prettier": "^3.5.3",
       "prisma": "^6.4.1",
       "tailwindcss": "^3.4.1",
       "typescript": "5.7.3"

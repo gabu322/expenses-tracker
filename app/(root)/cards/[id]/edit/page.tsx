@@ -56,129 +56,102 @@ export default function Page() {
    };
 
    return (
-      <div className="min-h-screen flex flex-col gap-8">
-         <h1>Editando cartão</h1>
-         <form
-            className="flex flex-col gap-6"
-            onSubmit={handleSubmit}
-         >
-            <div className="flex flex-col gap-4">
-               <h2>Informações gerais</h2>
-               <Input
-                  name="nickname"
-                  label="Nome do cartão"
-                  onChange={handleChange}
-                  initialValue={cardData.nickname}
-                  required
-               />
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+         <div className="form">
+            <h2>Informações gerais</h2>
+            <Input name="nickname" label="Nome do cartão" onChange={handleChange} value={cardData.nickname} required />
 
-               <Input
-                  name="number"
-                  label="Número do cartão"
-                  onChange={handleChange}
-                  mask="**** **** **** 0000"
-                  initialValue={cardData.number}
-                  required
-               />
+            <Input
+               name="number"
+               label="Número do cartão"
+               onChange={handleChange}
+               mask="**** **** **** 0000"
+               value={cardData.number}
+               required
+            />
 
-               <Input
-                  name="cvv"
-                  label="CVV"
-                  onChange={handleChange}
-                  mask="000"
-                  initialValue={cardData.cvv}
-                  type="number"
-               />
+            <Input name="cvv" label="CVV" onChange={handleChange} mask="000" value={cardData.cvv} type="number" />
 
-               <Input
-                  name="expiration"
-                  label="Data de expiração"
-                  onChange={handleChange}
-                  initialValue={cardData.expiration}
-                  type="month"
-               />
+            <Input
+               name="expiration"
+               label="Data de expiração"
+               onChange={handleChange}
+               value={cardData.expiration}
+               type="month"
+            />
 
-               <Select
-                  name="issuer"
-                  label="Banco"
-                  options={issuers.map((issuer) => ({ value: issuer.id || "", text: issuer.name }))}
-                  onChange={handleChange}
-                  initialValue={cardData.issuerId}
-                  required
-               />
+            <Select
+               name="issuer"
+               label="Banco"
+               options={issuers.map((issuer) => ({ value: issuer.id || "", text: issuer.name }))}
+               onChange={handleChange}
+               value={cardData.issuerId}
+               required
+            />
 
-               <div className="flex justify-between">
-                  <div>Tipo do cartão</div>
+            <div className="flex justify-between">
+               <div>Tipo do cartão</div>
 
-                  <div className="flex gap-4">
-                     <Checkbox
-                        name="credit"
-                        onChange={handleCheckboxChange}
-                        label={"Crédito"}
-                     />
+               <div className="flex gap-4">
+                  <Checkbox
+                     name="credit"
+                     onChange={handleCheckboxChange}
+                     label={"Crédito"}
+                     initialChecked={cardData.credit}
+                  />
 
-                     <Checkbox
-                        name="debit"
-                        onChange={handleCheckboxChange}
-                        label="Débito"
-                     />
-                  </div>
+                  <Checkbox
+                     name="debit"
+                     onChange={handleCheckboxChange}
+                     label="Débito"
+                     initialChecked={cardData.debit}
+                  />
                </div>
             </div>
+         </div>
 
-            {cardData.credit && (
-               <div className="flex flex-col gap-4">
-                  <h2>Informações de crédito</h2>
+         {cardData.credit && (
+            <div className="form">
+               <h2>Informações de crédito</h2>
 
-                  <Input
-                     name="creditLimit"
-                     label="Limite de crédito"
-                     onChange={handleChange}
-                     currency={"R$"}
-                     required={cardData.credit}
-                     initialValue={cardData.limit}
-                  />
+               <Input
+                  name="creditLimit"
+                  label="Limite de crédito"
+                  onChange={handleChange}
+                  currency={"R$"}
+                  required={cardData.credit}
+                  value={cardData.limit}
+               />
 
-                  <Input
-                     name="currentCredit"
-                     label="Crédito atual"
-                     onChange={handleChange}
-                     currency={"R$"}
-                     required={cardData.credit}
-                     initialValue={cardData.usedLimit}
-                  />
-               </div>
-            )}
+               <Input
+                  name="currentCredit"
+                  label="Crédito atual"
+                  onChange={handleChange}
+                  currency={"R$"}
+                  required={cardData.credit}
+                  value={cardData.usedLimit}
+               />
+            </div>
+         )}
 
-            {cardData.debit && (
-               <div className="flex flex-col gap-4">
-                  <h2>Informações de débito</h2>
+         {cardData.debit && (
+            <div className="form">
+               <h2>Informações de débito</h2>
 
-                  <Input
-                     name="balance"
-                     label="Saldo da conta"
-                     onChange={handleChange}
-                     currency={"R$"}
-                     required={cardData.debit}
-                     initialValue={cardData.balance}
-                  />
-               </div>
-            )}
+               <Input
+                  name="balance"
+                  label="Saldo da conta"
+                  onChange={handleChange}
+                  currency={"R$"}
+                  required={cardData.debit}
+                  value={cardData.balance}
+               />
+            </div>
+         )}
 
-            <Button
-               type={"submit"}
-               className={"text-white"}
-            >
-               Adicionar
-            </Button>
-
-            <Button
-               onClick={() => console.log(cardData)}
-               className={"text-white"}
-            >
-               Log
-            </Button>
-         </form>
-      </div>
+         <Button type={"submit"} className={"text-white"}>
+            Adicionar
+         </Button>
+      </form>
    );
 }

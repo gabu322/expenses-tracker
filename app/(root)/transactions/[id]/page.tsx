@@ -81,56 +81,58 @@ export default function Page() {
    };
 
    return (
-      <form
-         className="flex flex-col gap-4"
-         onSubmit={handleSubmit}
-      >
-         <h2 className="text-2xl font-bold text-left w-full">Atualizar transação</h2>
-         <Input
-            name="amount"
-            label="Valor"
-            currency="R$"
-            onChange={handleChange}
-            value={transaction.amount}
-            required
-         />
+      <div className="flex flex-col gap-4">
+         <form
+            className="form"
+            onSubmit={handleSubmit}
+         >
+            <h2 className="text-2xl font-bold text-left w-full">Atualizar transação</h2>
+            <Input
+               name="amount"
+               label="Valor"
+               currency="R$"
+               onChange={handleChange}
+               value={transaction.amount}
+               required
+            />
 
-         <Select
-            name="method"
-            label="Método de pagamento"
-            options={methods}
-            onChange={handleChange}
-            value={transaction.method}
-            required
-         />
+            <Select
+               name="method"
+               label="Método de pagamento"
+               options={methods}
+               onChange={handleChange}
+               value={transaction.method}
+               required
+            />
 
-         <Select
-            name="type"
-            label="Tipo"
-            options={types}
-            value={transaction.type}
-            onChange={handleChange}
-            disabled={transaction.method === null}
-            required
-         />
+            <Select
+               name="type"
+               label="Tipo"
+               options={types}
+               value={transaction.type}
+               onChange={handleChange}
+               disabled={transaction.method === null}
+               required
+            />
 
-         <Input
-            name="date"
-            label="Data"
-            type="datetime-local"
-            onChange={handleChange}
-            value={transaction.date.substring(0, 16)}
-            required
-         />
+            <Input
+               name="date"
+               label="Data"
+               type="datetime-local"
+               onChange={handleChange}
+               value={transaction.date.substring(0, 16)}
+               required
+            />
 
-         <Input
-            name="description"
-            label="Descrição"
-            onChange={handleChange}
-            value={transaction.description}
-         />
+            <Input
+               name="description"
+               label="Descrição"
+               onChange={handleChange}
+               value={transaction.description}
+            />
+         </form>
 
          <Button type="submit">Atualizar</Button>
-      </form>
+      </div>
    );
 }

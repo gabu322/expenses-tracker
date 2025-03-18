@@ -52,47 +52,47 @@ export default function Page() {
 
    return (
       <div className="flex flex-col gap-4">
-         <div className="flex flex-row justify-between">
-            <h1>Bancos</h1>
+         <div className="form">
+            <h2>Adicionar banco</h2>
+
+            <form
+               className="flex flex-col gap-5"
+               onSubmit={handleSubmit}
+            >
+               <Input
+                  name="name"
+                  label="Nome do banco"
+                  onChange={handleChange}
+                  required
+               />
+
+               <Input
+                  name="color"
+                  label="Cor"
+                  type="color"
+                  onChange={handleChange}
+                  required
+               />
+
+               <Input
+                  name="icon"
+                  label="Ícone"
+                  onChange={handleChange}
+               />
+
+               <Button type="submit">Criar banco</Button>
+            </form>
          </div>
 
-         <h2>Adicionar banco</h2>
-
-         <form
-            className="flex flex-col gap-5"
-            onSubmit={handleSubmit}
-         >
+         <div className="form">
+            <h2>Listagem de bancos</h2>
             <Input
-               name="name"
-               label="Nome do banco"
-               onChange={handleChange}
-               required
+               id="Filter"
+               name="Filter"
+               label="Filtro"
+               onChange={(e) => setFilter(e.target.value as string)}
             />
-
-            <Input
-               name="color"
-               label="Cor"
-               type="color"
-               onChange={handleChange}
-               required
-            />
-
-            <Input
-               name="icon"
-               label="Ícone"
-               onChange={handleChange}
-            />
-
-            <Button type="submit">Criar banco</Button>
-         </form>
-
-         <h2>Listagem de bancos</h2>
-         <Input
-            id="Filter"
-            name="Filter"
-            label="Filtro"
-            onChange={(e) => setFilter(e.target.value as string)}
-         />
+         </div>
 
          {issuers
             .filter((issuer) => issuer.name.toLowerCase().includes(filter.toLowerCase()))

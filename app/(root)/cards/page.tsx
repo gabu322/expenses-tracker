@@ -63,7 +63,7 @@ export default function Page() {
          className="flex flex-col gap-4"
          onSubmit={handleSubmit}
       >
-         <div className="flex flex-col gap-4 bg-white rounded-lg p-4 shadow-md">
+         <div className="form">
             <h1 className="">Criando novo cartão</h1>
 
             <Input

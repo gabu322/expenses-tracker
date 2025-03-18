@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -43,15 +43,19 @@ export default function Page() {
       } catch (error) {
          console.error(error);
       }
-   }
+   };
 
-   return <div className="flex-col-4">
-      <h1>Editar banco: {issuer?.name}</h1>
-      <form onSubmit={handleSubmit} className="flex-col-4">
+   return (
+      <form
+         onSubmit={handleSubmit}
+         className="form"
+      >
+         <h2>Editar banco</h2>
+
          <Input
             name="name"
             label="Nome"
-            initialValue={issuer?.name}
+            value={issuer?.name}
             onChange={handleChange}
          />
 
@@ -59,14 +63,14 @@ export default function Page() {
             name="color"
             label="Cor"
             type="color"
-            initialValue={issuer?.color}
+            value={issuer?.color}
             onChange={handleChange}
          />
 
          <Input
             name="icon"
             label="Ícone"
-            initialValue={issuer?.icon}
+            value={issuer?.icon}
             onChange={handleChange}
          />
 
@@ -76,6 +80,5 @@ export default function Page() {
             className="w-full"
          />
       </form>
-   </div>
-
-};
+   );
+}

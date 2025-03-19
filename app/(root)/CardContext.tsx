@@ -11,6 +11,7 @@ interface CardContextType {
    fetchCards: () => Promise<void>;
    transactions: TransactionType[] | null;
    setTransactions: React.Dispatch<React.SetStateAction<TransactionType[] | null>>;
+   isLoading: boolean;
 }
 
 const CardContext = createContext<CardContextType | null>(null);
@@ -19,24 +20,27 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    const { data: session } = useSession();
    const [cards, setCards] = useState<CardType[]>([]);
    const [transactions, setTransactions] = useState<TransactionType[] | null>(null);
+   const [isLoading, setIsLoading] = useState<boolean>(false);
 
    const fetchCards = async () => {
+      setIsLoading(true);
+
       try {
          const response = await axios.get("/api/cards");
          setCards(response.data);
       } catch (error) {
          console.error("Failed to fetch cards:", error);
+      } finally {
+         setIsLoading(false);
       }
    };
 
    useEffect(() => {
-      if (window.location.pathname === "/") return; // Return early if the path is "/"
-
       if (session?.user) fetchCards(); // Fetch user's cards after login
    }, [session]);
 
    return (
-      <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions }}>
+      <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions, isLoading }}>
          {children}
       </CardContext.Provider>
    );

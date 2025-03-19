@@ -10,10 +10,9 @@ import { Card } from "@/components/pages/Card";
 import Skeleton from "@/components/Skeleton";
 
 export default function Home() {
-   const { cards, fetchCards } = useCards();
+   const { cards, isLoading } = useCards();
    const [issuers, setIssuers] = useState<IssuerType[]>([]);
    const [loadingIssuers, setLoadingIssuers] = useState<boolean>(true);
-   const [loadingCards, setLoadingCards] = useState<boolean>(true);
 
    useEffect(() => {
       const fetchIssuers = async () => {
@@ -28,14 +27,13 @@ export default function Home() {
       };
 
       fetchIssuers();
-      fetchCards().finally(() => setLoadingCards(false));
    }, []);
 
    return (
       <div className="flex flex-col gap-4">
          <h1>Seus cartões</h1>
 
-         {loadingCards && loadingIssuers ? (
+         {isLoading || loadingIssuers ? (
             <>
                <Skeleton className="aspect-[8/5] rounded-lg shadow-lg max-w-[400px]" />
                <Skeleton className="aspect-[8/5] rounded-lg shadow-lg max-w-[400px]" />

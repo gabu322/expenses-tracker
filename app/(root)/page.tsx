@@ -8,6 +8,7 @@ import { IssuerType } from "@/utils/types/index";
 import { useCards } from "./CardContext";
 import { Card } from "@/components/pages/Card";
 import Skeleton from "@/components/Skeleton";
+import { Plus } from "lucide-react";
 
 export default function Home() {
    const { cards, isLoading } = useCards();
@@ -31,7 +32,14 @@ export default function Home() {
 
    return (
       <div className="flex flex-col gap-4">
-         <h1>Seus cartões</h1>
+         <div className="flex flex-row justify-between items-center">
+            <h1 className="text-4xl">Seus cartões</h1>
+
+            <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full">
+               Criar cartão
+               <Plus size={20} className="ml-1" />
+            </Button>
+         </div>
 
          {isLoading || loadingIssuers ? (
             <>

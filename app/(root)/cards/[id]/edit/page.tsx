@@ -58,7 +58,7 @@ export default function Page() {
    return (
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
          <div className="form">
-            <h2>Informações gerais</h2>
+            <h1>Informações gerais</h1>
             <Input name="nickname" label="Nome do cartão" onChange={handleChange} value={cardData.nickname} required />
 
             <Input

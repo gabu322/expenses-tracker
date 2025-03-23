@@ -83,8 +83,10 @@ export default function Page() {
 
    return (
       <div className="flex flex-col gap-4">
+         <h1>Atualizar transação</h1>
          <form className="form" onSubmit={handleSubmit}>
-            <h2 className="text-2xl font-bold text-left w-full">Atualizar transação</h2>
+            <h2>Informações gerais</h2>
+
             <Input
                name="amount"
                label="Valor"

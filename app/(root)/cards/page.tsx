@@ -60,8 +60,10 @@ export default function Page() {
 
    return (
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+         <h1>Criando cartão</h1>
+
          <div className="form">
-            <h1 className="">Criando novo cartão</h1>
+            <h2>Informações gerais</h2>
 
             <Input name="nickname" label="Nome do cartão" onChange={handleChange} required />
 

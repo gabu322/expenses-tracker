@@ -33,9 +33,9 @@ export default function Home() {
    return (
       <div className="flex flex-col gap-4">
          <div className="flex flex-row justify-between items-center">
-            <h1 className="text-4xl">Seus cartões</h1>
+            <h1>Seus cartões</h1>
 
-            <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full">
+            <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full h-9">
                Criar cartão
                <Plus size={20} className="ml-1" />
             </Button>

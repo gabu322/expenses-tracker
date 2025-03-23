@@ -32,19 +32,19 @@ main {
 }
 
 h1 {
-   @apply text-3xl font-bold;
+   @apply text-4xl font-bold leading-none;
 }
 
 h2 {
-   @apply text-2xl font-semibold;
+   @apply text-2xl font-semibold leading-none;
 }
 
 h3 {
-   @apply text-xl font-semibold;
+   @apply text-xl font-semibold leading-none;
 }
 
 h4 {
-   @apply text-lg font-medium;
+   @apply text-lg font-medium leading-none;
 }
 
 h5 {

@@ -199,7 +199,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      color="green"
                      type="submit"
                      disabled={
-                        newTransaction.cardId === null || newTransaction.method === null || newTransaction.type === null
+                        newTransaction.cardId === null ||
+                        newTransaction.method === null ||
+                        newTransaction.type === null ||
+                        newTransaction.amount === 0 ||
+                        newTransaction.date === "" ||
+                        newTransaction.description === ""
                      }
                   />
 

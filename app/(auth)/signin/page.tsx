@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { handleChangeType } from "@/utils/types/handleChange";
+import { handleToastError } from "@/lib/functions";
 
 interface LoginData {
    email: string;
@@ -39,17 +40,12 @@ export default function Page() {
             password: login.password,
          });
 
-         if (!loginResponse || !loginResponse.ok) throw new Error(loginResponse?.error ?? "Failed to login");
+         if (!loginResponse || !loginResponse.ok) throw new Error(loginResponse?.error ?? "Falha no login");
 
          toast.update(toastId, { render: "Login bem-sucedido!", type: "success", isLoading: false, autoClose: 3000 });
          router.push("/");
       } catch (error) {
-         toast.update(toastId, {
-            render: "Falha no login: " + (error as Error).message,
-            type: "error",
-            isLoading: false,
-            autoClose: 3000,
-         });
+         handleToastError(error, toastId);
       } finally {
          setLoading(false);
       }
@@ -57,7 +53,7 @@ export default function Page() {
 
    return (
       <div className="flex flex-col justify-center items-center w-full gap-4 bg-white p-6 rounded-2xl shadow-lg max-w-md">
-         <h1 className="text-3xl">Login</h1>
+         <h1>Login</h1>
 
          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
             <Input name="email" label="Email" type="email" onChange={handleChange} required />
@@ -65,9 +61,11 @@ export default function Page() {
             <Input name="password" label="Senha" type="password" onChange={handleChange} required />
 
             <Button type="submit" text={"Entrar"} disabled={loading} />
+
             <hr />
 
             <p className="text-left">Ainda não possui cadastro?</p>
+
             <Button className="w-full" text={"Cadastrar"} href={"/signup"} />
          </form>
       </div>

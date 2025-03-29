@@ -127,13 +127,14 @@ exports.Prisma.CardScalarFieldEnum = {
   credit: 'credit',
   issuerId: 'issuerId',
   userId: 'userId',
+  currency: 'currency',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.DebitCardScalarFieldEnum = {
   id: 'id',
-  balance: 'balance',
+  initialBalance: 'initialBalance',
   cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -142,7 +143,7 @@ exports.Prisma.DebitCardScalarFieldEnum = {
 exports.Prisma.CreditCardScalarFieldEnum = {
   id: 'id',
   limit: 'limit',
-  usedLimit: 'usedLimit',
+  initialUsedLimit: 'initialUsedLimit',
   cardId: 'cardId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -163,7 +164,6 @@ exports.Prisma.TransactionScalarFieldEnum = {
   method: 'method',
   amount: 'amount',
   date: 'date',
-  currency: 'currency',
   description: 'description',
   cardId: 'cardId',
   createdAt: 'createdAt',
@@ -185,7 +185,7 @@ exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   token: 'token',
-  status: 'status',
+  active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

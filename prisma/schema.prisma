@@ -29,6 +29,7 @@ model Card {
    credit     Boolean @default(false)
    issuerId   String
    userId     String
+   currency   String  @default("USD")
 
    // Foreign keys
    issuer Issuer @relation(fields: [issuerId], references: [id])
@@ -45,9 +46,9 @@ model Card {
 }
 
 model DebitCard {
-   id      String @id @default(uuid())
-   balance Float  @default(0.0)
-   cardId  String @unique
+   id             String @id @default(uuid())
+   initialBalance Float  @default(0.0)
+   cardId         String @unique
 
    // Foreign keys
    card Card @relation(fields: [cardId], references: [id])
@@ -58,10 +59,10 @@ model DebitCard {
 }
 
 model CreditCard {
-   id        String @id @default(uuid())
-   limit     Float
-   usedLimit Float  @default(0.0)
-   cardId    String @unique
+   id               String @id @default(uuid())
+   limit            Float
+   initialUsedLimit Float  @default(0.0)
+   cardId           String @unique
 
    // Foreign keys
    card Card @relation(fields: [cardId], references: [id])
@@ -91,7 +92,6 @@ model Transaction {
    method      TransactionMethod
    amount      Float
    date        DateTime
-   currency    String            @default("USD")
    description String?
    cardId      String
 
@@ -124,7 +124,7 @@ model Session {
    id     String  @id @default(uuid())
    userId String
    token  String  @unique
-   status Boolean @default(true)
+   active Boolean @default(true)
 
    // Foreign keys
    user User @relation(fields: [userId], references: [id])

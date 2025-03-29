@@ -17,6 +17,7 @@ async function handler(req: NextRequest) {
                include: { creditCard: true, debitCard: true },
             });
 
+            // TODO: calculate balance and usedLimit by trancastions
             const formattedCards = cards.map((card) => ({
                id: card.id,
                nickname: card.nickname,
@@ -25,10 +26,10 @@ async function handler(req: NextRequest) {
                cvv: card.cvv ?? "",
                issuerId: card.issuerId,
                debit: !!card.debitCard,
-               balance: card.debitCard?.balance,
+               balance: card.debitCard?.initialBalance,
                credit: !!card.creditCard,
                limit: card.creditCard?.limit,
-               usedLimit: card.creditCard?.usedLimit,
+               usedLimit: card.creditCard?.initialUsedLimit,
             }));
 
             return NextResponse.json(formattedCards, { status: 200 });
@@ -50,12 +51,12 @@ async function handler(req: NextRequest) {
                      ? {
                           create: {
                              limit: cardData.limit || 0,
-                             usedLimit: cardData.usedLimit || 0.0,
+                             initialUsedLimit: cardData.usedLimit || 0.0,
                           },
                        }
                      : undefined,
                   debit: cardData.debit,
-                  debitCard: cardData.debit ? { create: { balance: cardData.balance } } : undefined,
+                  debitCard: cardData.debit ? { create: { initialBalance: cardData.balance } } : undefined,
                },
             });
 

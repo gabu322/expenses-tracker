@@ -38,26 +38,15 @@ async function handler(req: NextRequest) {
 
             const inverter = transactionData.type === "INCOME" ? 1 : -1;
 
-            const newTransaction = await prisma.$transaction(async (tx) => {
-               if (transactionData.method === "DEBIT" && card.debit) {
-                  await tx.debitCard.update({
-                     where: { cardId: transactionData.cardId },
-                     data: { balance: { increment: transactionData.amount * inverter } },
-                  });
-               } else if (transactionData.method === "CREDIT" && card.credit) {
-                  await tx.creditCard.update({
-                     where: { cardId: transactionData.cardId },
-                     data: { usedLimit: { increment: transactionData.amount * inverter * -1 } },
-                  });
-               }
-
-               return tx.transaction.create({
-                  data: {
-                     ...transactionData,
-                     type: transactionData.type as TransactionType,
-                     method: transactionData.method as TransactionMethod,
-                  },
-               });
+            const newTransaction = await prisma.transaction.create({
+               data: {
+                  cardId: transactionData.cardId,
+                  method: transactionData.method as TransactionMethod,
+                  amount: transactionData.amount * inverter,
+                  date: new Date(transactionData.date),
+                  description: transactionData.description,
+                  type: transactionData.type as TransactionType,
+               },
             });
 
             return NextResponse.json(newTransaction, { status: 201 });

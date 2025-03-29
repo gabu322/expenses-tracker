@@ -1563,6 +1563,7 @@ export namespace Prisma {
     credit: boolean | null
     issuerId: string | null
     userId: string | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1577,6 +1578,7 @@ export namespace Prisma {
     credit: boolean | null
     issuerId: string | null
     userId: string | null
+    currency: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1591,6 +1593,7 @@ export namespace Prisma {
     credit: number
     issuerId: number
     userId: number
+    currency: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1607,6 +1610,7 @@ export namespace Prisma {
     credit?: true
     issuerId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1621,6 +1625,7 @@ export namespace Prisma {
     credit?: true
     issuerId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1635,6 +1640,7 @@ export namespace Prisma {
     credit?: true
     issuerId?: true
     userId?: true
+    currency?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1722,6 +1728,7 @@ export namespace Prisma {
     credit: boolean
     issuerId: string
     userId: string
+    currency: string
     createdAt: Date
     updatedAt: Date
     _count: CardCountAggregateOutputType | null
@@ -1753,6 +1760,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId?: boolean
     userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
@@ -1773,6 +1781,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId?: boolean
     userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
@@ -1789,6 +1798,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId?: boolean
     userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
@@ -1805,11 +1815,12 @@ export namespace Prisma {
     credit?: boolean
     issuerId?: boolean
     userId?: boolean
+    currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "number" | "expiration" | "cvv" | "debit" | "credit" | "issuerId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
+  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "number" | "expiration" | "cvv" | "debit" | "credit" | "issuerId" | "userId" | "currency" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
   export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     issuer?: boolean | IssuerDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -1846,6 +1857,7 @@ export namespace Prisma {
       credit: boolean
       issuerId: string
       userId: string
+      currency: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["card"]>
@@ -2285,6 +2297,7 @@ export namespace Prisma {
     readonly credit: FieldRef<"Card", 'Boolean'>
     readonly issuerId: FieldRef<"Card", 'String'>
     readonly userId: FieldRef<"Card", 'String'>
+    readonly currency: FieldRef<"Card", 'String'>
     readonly createdAt: FieldRef<"Card", 'DateTime'>
     readonly updatedAt: FieldRef<"Card", 'DateTime'>
   }
@@ -2776,16 +2789,16 @@ export namespace Prisma {
   }
 
   export type DebitCardAvgAggregateOutputType = {
-    balance: number | null
+    initialBalance: number | null
   }
 
   export type DebitCardSumAggregateOutputType = {
-    balance: number | null
+    initialBalance: number | null
   }
 
   export type DebitCardMinAggregateOutputType = {
     id: string | null
-    balance: number | null
+    initialBalance: number | null
     cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2793,7 +2806,7 @@ export namespace Prisma {
 
   export type DebitCardMaxAggregateOutputType = {
     id: string | null
-    balance: number | null
+    initialBalance: number | null
     cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2801,7 +2814,7 @@ export namespace Prisma {
 
   export type DebitCardCountAggregateOutputType = {
     id: number
-    balance: number
+    initialBalance: number
     cardId: number
     createdAt: number
     updatedAt: number
@@ -2810,16 +2823,16 @@ export namespace Prisma {
 
 
   export type DebitCardAvgAggregateInputType = {
-    balance?: true
+    initialBalance?: true
   }
 
   export type DebitCardSumAggregateInputType = {
-    balance?: true
+    initialBalance?: true
   }
 
   export type DebitCardMinAggregateInputType = {
     id?: true
-    balance?: true
+    initialBalance?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2827,7 +2840,7 @@ export namespace Prisma {
 
   export type DebitCardMaxAggregateInputType = {
     id?: true
-    balance?: true
+    initialBalance?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2835,7 +2848,7 @@ export namespace Prisma {
 
   export type DebitCardCountAggregateInputType = {
     id?: true
-    balance?: true
+    initialBalance?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -2930,7 +2943,7 @@ export namespace Prisma {
 
   export type DebitCardGroupByOutputType = {
     id: string
-    balance: number
+    initialBalance: number
     cardId: string
     createdAt: Date
     updatedAt: Date
@@ -2957,7 +2970,7 @@ export namespace Prisma {
 
   export type DebitCardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    balance?: boolean
+    initialBalance?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2966,7 +2979,7 @@ export namespace Prisma {
 
   export type DebitCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    balance?: boolean
+    initialBalance?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2975,7 +2988,7 @@ export namespace Prisma {
 
   export type DebitCardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    balance?: boolean
+    initialBalance?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2984,13 +2997,13 @@ export namespace Prisma {
 
   export type DebitCardSelectScalar = {
     id?: boolean
-    balance?: boolean
+    initialBalance?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DebitCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "balance" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["debitCard"]>
+  export type DebitCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "initialBalance" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["debitCard"]>
   export type DebitCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     card?: boolean | CardDefaultArgs<ExtArgs>
   }
@@ -3008,7 +3021,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      balance: number
+      initialBalance: number
       cardId: string
       createdAt: Date
       updatedAt: Date
@@ -3437,7 +3450,7 @@ export namespace Prisma {
    */ 
   interface DebitCardFieldRefs {
     readonly id: FieldRef<"DebitCard", 'String'>
-    readonly balance: FieldRef<"DebitCard", 'Float'>
+    readonly initialBalance: FieldRef<"DebitCard", 'Float'>
     readonly cardId: FieldRef<"DebitCard", 'String'>
     readonly createdAt: FieldRef<"DebitCard", 'DateTime'>
     readonly updatedAt: FieldRef<"DebitCard", 'DateTime'>
@@ -3869,18 +3882,18 @@ export namespace Prisma {
 
   export type CreditCardAvgAggregateOutputType = {
     limit: number | null
-    usedLimit: number | null
+    initialUsedLimit: number | null
   }
 
   export type CreditCardSumAggregateOutputType = {
     limit: number | null
-    usedLimit: number | null
+    initialUsedLimit: number | null
   }
 
   export type CreditCardMinAggregateOutputType = {
     id: string | null
     limit: number | null
-    usedLimit: number | null
+    initialUsedLimit: number | null
     cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3889,7 +3902,7 @@ export namespace Prisma {
   export type CreditCardMaxAggregateOutputType = {
     id: string | null
     limit: number | null
-    usedLimit: number | null
+    initialUsedLimit: number | null
     cardId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3898,7 +3911,7 @@ export namespace Prisma {
   export type CreditCardCountAggregateOutputType = {
     id: number
     limit: number
-    usedLimit: number
+    initialUsedLimit: number
     cardId: number
     createdAt: number
     updatedAt: number
@@ -3908,18 +3921,18 @@ export namespace Prisma {
 
   export type CreditCardAvgAggregateInputType = {
     limit?: true
-    usedLimit?: true
+    initialUsedLimit?: true
   }
 
   export type CreditCardSumAggregateInputType = {
     limit?: true
-    usedLimit?: true
+    initialUsedLimit?: true
   }
 
   export type CreditCardMinAggregateInputType = {
     id?: true
     limit?: true
-    usedLimit?: true
+    initialUsedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -3928,7 +3941,7 @@ export namespace Prisma {
   export type CreditCardMaxAggregateInputType = {
     id?: true
     limit?: true
-    usedLimit?: true
+    initialUsedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -3937,7 +3950,7 @@ export namespace Prisma {
   export type CreditCardCountAggregateInputType = {
     id?: true
     limit?: true
-    usedLimit?: true
+    initialUsedLimit?: true
     cardId?: true
     createdAt?: true
     updatedAt?: true
@@ -4033,7 +4046,7 @@ export namespace Prisma {
   export type CreditCardGroupByOutputType = {
     id: string
     limit: number
-    usedLimit: number
+    initialUsedLimit: number
     cardId: string
     createdAt: Date
     updatedAt: Date
@@ -4061,7 +4074,7 @@ export namespace Prisma {
   export type CreditCardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     limit?: boolean
-    usedLimit?: boolean
+    initialUsedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4071,7 +4084,7 @@ export namespace Prisma {
   export type CreditCardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     limit?: boolean
-    usedLimit?: boolean
+    initialUsedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4081,7 +4094,7 @@ export namespace Prisma {
   export type CreditCardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     limit?: boolean
-    usedLimit?: boolean
+    initialUsedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4091,13 +4104,13 @@ export namespace Prisma {
   export type CreditCardSelectScalar = {
     id?: boolean
     limit?: boolean
-    usedLimit?: boolean
+    initialUsedLimit?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CreditCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "limit" | "usedLimit" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["creditCard"]>
+  export type CreditCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "limit" | "initialUsedLimit" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["creditCard"]>
   export type CreditCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     card?: boolean | CardDefaultArgs<ExtArgs>
   }
@@ -4116,7 +4129,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       limit: number
-      usedLimit: number
+      initialUsedLimit: number
       cardId: string
       createdAt: Date
       updatedAt: Date
@@ -4546,7 +4559,7 @@ export namespace Prisma {
   interface CreditCardFieldRefs {
     readonly id: FieldRef<"CreditCard", 'String'>
     readonly limit: FieldRef<"CreditCard", 'Float'>
-    readonly usedLimit: FieldRef<"CreditCard", 'Float'>
+    readonly initialUsedLimit: FieldRef<"CreditCard", 'Float'>
     readonly cardId: FieldRef<"CreditCard", 'String'>
     readonly createdAt: FieldRef<"CreditCard", 'DateTime'>
     readonly updatedAt: FieldRef<"CreditCard", 'DateTime'>
@@ -6073,7 +6086,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod | null
     amount: number | null
     date: Date | null
-    currency: string | null
     description: string | null
     cardId: string | null
     createdAt: Date | null
@@ -6086,7 +6098,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod | null
     amount: number | null
     date: Date | null
-    currency: string | null
     description: string | null
     cardId: string | null
     createdAt: Date | null
@@ -6099,7 +6110,6 @@ export namespace Prisma {
     method: number
     amount: number
     date: number
-    currency: number
     description: number
     cardId: number
     createdAt: number
@@ -6122,7 +6132,6 @@ export namespace Prisma {
     method?: true
     amount?: true
     date?: true
-    currency?: true
     description?: true
     cardId?: true
     createdAt?: true
@@ -6135,7 +6144,6 @@ export namespace Prisma {
     method?: true
     amount?: true
     date?: true
-    currency?: true
     description?: true
     cardId?: true
     createdAt?: true
@@ -6148,7 +6156,6 @@ export namespace Prisma {
     method?: true
     amount?: true
     date?: true
-    currency?: true
     description?: true
     cardId?: true
     createdAt?: true
@@ -6248,7 +6255,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date
-    currency: string
     description: string | null
     cardId: string
     createdAt: Date
@@ -6280,7 +6286,6 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     date?: boolean
-    currency?: boolean
     description?: boolean
     cardId?: boolean
     createdAt?: boolean
@@ -6294,7 +6299,6 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     date?: boolean
-    currency?: boolean
     description?: boolean
     cardId?: boolean
     createdAt?: boolean
@@ -6308,7 +6312,6 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     date?: boolean
-    currency?: boolean
     description?: boolean
     cardId?: boolean
     createdAt?: boolean
@@ -6322,14 +6325,13 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     date?: boolean
-    currency?: boolean
     description?: boolean
     cardId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "method" | "amount" | "date" | "currency" | "description" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "method" | "amount" | "date" | "description" | "cardId" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     card?: boolean | CardDefaultArgs<ExtArgs>
   }
@@ -6351,7 +6353,6 @@ export namespace Prisma {
       method: $Enums.TransactionMethod
       amount: number
       date: Date
-      currency: string
       description: string | null
       cardId: string
       createdAt: Date
@@ -6785,7 +6786,6 @@ export namespace Prisma {
     readonly method: FieldRef<"Transaction", 'TransactionMethod'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly date: FieldRef<"Transaction", 'DateTime'>
-    readonly currency: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly cardId: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
@@ -8355,7 +8355,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     token: string | null
-    status: boolean | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8364,7 +8364,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     token: string | null
-    status: boolean | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8373,7 +8373,7 @@ export namespace Prisma {
     id: number
     userId: number
     token: number
-    status: number
+    active: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8384,7 +8384,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     token?: true
-    status?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8393,7 +8393,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     token?: true
-    status?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8402,7 +8402,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     token?: true
-    status?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8484,7 +8484,7 @@ export namespace Prisma {
     id: string
     userId: string
     token: string
-    status: boolean
+    active: boolean
     createdAt: Date
     updatedAt: Date
     _count: SessionCountAggregateOutputType | null
@@ -8510,7 +8510,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     token?: boolean
-    status?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8520,7 +8520,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     token?: boolean
-    status?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8530,7 +8530,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     token?: boolean
-    status?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8540,12 +8540,12 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     token?: boolean
-    status?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8565,7 +8565,7 @@ export namespace Prisma {
       id: string
       userId: string
       token: string
-      status: boolean
+      active: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["session"]>
@@ -8995,7 +8995,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Session", 'String'>
     readonly userId: FieldRef<"Session", 'String'>
     readonly token: FieldRef<"Session", 'String'>
-    readonly status: FieldRef<"Session", 'Boolean'>
+    readonly active: FieldRef<"Session", 'Boolean'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly updatedAt: FieldRef<"Session", 'DateTime'>
   }
@@ -9436,6 +9436,7 @@ export namespace Prisma {
     credit: 'credit',
     issuerId: 'issuerId',
     userId: 'userId',
+    currency: 'currency',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9445,7 +9446,7 @@ export namespace Prisma {
 
   export const DebitCardScalarFieldEnum: {
     id: 'id',
-    balance: 'balance',
+    initialBalance: 'initialBalance',
     cardId: 'cardId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9457,7 +9458,7 @@ export namespace Prisma {
   export const CreditCardScalarFieldEnum: {
     id: 'id',
     limit: 'limit',
-    usedLimit: 'usedLimit',
+    initialUsedLimit: 'initialUsedLimit',
     cardId: 'cardId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9484,7 +9485,6 @@ export namespace Prisma {
     method: 'method',
     amount: 'amount',
     date: 'date',
-    currency: 'currency',
     description: 'description',
     cardId: 'cardId',
     createdAt: 'createdAt',
@@ -9512,7 +9512,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     token: 'token',
-    status: 'status',
+    active: 'active',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9656,6 +9656,7 @@ export namespace Prisma {
     credit?: BoolFilter<"Card"> | boolean
     issuerId?: StringFilter<"Card"> | string
     userId?: StringFilter<"Card"> | string
+    currency?: StringFilter<"Card"> | string
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
@@ -9675,6 +9676,7 @@ export namespace Prisma {
     credit?: SortOrder
     issuerId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     issuer?: IssuerOrderByWithRelationInput
@@ -9697,6 +9699,7 @@ export namespace Prisma {
     credit?: BoolFilter<"Card"> | boolean
     issuerId?: StringFilter<"Card"> | string
     userId?: StringFilter<"Card"> | string
+    currency?: StringFilter<"Card"> | string
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
     issuer?: XOR<IssuerScalarRelationFilter, IssuerWhereInput>
@@ -9716,6 +9719,7 @@ export namespace Prisma {
     credit?: SortOrder
     issuerId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CardCountOrderByAggregateInput
@@ -9736,6 +9740,7 @@ export namespace Prisma {
     credit?: BoolWithAggregatesFilter<"Card"> | boolean
     issuerId?: StringWithAggregatesFilter<"Card"> | string
     userId?: StringWithAggregatesFilter<"Card"> | string
+    currency?: StringWithAggregatesFilter<"Card"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
   }
@@ -9745,7 +9750,7 @@ export namespace Prisma {
     OR?: DebitCardWhereInput[]
     NOT?: DebitCardWhereInput | DebitCardWhereInput[]
     id?: StringFilter<"DebitCard"> | string
-    balance?: FloatFilter<"DebitCard"> | number
+    initialBalance?: FloatFilter<"DebitCard"> | number
     cardId?: StringFilter<"DebitCard"> | string
     createdAt?: DateTimeFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeFilter<"DebitCard"> | Date | string
@@ -9754,7 +9759,7 @@ export namespace Prisma {
 
   export type DebitCardOrderByWithRelationInput = {
     id?: SortOrder
-    balance?: SortOrder
+    initialBalance?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9767,7 +9772,7 @@ export namespace Prisma {
     AND?: DebitCardWhereInput | DebitCardWhereInput[]
     OR?: DebitCardWhereInput[]
     NOT?: DebitCardWhereInput | DebitCardWhereInput[]
-    balance?: FloatFilter<"DebitCard"> | number
+    initialBalance?: FloatFilter<"DebitCard"> | number
     createdAt?: DateTimeFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeFilter<"DebitCard"> | Date | string
     card?: XOR<CardScalarRelationFilter, CardWhereInput>
@@ -9775,7 +9780,7 @@ export namespace Prisma {
 
   export type DebitCardOrderByWithAggregationInput = {
     id?: SortOrder
-    balance?: SortOrder
+    initialBalance?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9791,7 +9796,7 @@ export namespace Prisma {
     OR?: DebitCardScalarWhereWithAggregatesInput[]
     NOT?: DebitCardScalarWhereWithAggregatesInput | DebitCardScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"DebitCard"> | string
-    balance?: FloatWithAggregatesFilter<"DebitCard"> | number
+    initialBalance?: FloatWithAggregatesFilter<"DebitCard"> | number
     cardId?: StringWithAggregatesFilter<"DebitCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"DebitCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DebitCard"> | Date | string
@@ -9803,7 +9808,7 @@ export namespace Prisma {
     NOT?: CreditCardWhereInput | CreditCardWhereInput[]
     id?: StringFilter<"CreditCard"> | string
     limit?: FloatFilter<"CreditCard"> | number
-    usedLimit?: FloatFilter<"CreditCard"> | number
+    initialUsedLimit?: FloatFilter<"CreditCard"> | number
     cardId?: StringFilter<"CreditCard"> | string
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
@@ -9813,7 +9818,7 @@ export namespace Prisma {
   export type CreditCardOrderByWithRelationInput = {
     id?: SortOrder
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9827,7 +9832,7 @@ export namespace Prisma {
     OR?: CreditCardWhereInput[]
     NOT?: CreditCardWhereInput | CreditCardWhereInput[]
     limit?: FloatFilter<"CreditCard"> | number
-    usedLimit?: FloatFilter<"CreditCard"> | number
+    initialUsedLimit?: FloatFilter<"CreditCard"> | number
     createdAt?: DateTimeFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeFilter<"CreditCard"> | Date | string
     card?: XOR<CardScalarRelationFilter, CardWhereInput>
@@ -9836,7 +9841,7 @@ export namespace Prisma {
   export type CreditCardOrderByWithAggregationInput = {
     id?: SortOrder
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9853,7 +9858,7 @@ export namespace Prisma {
     NOT?: CreditCardScalarWhereWithAggregatesInput | CreditCardScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"CreditCard"> | string
     limit?: FloatWithAggregatesFilter<"CreditCard"> | number
-    usedLimit?: FloatWithAggregatesFilter<"CreditCard"> | number
+    initialUsedLimit?: FloatWithAggregatesFilter<"CreditCard"> | number
     cardId?: StringWithAggregatesFilter<"CreditCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CreditCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CreditCard"> | Date | string
@@ -9928,7 +9933,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -9942,7 +9946,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     date?: SortOrder
-    currency?: SortOrder
     description?: SortOrderInput | SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
@@ -9959,7 +9962,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -9973,7 +9975,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     date?: SortOrder
-    currency?: SortOrder
     description?: SortOrderInput | SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
@@ -9994,7 +9995,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodWithAggregatesFilter<"Transaction"> | $Enums.TransactionMethod
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     date?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    currency?: StringWithAggregatesFilter<"Transaction"> | string
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     cardId?: StringWithAggregatesFilter<"Transaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -10081,7 +10081,7 @@ export namespace Prisma {
     id?: StringFilter<"Session"> | string
     userId?: StringFilter<"Session"> | string
     token?: StringFilter<"Session"> | string
-    status?: BoolFilter<"Session"> | boolean
+    active?: BoolFilter<"Session"> | boolean
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10091,7 +10091,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     token?: SortOrder
-    status?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10104,7 +10104,7 @@ export namespace Prisma {
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
     userId?: StringFilter<"Session"> | string
-    status?: BoolFilter<"Session"> | boolean
+    active?: BoolFilter<"Session"> | boolean
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10114,7 +10114,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     token?: SortOrder
-    status?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -10129,7 +10129,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Session"> | string
     userId?: StringWithAggregatesFilter<"Session"> | string
     token?: StringWithAggregatesFilter<"Session"> | string
-    status?: BoolWithAggregatesFilter<"Session"> | boolean
+    active?: BoolWithAggregatesFilter<"Session"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
@@ -10142,6 +10142,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
@@ -10161,6 +10162,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId: string
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     debitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -10176,6 +10178,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -10195,6 +10198,7 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     debitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -10212,6 +10216,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId: string
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10224,6 +10229,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10238,13 +10244,14 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardCreateInput = {
     id?: string
-    balance?: number
+    initialBalance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     card: CardCreateNestedOneWithoutDebitCardInput
@@ -10252,7 +10259,7 @@ export namespace Prisma {
 
   export type DebitCardUncheckedCreateInput = {
     id?: string
-    balance?: number
+    initialBalance?: number
     cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10260,7 +10267,7 @@ export namespace Prisma {
 
   export type DebitCardUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     card?: CardUpdateOneRequiredWithoutDebitCardNestedInput
@@ -10268,7 +10275,7 @@ export namespace Prisma {
 
   export type DebitCardUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10276,7 +10283,7 @@ export namespace Prisma {
 
   export type DebitCardCreateManyInput = {
     id?: string
-    balance?: number
+    initialBalance?: number
     cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10284,14 +10291,14 @@ export namespace Prisma {
 
   export type DebitCardUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10300,7 +10307,7 @@ export namespace Prisma {
   export type CreditCardCreateInput = {
     id?: string
     limit: number
-    usedLimit?: number
+    initialUsedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     card: CardCreateNestedOneWithoutCreditCardInput
@@ -10309,7 +10316,7 @@ export namespace Prisma {
   export type CreditCardUncheckedCreateInput = {
     id?: string
     limit: number
-    usedLimit?: number
+    initialUsedLimit?: number
     cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10318,7 +10325,7 @@ export namespace Prisma {
   export type CreditCardUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     card?: CardUpdateOneRequiredWithoutCreditCardNestedInput
@@ -10327,7 +10334,7 @@ export namespace Prisma {
   export type CreditCardUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10336,7 +10343,7 @@ export namespace Prisma {
   export type CreditCardCreateManyInput = {
     id?: string
     limit: number
-    usedLimit?: number
+    initialUsedLimit?: number
     cardId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10345,7 +10352,7 @@ export namespace Prisma {
   export type CreditCardUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10353,7 +10360,7 @@ export namespace Prisma {
   export type CreditCardUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10432,7 +10439,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10445,7 +10451,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     cardId: string
     createdAt?: Date | string
@@ -10458,7 +10463,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10471,7 +10475,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10484,7 +10487,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     cardId: string
     createdAt?: Date | string
@@ -10497,7 +10499,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10509,7 +10510,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cardId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10604,7 +10604,7 @@ export namespace Prisma {
   export type SessionCreateInput = {
     id?: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSessionsInput
@@ -10614,7 +10614,7 @@ export namespace Prisma {
     id?: string
     userId: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10622,7 +10622,7 @@ export namespace Prisma {
   export type SessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSessionsNestedInput
@@ -10632,7 +10632,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10641,7 +10641,7 @@ export namespace Prisma {
     id?: string
     userId: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10649,7 +10649,7 @@ export namespace Prisma {
   export type SessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10658,7 +10658,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10754,6 +10754,7 @@ export namespace Prisma {
     credit?: SortOrder
     issuerId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10768,6 +10769,7 @@ export namespace Prisma {
     credit?: SortOrder
     issuerId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10782,6 +10784,7 @@ export namespace Prisma {
     credit?: SortOrder
     issuerId?: SortOrder
     userId?: SortOrder
+    currency?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10862,19 +10865,19 @@ export namespace Prisma {
 
   export type DebitCardCountOrderByAggregateInput = {
     id?: SortOrder
-    balance?: SortOrder
+    initialBalance?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type DebitCardAvgOrderByAggregateInput = {
-    balance?: SortOrder
+    initialBalance?: SortOrder
   }
 
   export type DebitCardMaxOrderByAggregateInput = {
     id?: SortOrder
-    balance?: SortOrder
+    initialBalance?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10882,14 +10885,14 @@ export namespace Prisma {
 
   export type DebitCardMinOrderByAggregateInput = {
     id?: SortOrder
-    balance?: SortOrder
+    initialBalance?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type DebitCardSumOrderByAggregateInput = {
-    balance?: SortOrder
+    initialBalance?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -10911,7 +10914,7 @@ export namespace Prisma {
   export type CreditCardCountOrderByAggregateInput = {
     id?: SortOrder
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10919,13 +10922,13 @@ export namespace Prisma {
 
   export type CreditCardAvgOrderByAggregateInput = {
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
   }
 
   export type CreditCardMaxOrderByAggregateInput = {
     id?: SortOrder
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10934,7 +10937,7 @@ export namespace Prisma {
   export type CreditCardMinOrderByAggregateInput = {
     id?: SortOrder
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10942,7 +10945,7 @@ export namespace Prisma {
 
   export type CreditCardSumOrderByAggregateInput = {
     limit?: SortOrder
-    usedLimit?: SortOrder
+    initialUsedLimit?: SortOrder
   }
 
   export type CardListRelationFilter = {
@@ -11002,7 +11005,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     date?: SortOrder
-    currency?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
@@ -11019,7 +11021,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     date?: SortOrder
-    currency?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
@@ -11032,7 +11033,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     date?: SortOrder
-    currency?: SortOrder
     description?: SortOrder
     cardId?: SortOrder
     createdAt?: SortOrder
@@ -11110,7 +11110,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     token?: SortOrder
-    status?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11119,7 +11119,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     token?: SortOrder
-    status?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11128,7 +11128,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     token?: SortOrder
-    status?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11718,14 +11718,14 @@ export namespace Prisma {
 
   export type DebitCardCreateWithoutCardInput = {
     id?: string
-    balance?: number
+    initialBalance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type DebitCardUncheckedCreateWithoutCardInput = {
     id?: string
-    balance?: number
+    initialBalance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11738,7 +11738,7 @@ export namespace Prisma {
   export type CreditCardCreateWithoutCardInput = {
     id?: string
     limit: number
-    usedLimit?: number
+    initialUsedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11746,7 +11746,7 @@ export namespace Prisma {
   export type CreditCardUncheckedCreateWithoutCardInput = {
     id?: string
     limit: number
-    usedLimit?: number
+    initialUsedLimit?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11762,7 +11762,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11774,7 +11773,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11867,14 +11865,14 @@ export namespace Prisma {
 
   export type DebitCardUpdateWithoutCardInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DebitCardUncheckedUpdateWithoutCardInput = {
     id?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
+    initialBalance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11893,7 +11891,7 @@ export namespace Prisma {
   export type CreditCardUpdateWithoutCardInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11901,7 +11899,7 @@ export namespace Prisma {
   export type CreditCardUncheckedUpdateWithoutCardInput = {
     id?: StringFieldUpdateOperationsInput | string
     limit?: FloatFieldUpdateOperationsInput | number
-    usedLimit?: FloatFieldUpdateOperationsInput | number
+    initialUsedLimit?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11931,7 +11929,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFilter<"Transaction"> | $Enums.TransactionMethod
     amount?: FloatFilter<"Transaction"> | number
     date?: DateTimeFilter<"Transaction"> | Date | string
-    currency?: StringFilter<"Transaction"> | string
     description?: StringNullableFilter<"Transaction"> | string | null
     cardId?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -11946,6 +11943,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
@@ -11964,6 +11962,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId: string
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     creditCard?: CreditCardUncheckedCreateNestedOneWithoutCardInput
@@ -11994,6 +11993,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -12012,6 +12012,7 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creditCard?: CreditCardUncheckedUpdateOneWithoutCardNestedInput
@@ -12026,6 +12027,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
@@ -12044,6 +12046,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId: string
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     debitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -12074,6 +12077,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -12092,6 +12096,7 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     debitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -12106,6 +12111,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutCardInput
@@ -12123,6 +12129,7 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     debitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -12169,6 +12176,7 @@ export namespace Prisma {
     credit?: BoolFilter<"Card"> | boolean
     issuerId?: StringFilter<"Card"> | string
     userId?: StringFilter<"Card"> | string
+    currency?: StringFilter<"Card"> | string
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
   }
@@ -12181,6 +12189,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
@@ -12199,6 +12208,7 @@ export namespace Prisma {
     credit?: boolean
     issuerId: string
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     debitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -12229,6 +12239,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -12247,6 +12258,7 @@ export namespace Prisma {
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     debitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -12261,6 +12273,7 @@ export namespace Prisma {
     cvv?: string | null
     debit?: boolean
     credit?: boolean
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     issuer: IssuerCreateNestedOneWithoutCardInput
@@ -12278,6 +12291,7 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     issuerId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     debitCard?: DebitCardUncheckedCreateNestedOneWithoutCardInput
@@ -12298,7 +12312,7 @@ export namespace Prisma {
   export type SessionCreateWithoutUserInput = {
     id?: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12306,7 +12320,7 @@ export namespace Prisma {
   export type SessionUncheckedCreateWithoutUserInput = {
     id?: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12360,7 +12374,7 @@ export namespace Prisma {
     id?: StringFilter<"Session"> | string
     userId?: StringFilter<"Session"> | string
     token?: StringFilter<"Session"> | string
-    status?: BoolFilter<"Session"> | boolean
+    active?: BoolFilter<"Session"> | boolean
     createdAt?: DateTimeFilter<"Session"> | Date | string
     updatedAt?: DateTimeFilter<"Session"> | Date | string
   }
@@ -12435,7 +12449,6 @@ export namespace Prisma {
     method: $Enums.TransactionMethod
     amount: number
     date: Date | string
-    currency?: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12447,7 +12460,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12459,7 +12471,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12471,7 +12482,6 @@ export namespace Prisma {
     method?: EnumTransactionMethodFieldUpdateOperationsInput | $Enums.TransactionMethod
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currency?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12486,6 +12496,7 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     userId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12498,6 +12509,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCardNestedInput
@@ -12515,6 +12527,7 @@ export namespace Prisma {
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     debitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -12531,6 +12544,7 @@ export namespace Prisma {
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12544,6 +12558,7 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     issuerId: string
+    currency?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12551,7 +12566,7 @@ export namespace Prisma {
   export type SessionCreateManyUserInput = {
     id?: string
     token: string
-    status?: boolean
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12564,6 +12579,7 @@ export namespace Prisma {
     cvv?: NullableStringFieldUpdateOperationsInput | string | null
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     issuer?: IssuerUpdateOneRequiredWithoutCardNestedInput
@@ -12581,6 +12597,7 @@ export namespace Prisma {
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     debitCard?: DebitCardUncheckedUpdateOneWithoutCardNestedInput
@@ -12597,6 +12614,7 @@ export namespace Prisma {
     debit?: BoolFieldUpdateOperationsInput | boolean
     credit?: BoolFieldUpdateOperationsInput | boolean
     issuerId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12604,7 +12622,7 @@ export namespace Prisma {
   export type SessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12612,7 +12630,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12620,7 +12638,7 @@ export namespace Prisma {
   export type SessionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
-    status?: BoolFieldUpdateOperationsInput | boolean
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

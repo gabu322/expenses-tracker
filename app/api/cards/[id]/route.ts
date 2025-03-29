@@ -34,10 +34,10 @@ async function handler(req: NextRequest, context: ParamsType) {
                cvv: card.cvv ?? "",
                issuerId: card.issuerId,
                debit: !!card.debitCard,
-               balance: card.debitCard?.balance,
+               balance: card.debitCard?.initialBalance,
                credit: !!card.creditCard,
                limit: card.creditCard?.limit,
-               usedLimit: card.creditCard?.usedLimit,
+               usedLimit: card.creditCard?.initialUsedLimit,
             };
 
             return NextResponse.json(cardData, { status: 200 });
@@ -59,12 +59,14 @@ async function handler(req: NextRequest, context: ParamsType) {
                      ? {
                           update: {
                              limit: updatedCardData.limit,
-                             usedLimit: updatedCardData.usedLimit || 0.0,
+                             initialUsedLimit: updatedCardData.usedLimit || 0.0,
                           },
                        }
                      : undefined,
                   debit: updatedCardData.debit,
-                  debitCard: updatedCardData.debit ? { update: { balance: updatedCardData.balance } } : undefined,
+                  debitCard: updatedCardData.debit
+                     ? { update: { initialBalance: updatedCardData.balance } }
+                     : undefined,
                },
             });
 

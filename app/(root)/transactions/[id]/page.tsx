@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import axios from "axios";
 import { handleChangeType, TransactionType } from "@/utils/types";
@@ -17,6 +17,7 @@ interface Option {
 
 export default function Page() {
    const { id } = useParams();
+   const router = useRouter();
    const { cards, transactions } = useCards();
 
    const [transaction, setTransaction] = useState<TransactionType>({
@@ -70,21 +71,22 @@ export default function Page() {
       setTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   const submitHandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      console.log("Submitting transaction:", transaction);
       e.preventDefault();
-
       try {
          await axios.put(`/api/transactions/${id}`, transaction);
-         console.log("Transaction updated!");
+
+         if (transaction.cardId) router.push(`/cards/${transaction.cardId}`);
       } catch (error) {
          console.error("Failed to update transaction:", error);
       }
    };
 
    return (
-      <div className="flex flex-col gap-4">
+      <form onSubmit={submitHandleSubmit} className="flex flex-col gap-4">
          <h1>Atualizar transação</h1>
-         <form className="form" onSubmit={handleSubmit}>
+         <div className="form">
             <h2>Informações gerais</h2>
 
             <Input
@@ -125,9 +127,9 @@ export default function Page() {
             />
 
             <Input name="description" label="Descrição" onChange={handleChange} value={transaction.description} />
-         </form>
+         </div>
 
          <Button type="submit">Atualizar</Button>
-      </div>
+      </form>
    );
 }

@@ -36,13 +36,11 @@ async function handler(req: NextRequest) {
             if (!card) throw new Error("Card not found");
             if (card.userId !== session.user.id) throw new Error("Card does not belong to user");
 
-            const inverter = transactionData.type === "INCOME" ? 1 : -1;
-
             const newTransaction = await prisma.transaction.create({
                data: {
                   cardId: transactionData.cardId,
                   method: transactionData.method as TransactionMethod,
-                  amount: transactionData.amount * inverter,
+                  amount: transactionData.amount,
                   date: new Date(transactionData.date),
                   description: transactionData.description,
                   type: transactionData.type as TransactionType,

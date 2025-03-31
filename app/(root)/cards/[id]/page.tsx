@@ -19,7 +19,7 @@ export default function Page() {
    const { id } = useParams();
    const router = useRouter();
    const { cards, transactions, setTransactions } = useCards();
-   const [debitNet, setDebitNet] = useState<number>(0);
+   const [monthTotal, setMonthTotal] = useState<number>(0);
    const [currentCardIndex, setCurrentCardIndex] = useState<number>(-1);
    const [currentValues, setCurrentValues] = useState<CurrentValuesType>({
       balance: 0,
@@ -48,17 +48,27 @@ export default function Page() {
    }, [id]);
 
    useEffect(() => {
-      const debitTransactions = transactions?.filter((transaction) => transaction.method === "DEBIT");
+      const currentDate = new Date();
 
-      if (!debitTransactions) return;
+      const debitTransactions = transactions?.filter((transaction) => {
+         const transactionDate = new Date(transaction.date);
+         return (
+            transaction.method === "DEBIT" &&
+            transactionDate.getMonth() === currentDate.getMonth() &&
+            transactionDate.getFullYear() === currentDate.getFullYear()
+         );
+      });
 
-      const net = debitTransactions.reduce((acc, transaction) => {
-         if (transaction.type === "EXPENSE") return acc - transaction.amount;
-         if (transaction.type === "INCOME") return acc + transaction.amount;
-         return acc;
-      }, 0);
+      let net = 0;
+      if (debitTransactions) {
+         net = debitTransactions.reduce((acc, transaction) => {
+            if (transaction.type === "EXPENSE") return acc - transaction.amount;
+            if (transaction.type === "INCOME") return acc + transaction.amount;
+            return acc;
+         }, 0);
+      }
 
-      setDebitNet(net);
+      setMonthTotal(net);
    }, [transactions]);
 
    return (
@@ -85,7 +95,7 @@ export default function Page() {
                               setCurrentValues((prev) => ({
                                  ...prev,
                                  balance: cards[currentCardIndex]?.balance || 0,
-                                 net: debitNet,
+                                 net: monthTotal,
                               }))
                            }
                            decimals={2}
@@ -94,7 +104,7 @@ export default function Page() {
                   </div>
                   <div className="card p-3 h-16 flex-row-4">
                      <DollarSign
-                        className={`h-10 w-10 p-1 rounded-md ${debitNet > 0 ? "bg-lime-200 text-green-800" : "bg-red-200 text-red-700"}`}
+                        className={`h-10 w-10 p-1 rounded-md ${monthTotal > 0 ? "bg-lime-200 text-green-800" : "bg-red-200 text-red-700"}`}
                      />
                      <div className="flex flex-col justify-around">
                         <span>Total do mês</span>
@@ -102,11 +112,11 @@ export default function Page() {
                            className="font-bold"
                            prefix="R$"
                            start={currentValues.net}
-                           end={debitNet}
+                           end={monthTotal}
                            onEnd={() =>
                               setCurrentValues((prev) => ({
                                  ...prev,
-                                 net: debitNet,
+                                 net: monthTotal,
                                  balance: cards[currentCardIndex]?.balance || 0,
                               }))
                            }

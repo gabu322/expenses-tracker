@@ -12,12 +12,28 @@ async function handler(req: NextRequest) {
             const session = await getServerSession(authOptions);
             if (!session || !session.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-            const cards = await prisma.card.findMany({
+            let cards = await prisma.card.findMany({
                where: { userId: session.user.id },
-               include: { creditCard: true, debitCard: true },
+               include: { creditCard: true, debitCard: true, transaction: true },
             });
 
-            // TODO: calculate balance and usedLimit by trancastions
+            // Calculate balance and usedLimit by transactions
+            cards = cards.map((card) => {
+               card.transaction.forEach((transaction) => {
+                  const amount = transaction.amount * (transaction.type === "INCOME" ? 1 : -1);
+
+                  if (card.debitCard && transaction.method === "DEBIT") {
+                     console.log("debit: ", amount);
+                     card.debitCard.initialBalance = card.debitCard.initialBalance + amount;
+                  } else if (card.creditCard && transaction.method === "CREDIT") {
+                     console.log("credit: ", amount);
+                     card.creditCard.initialUsedLimit = card.creditCard.initialUsedLimit + amount;
+                  }
+               });
+
+               return card;
+            });
+
             const formattedCards = cards.map((card) => ({
                id: card.id,
                nickname: card.nickname,

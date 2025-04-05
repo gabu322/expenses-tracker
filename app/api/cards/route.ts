@@ -23,10 +23,8 @@ async function handler(req: NextRequest) {
                   const amount = transaction.amount * (transaction.type === "INCOME" ? 1 : -1);
 
                   if (card.debitCard && transaction.method === "DEBIT") {
-                     console.log("debit: ", amount);
                      card.debitCard.initialBalance = card.debitCard.initialBalance + amount;
                   } else if (card.creditCard && transaction.method === "CREDIT") {
-                     console.log("credit: ", amount);
                      card.creditCard.initialUsedLimit = card.creditCard.initialUsedLimit + amount;
                   }
                });

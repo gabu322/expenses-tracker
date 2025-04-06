@@ -25,7 +25,7 @@ async function handler(req: NextRequest) {
                   if (card.debitCard && transaction.method === "DEBIT") {
                      card.debitCard.initialBalance = card.debitCard.initialBalance + amount;
                   } else if (card.creditCard && transaction.method === "CREDIT") {
-                     card.creditCard.initialUsedLimit = card.creditCard.initialUsedLimit + amount;
+                     card.creditCard.initialUsedLimit = card.creditCard.initialUsedLimit - amount;
                   }
                });
 

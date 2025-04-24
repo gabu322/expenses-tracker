@@ -178,30 +178,32 @@ export default function Page() {
                ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                .map((transaction, index) => (
                   <div className={`flex flex-row gap-2 pl-3 pr-1 py-2 ${index > 0 ? "border-t-2" : ""}`} key={index}>
-                     <div className="flex flex-col gap-1 w-full">
-                        <div className="w-full flex flex-row justify-between font-bold">
-                           <span>{transaction.description}</span>
+                     <div className="flex-grow flex flex-col gap-1 truncate">
+                        <span className="truncate font-bold">{transaction.description}</span>
 
-                           <span className={transaction.type == "EXPENSE" ? "text-red-500" : "text-green-400"}>
-                              {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
-                           </span>
-                        </div>
+                        <span className="text-slate-400 text-[14px]">
+                           {transaction.method === "DEBIT" ? "Débito" : "Crédito"}
+                        </span>
+                     </div>
 
-                        <div className="w-full flex flex-row justify-between text-slate-400 text-[14px]">
-                           <div>{transaction.method === "DEBIT" ? "Débito" : "Crédito"}</div>
+                     <div className="flex flex-col gap-1 text-right shrink-0">
+                        <span
+                           className={`font-bold ${transaction.type == "EXPENSE" ? "text-red-500" : "text-green-500"}`}
+                        >
+                           {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
+                        </span>
 
-                           <div>
-                              {new Date(transaction.date).toLocaleDateString("pt-BR", {
-                                 day: "2-digit",
-                                 month: "2-digit",
-                                 year: "2-digit",
-                              })}
-                           </div>
-                        </div>
+                        <span className="text-slate-400 text-[14px]">
+                           {new Date(transaction.date).toLocaleDateString("pt-BR", {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "2-digit",
+                           })}
+                        </span>
                      </div>
 
                      <ChevronRight
-                        className="h-[34px] w-[34px] cursor-pointer"
+                        className="h-[34px] w-[34px] cursor-pointer shrink-0 -ml-1.5 -mx-1"
                         onClick={() => router.push(`/transactions/${transaction.id}`)}
                      />
                   </div>

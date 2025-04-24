@@ -106,8 +106,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          {cards.length === 0 ? (
             <div className="flex flex-col gap-4 items-center">
                <h2 className="text-2xl font-bold text-left">Sem cartões disponíveis</h2>
+
                <p className="text-center">Você precisa ter um cartão cadastrado para adicionar transações</p>
-               <Button text="Adicionar cartão" color="blue" href="/cards" className="w-full" />
+
+               <Button text="Adicionar cartão" color="blue" href="/cards" className="w-full" rounded />
             </div>
          ) : (
             <form onSubmit={handleSubmit} className={`flex flex-col gap-4 items-center `}>
@@ -198,6 +200,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      text="Adicionar"
                      color="green"
                      type="submit"
+                     rounded
                      disabled={
                         newTransaction.cardId === null ||
                         newTransaction.method === null ||
@@ -208,7 +211,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      }
                   />
 
-                  <Button className="w-full" text="Cancelar" color="red" onClick={handleClear} />
+                  <Button className="w-full" text="Cancelar" color="red" onClick={handleClear} rounded />
                </div>
             </form>
          )}

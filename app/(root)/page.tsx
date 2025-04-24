@@ -32,18 +32,10 @@ export default function Home() {
 
    return (
       <div className="flex flex-col gap-4">
-         <div className="flex flex-row justify-between items-center">
-            <h1>Seus cartões</h1>
-
-            <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full h-9">
-               Criar cartão
-               <Plus size={20} className="ml-1" />
-            </Button>
-         </div>
+         <h1>Seus cartões</h1>
 
          {isLoading || loadingIssuers ? (
             <>
-               <Skeleton className="aspect-[8/5] rounded-lg shadow-lg max-w-[400px]" />
                <Skeleton className="aspect-[8/5] rounded-lg shadow-lg max-w-[400px]" />
                <Skeleton className="aspect-[8/5] rounded-lg shadow-lg max-w-[400px]" />
             </>
@@ -53,16 +45,19 @@ export default function Home() {
                style={{ background: `linear-gradient(to bottom, #323c4b, #5c6e87)` }}
             >
                <h2 className="text-2xl font-bold text-left">Sem cartões disponíveis</h2>
-               Você ainda não possui cartões cadastrados.
-               <Button href={"/cards"} className="w-full mt-auto">
-                  Criar cartão{" "}
-               </Button>
+               <p>Você ainda não possui cartões cadastrados.</p>
+               <p>Clique no botão abaixo para criar um cartão.</p>
             </div>
          ) : (
             cards.map((card) => (
                <Card key={card.id} card={card} issuer={issuers.find((issuer) => issuer.id === card.issuerId)} />
             ))
          )}
+
+         <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full h-9">
+            Criar cartão
+            <Plus size={20} className="ml-1" />
+         </Button>
       </div>
    );
 }

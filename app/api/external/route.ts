@@ -9,7 +9,10 @@ export async function POST(req: NextRequest) {
       const { userId, transaction } = data;
 
       // Validate data
-      if (!userId || !transaction) return NextResponse.json({ error: "Missing info" }, { status: 400 });
+      if (!userId || !transaction) {
+         return NextResponse.json({ error: "UserId or Transaction not specified" }, { status: 400 });
+      }
+
       const transactionData = createTransactionSchema.parse(transaction);
 
       // Find user by id and get cards

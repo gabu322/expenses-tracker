@@ -76,7 +76,6 @@ export default function Page() {
          <h1>
             {cards[currentCardIndex]?.nickname ? "Cartão: " + cards[currentCardIndex]?.nickname : "Nome do cartão"}
          </h1>
-
          <div className="w-full grid grid-cols-2 gap-4">
             {/* Debit card info */}
             {cards[currentCardIndex]?.debit && (
@@ -150,7 +149,7 @@ export default function Page() {
                      <DollarSign className="h-10 w-10 p-1 bg-red-200 rounded-md text-red-700" />
 
                      <div className="flex flex-col justify-around">
-                        <span>Limite gasto</span>
+                        <span className="truncate">Limite gasto</span>
                         <CountUp
                            className="font-bold"
                            prefix="R$"
@@ -169,7 +168,6 @@ export default function Page() {
                </>
             )}
          </div>
-
          {/* Transactions */}
          <h2>Transações</h2>
 

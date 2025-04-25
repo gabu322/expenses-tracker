@@ -54,7 +54,7 @@ export default function Home() {
             ))
          )}
 
-         <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded-full h-9">
+         <Button href="/cards" className="bg-slate-600 hover:bg-slate-700 rounded h-9">
             Criar cartão
             <Plus size={20} className="ml-1" />
          </Button>

@@ -7,33 +7,33 @@ Um aplicativo web focado em dispositivos móveis, projetado para ajudar os usuá
 ## Índice
 
 - [Rastreador de Despesas Web App](#rastreador-de-despesas-web-app)
-  - [Índice](#índice)
-  - [Principais Funcionalidades](#principais-funcionalidades)
-  - [Como Funciona](#como-funciona)
-  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-  - [Trabalho Atual](#trabalho-atual)
-  - [Planos Futuros](#planos-futuros)
-  - [Contato](#contato)
+   - [Índice](#índice)
+   - [Principais Funcionalidades](#principais-funcionalidades)
+   - [Como Funciona](#como-funciona)
+   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+   - [Trabalho Atual](#trabalho-atual)
+   - [Planos Futuros](#planos-futuros)
+   - [Contato](#contato)
 
 ## Principais Funcionalidades
 
 - Autenticação de usuário: Login e cadastro seguros.
-- Criação de Cartões: Crie cartões de débito ou crédito com seus dados atuais.  
+- Criação de Cartões: Crie cartões de débito ou crédito com seus dados atuais.
 - Rastreamento de renda e despesas: Adicione transações com detalhes como valor, data e categoria.
-- Acompanhe suas despesas: Visualize insights sobre seus hábitos de gastos e tendências de renda. *(Em desenvolvimento)*
+- Acompanhe suas despesas: Visualize insights sobre seus hábitos de gastos e tendências de renda. _(Em desenvolvimento)_
 
 ## Como Funciona
 
-1. **Cadastre-se ou faça login**: Crie uma conta ou acesse uma já existente de forma segura.  
+1. **Cadastre-se ou faça login**: Crie uma conta ou acesse uma já existente de forma segura.
 2. **Crie seu cartão**: Adicione um cartão de débito ou crédito com suas informações.
-3. **Adicione transações**: Registre sua renda ou despesas, especificando detalhes como valor, data, categoria e tipo de transação.  
+3. **Adicione transações**: Registre sua renda ou despesas, especificando detalhes como valor, data, categoria e tipo de transação.
 
 ## Tecnologias Utilizadas
 
 - **Frontend**: Next.js (Diretório App)
 - **Estilo**: Tailwind CSS
 - **Backend**: Prisma ORM conectado a um banco de dados Azure PostgreSQL
-- **Autenticação**: NextAuth.js *(planejado)*
+- **Autenticação**: NextAuth.js _(planejado)_
 
 ## Trabalho Atual
 

@@ -166,6 +166,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   date: 'date',
   description: 'description',
   cardId: 'cardId',
+  categoryId: 'categoryId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -186,6 +187,16 @@ exports.Prisma.SessionScalarFieldEnum = {
   userId: 'userId',
   token: 'token',
   active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  color: 'color',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -222,7 +233,8 @@ exports.Prisma.ModelName = {
   Issuer: 'Issuer',
   Transaction: 'Transaction',
   User: 'User',
-  Session: 'Session'
+  Session: 'Session',
+  Category: 'Category'
 };
 
 /**

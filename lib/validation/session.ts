@@ -5,7 +5,9 @@ export const createSessionSchema = z.object({
    sessionToken: z.string(),
    expires: z.date().transform((val) => {
       const parsedDate = new Date(val);
-      if (isNaN(parsedDate)) throw new Error("Invalid date format.");
+      // if (isNaN(parsedDate)) throw new Error("Invalid date format.");
       return parsedDate.toISOString(); // Ensure consistent ISO format
    }),
 });
+
+export type CreateSessionType = z.infer<typeof createSessionSchema>;

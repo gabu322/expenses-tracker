@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const createUserSchema = z.object({
+// TODO: better error messages
+const base = {
    email: z.string().email(),
    password: z.string().min(6),
    name: z.string().min(3).max(255).optional(),
@@ -14,4 +15,19 @@ export const createUserSchema = z.object({
       .regex(/^$|^\(?\d{2}\)?\ ?\d{5}-?\d{4}$/, "Invalid phone number format")
       .transform((value) => value.replace(/\D/g, ""))
       .optional(),
+};
+
+export const createUserSchema = z.object(base);
+
+export const updateUserSchema = z.object({
+   id: z.string(),
+   ...base,
+   email: base.email.optional(),
+   password: base.password.optional(),
+   name: base.name.optional(),
+   cpf: base.cpf.optional(),
+   phone: base.phone.optional(),
 });
+
+export type CreateUserType = z.infer<typeof createUserSchema>;
+export type UpdateUserType = z.infer<typeof updateUserSchema>;

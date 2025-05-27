@@ -17,9 +17,9 @@ const base = {
       .optional(),
 };
 
-export const createUserSchema = z.object(base);
+export const CreateUserSchema = z.object(base);
 
-export const updateUserSchema = z.object({
+export const UpdateUserSchema = z.object({
    id: z.string(),
    ...base,
    email: base.email.optional(),
@@ -29,5 +29,6 @@ export const updateUserSchema = z.object({
    phone: base.phone.optional(),
 });
 
-export type CreateUserType = z.infer<typeof createUserSchema>;
-export type UpdateUserType = z.infer<typeof updateUserSchema>;
+export type UserType = z.infer<typeof CreateUserSchema> & { id: string };
+export type CreateUserType = z.infer<typeof CreateUserSchema>;
+export type UpdateUserType = z.infer<typeof UpdateUserSchema>;

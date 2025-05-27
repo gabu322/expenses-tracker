@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const createSessionSchema = z.object({
+// TODO: better error messages
+export const CreateSessionSchema = z.object({
    userId: z.string(),
    sessionToken: z.string(),
    expires: z.date().transform((val) => {
@@ -10,4 +11,5 @@ export const createSessionSchema = z.object({
    }),
 });
 
-export type CreateSessionType = z.infer<typeof createSessionSchema>;
+export type SessionType = z.infer<typeof CreateSessionSchema> & { id: string };
+export type CreateSessionType = z.infer<typeof CreateSessionSchema>;

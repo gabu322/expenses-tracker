@@ -7,13 +7,15 @@ const base = {
    icon: z.string().optional(),
 };
 
-export const createIssuerSchema = z.object(base);
+export const CreateIssuerSchema = z.object(base);
 
-export const updateIssuerSchema = z.object({
+export const UpdateIssuerSchema = z.object({
    id: z.string(),
    ...base,
-   icon: z.string().optional(),
+   name: base.name.optional(),
+   color: base.color.optional(),
 });
 
-export type CreateIssuerType = z.infer<typeof createIssuerSchema>;
-export type UpdateIssuerType = z.infer<typeof updateIssuerSchema>;
+export type IssuerType = z.infer<typeof CreateIssuerSchema> & { id: string };
+export type CreateIssuerType = z.infer<typeof CreateIssuerSchema>;
+export type UpdateIssuerType = z.infer<typeof UpdateIssuerSchema>;

@@ -59,5 +59,6 @@ function validateCard<
 }
 
 // Inferred types
+export type CardType = z.infer<typeof CreateCardSchema> & { id: string };
 export type CreateCardType = z.infer<typeof CreateCardSchema>;
 export type UpdateCardType = z.infer<typeof UpdateCardSchema>;

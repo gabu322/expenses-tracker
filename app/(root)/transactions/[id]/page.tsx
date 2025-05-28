@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import axios from "axios";
-import { handleChangeType, TransactionType } from "@/utils/types";
+import { handleChangeType, TransactionType } from "@/lib/types";
 import Input from "@/components/Input";
 import { useCards } from "../../CardContext";
 import Select from "@/components/Select";
@@ -16,14 +16,15 @@ interface Option {
 }
 
 export default function Page() {
-   const { id } = useParams();
+   const { id } = useParams<{ id: string }>();
    const router = useRouter();
    const { cards, transactions } = useCards();
 
    const [transaction, setTransaction] = useState<TransactionType>({
-      cardId: null,
-      type: null,
-      method: null,
+      id,
+      cardId: "",
+      type: "",
+      method: "",
       amount: 0,
       date: "",
       description: "",
@@ -42,7 +43,7 @@ export default function Page() {
 
    const [types, setTypes] = useState<Option[]>([]);
    useEffect(() => {
-      if (transaction.method === null) setTransaction((prev) => ({ ...prev, type: null }));
+      if (transaction.method === "") setTransaction((prev) => ({ ...prev, type: "" }));
 
       const types = [];
       types.push({ value: "INCOME", text: transaction.method === "DEBIT" ? "Receita" : "Pagamento de fatura" });
@@ -53,11 +54,11 @@ export default function Page() {
    useEffect(() => {
       const getTransaction = async () => {
          try {
-            let foundTransaction = transactions?.find((transaction) => transaction.id === id) || null;
+            let foundTransaction = transactions?.find((transaction) => transaction.id === id) || "";
             if (!foundTransaction)
                foundTransaction = await axios.get(`/api/transactions/${id}`).then((response) => response.data);
 
-            if (foundTransaction) setTransaction(foundTransaction);
+            if (foundTransaction && typeof foundTransaction !== "string") setTransaction(foundTransaction);
          } catch (error) {
             console.error("Failed to fetch transaction:", error);
          }
@@ -113,7 +114,7 @@ export default function Page() {
                options={types}
                value={transaction.type}
                onChange={handleChange}
-               disabled={transaction.method === null}
+               disabled={transaction.method === ""}
                required
             />
 

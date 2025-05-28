@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { updateIssuerSchema } from "@/lib/validation/issuerValidation";
+import { UpdateIssuerSchema } from "@/lib/validation/issuer";
 import { getParams, ParamsType } from "@/utils/params";
 import { ZodError } from "zod";
 
@@ -17,7 +17,7 @@ async function handler(req: NextRequest, context: ParamsType) {
 
          case "PUT":
             const requestData = await req.json();
-            const updatedIssuerData = updateIssuerSchema.parse(requestData);
+            const updatedIssuerData = UpdateIssuerSchema.parse(requestData);
 
             const updatedIssuer = await prisma.issuer.update({
                where: { id },

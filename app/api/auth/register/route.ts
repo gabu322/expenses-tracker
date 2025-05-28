@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createUserSchema } from "@/lib/validation/userValidation";
+import { CreateUserSchema } from "@/lib/validation/user";
 import bcrypt from "bcrypt";
 import { ZodError } from "zod";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
    try {
       const reqData = await req.json();
-      const userData = createUserSchema.parse(reqData);
+      const userData = CreateUserSchema.parse(reqData);
 
       // Check if the user already exists
       const existingUser = await prisma.user.findFirst({

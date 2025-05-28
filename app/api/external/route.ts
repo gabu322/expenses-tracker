@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createTransactionSchema } from "@/lib/validation/transactionValidation";
+import { CreateTransactionSchema } from "@/lib/validation/transaction";
 import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
 
 export async function POST(req: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
          return NextResponse.json({ error: "UserId or Transaction not specified" }, { status: 400 });
       }
 
-      const transactionData = createTransactionSchema.parse(transaction);
+      const transactionData = CreateTransactionSchema.parse(transaction);
 
       // Find user by id and get cards
       const user = await prisma.user.findUnique({

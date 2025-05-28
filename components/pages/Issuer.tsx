@@ -1,4 +1,4 @@
-import { IssuerType } from "@/utils/types";
+import { IssuerType } from "@/lib/types";
 import { PencilLine, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

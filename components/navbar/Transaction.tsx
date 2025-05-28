@@ -6,8 +6,8 @@ import axios from "axios";
 import Button from "../Button";
 import Input from "../Input";
 import Select from "../Select";
-import { handleChangeType } from "@/utils/types/handleChange";
-import { TransactionType } from "@/utils/types";
+import { handleChangeType } from "@/lib/types/handleChange";
+import { CreateTransactionType } from "@/lib/types";
 import { useCards } from "@/app/(root)/CardContext";
 import { toast } from "react-toastify";
 
@@ -23,17 +23,17 @@ interface TransactionProps {
 
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
    const { cards, fetchCards, setTransactions } = useCards();
-   const [newTransaction, setNewTransaction] = useState<TransactionType>({
-      cardId: null,
-      type: null,
-      method: null,
+   const [newTransaction, setNewTransaction] = useState<CreateTransactionType>({
+      cardId: "",
+      type: "",
+      method: "",
       amount: 0,
       date: "",
       description: "",
    });
 
    useEffect(() => {
-      if (newTransaction.cardId === null) setNewTransaction((prev) => ({ ...prev, method: null, type: null }));
+      if (newTransaction.cardId === "") setNewTransaction((prev) => ({ ...prev, method: "", type: "" }));
    }, [newTransaction.cardId]);
 
    const [cardMethods, setCardMethods] = useState<Option[]>([]);
@@ -60,10 +60,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
       toggleNavbar();
 
       setNewTransaction({
-         cardId: null,
+         cardId: "",
          amount: 0,
-         type: null,
-         method: null,
+         type: "",
+         method: "",
          date: "",
          description: "",
       });
@@ -71,16 +71,18 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (newTransaction.cardId === null) return;
+      if (newTransaction.cardId === "") return;
 
       const toastId = toast.loading("Salvando transação...", { position: "top-center" });
       try {
          // Submit the transaction and if successful, clear the form and close the navbar
-         await axios.post(`/api/transactions/?cardId=${newTransaction.cardId}`, newTransaction);
+         const response = await axios.post(`/api/transactions/?cardId=${newTransaction.cardId}`, newTransaction);
 
          handleClear();
          fetchCards();
-         setTransactions((prev) => [...(prev ?? []), newTransaction]);
+         if (response.data && response.data.transaction) {
+            setTransactions((prev) => [...(prev ?? []), response.data.transaction]);
+         }
 
          toast.update(toastId, {
             render: "Transação salva com sucesso!",
@@ -150,7 +152,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      value={newTransaction.method}
                      onChange={handleChange}
                      rounded
-                     disabled={newTransaction.cardId == null}
+                     disabled={newTransaction.cardId == ""}
                      required
                   />
 
@@ -168,7 +170,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      value={newTransaction.type}
                      onChange={handleChange}
                      rounded
-                     disabled={newTransaction.cardId === null}
+                     disabled={newTransaction.cardId === ""}
                      required
                   />
                </div>
@@ -202,9 +204,9 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      type="submit"
                      rounded
                      disabled={
-                        newTransaction.cardId === null ||
-                        newTransaction.method === null ||
-                        newTransaction.type === null ||
+                        newTransaction.cardId === "" ||
+                        newTransaction.method === "" ||
+                        newTransaction.type === "" ||
                         newTransaction.amount === 0 ||
                         newTransaction.date === "" ||
                         newTransaction.description === ""

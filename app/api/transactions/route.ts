@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
 import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
-import { createTransactionSchema } from "@/lib/validation/transactionValidation";
+import { CreateTransactionSchema } from "@/lib/validation/transaction";
 
 async function handler(req: NextRequest) {
    try {
@@ -26,7 +26,7 @@ async function handler(req: NextRequest) {
 
          case "POST":
             const data = await req.json();
-            const transactionData = createTransactionSchema.parse(data);
+            const transactionData = CreateTransactionSchema.parse(data);
 
             const card = await prisma.card.findUnique({
                where: { id: transactionData.cardId },

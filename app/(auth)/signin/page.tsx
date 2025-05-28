@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { handleChangeType } from "@/utils/types/handleChange";
+import { handleChangeType } from "@/lib/types/handleChange";
 import { handleToastError } from "@/lib/functions";
 
 interface LoginData {

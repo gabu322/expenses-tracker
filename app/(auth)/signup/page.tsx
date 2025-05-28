@@ -7,7 +7,7 @@ import axios from "axios";
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { handleChangeType } from "@/utils/types/handleChange";
+import { handleChangeType } from "@/lib/types/handleChange";
 import { toast } from "react-toastify";
 import { handleToastError } from "@/lib/functions/handleToastError";
 import { ChevronLeft } from "lucide-react";

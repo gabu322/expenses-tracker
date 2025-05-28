@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
-import { createTransactionSchema } from "@/lib/validation/transactionValidation";
+import { CreateTransactionSchema } from "@/lib/validation/transaction";
 import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
 
 async function handler(req: NextRequest, context: ParamsType) {
@@ -28,7 +28,7 @@ async function handler(req: NextRequest, context: ParamsType) {
 
          case "PUT":
             const data = await req.json();
-            const transactionData = createTransactionSchema.parse(data);
+            const transactionData = CreateTransactionSchema.parse(data);
 
             const updatedTransaction = await prisma.transaction.update({
                where: { id },

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { updateCardSchema } from "@/lib/validation/cardValidation.js";
+import { UpdateCardSchema } from "@/lib/validation/card";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getParams, ParamsType } from "@/utils/params";
-import { CardType } from "@/utils/types";
+import { CardType } from "@/lib/types";
 import { ZodError } from "zod";
 
 async function handler(req: NextRequest, context: ParamsType) {
@@ -33,6 +33,7 @@ async function handler(req: NextRequest, context: ParamsType) {
                expiration: card.expiration ?? "",
                cvv: card.cvv ?? "",
                issuerId: card.issuerId,
+               userId: card.userId,
                debit: !!card.debitCard,
                balance: card.debitCard?.initialBalance,
                credit: !!card.creditCard,
@@ -44,7 +45,7 @@ async function handler(req: NextRequest, context: ParamsType) {
 
          case "PUT":
             const requestData = await req.json();
-            const updatedCardData = updateCardSchema.parse(requestData);
+            const updatedCardData = UpdateCardSchema.parse(requestData);
 
             const updatedCard = await prisma.card.update({
                where: { id },

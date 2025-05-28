@@ -9,15 +9,16 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { CardType, IssuerType, handleChangeType } from "@/utils/types/index";
+import { CreateCardType, IssuerType, handleChangeType } from "@/lib/types/index";
 
 export default function Page() {
    const router = useRouter();
    const { data: session } = useSession();
    const [issuers, setIssuers] = useState<IssuerType[]>([]);
-   const [cardData, setCardData] = useState<CardType>({
+   const [cardData, setCardData] = useState<CreateCardType>({
       nickname: "",
       issuerId: "",
+      userId: "",
       number: "",
       expiration: "",
       cvv: "",

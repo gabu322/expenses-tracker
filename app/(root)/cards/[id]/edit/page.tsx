@@ -8,14 +8,16 @@ import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { handleChangeType } from "@/utils/types/handleChange";
-import { CardType, IssuerType } from "@/utils/types";
+import { handleChangeType } from "@/lib/types/handleChange";
+import { IssuerType, UpdateCardType } from "@/lib/types";
 
 export default function Page() {
-   const { id } = useParams();
+   const { id } = useParams<{ id: string }>();
    const router = useRouter();
    const [issuers, setIssuers] = useState<IssuerType[]>([]);
-   const [cardData, setCardData] = useState<CardType>({
+   const [cardData, setCardData] = useState<UpdateCardType>({
+      id,
+      userId: "",
       nickname: "",
       issuerId: "",
       number: "",

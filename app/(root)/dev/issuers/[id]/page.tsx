@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { handleChangeType } from "@/utils/types/handleChange";
+import { handleChangeType } from "@/lib/types/handleChange";
 
 interface Issuer {
    name: string;

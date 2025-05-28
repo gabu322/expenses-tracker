@@ -6,13 +6,14 @@ import axios from "axios";
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { handleChangeType } from "@/utils/types/handleChange";
-import { UserType } from "@/utils/types/user";
+import { handleChangeType } from "@/lib/types/handleChange";
 import { toast } from "react-toastify";
+import { UserType } from "@/lib/types";
 
 export default function Page() {
    const router = useRouter();
    const [userData, setUserData] = useState<UserType>({
+      id: "",
       email: "",
       password: "",
       name: "",

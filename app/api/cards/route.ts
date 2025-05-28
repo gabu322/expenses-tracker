@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createCardSchema } from "@/lib/validation/cardValidation";
+import { CreateCardSchema } from "@/lib/validation/card";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { ZodError } from "zod";
@@ -50,7 +50,7 @@ async function handler(req: NextRequest) {
 
          case "POST":
             const data = await req.json();
-            const cardData = createCardSchema.parse(data);
+            const cardData = CreateCardSchema.parse(data);
 
             const newCard = await prisma.card.create({
                data: {

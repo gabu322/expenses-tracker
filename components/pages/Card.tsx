@@ -1,4 +1,4 @@
-import { CardType, IssuerType } from "@/utils/types";
+import { CardType, IssuerType } from "@/lib/types";
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

@@ -3,7 +3,7 @@ import { z } from "zod";
 // TODO: better error messages
 const base = {
    cardId: z.string(),
-   userId: z.string(),
+   userId: z.string().optional(),
    amount: z.number().positive("Amount must be a positive number."),
    date: z.string().transform((val) => {
       const parsedDate = new Date(val);

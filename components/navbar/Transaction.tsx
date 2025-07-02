@@ -32,10 +32,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
       description: "",
    });
 
+   // Reset the transaction form when the cardId changes
    useEffect(() => {
       if (newTransaction.cardId === "") setNewTransaction((prev) => ({ ...prev, method: "", type: "" }));
    }, [newTransaction.cardId]);
 
+   // Fetch card methods based on the selected card
    const [cardMethods, setCardMethods] = useState<Option[]>([]);
    useEffect(() => {
       const currentSelectedCard = cards.find((card) => card.id === newTransaction.cardId);
@@ -43,16 +45,19 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
       const methods = [];
       if (currentSelectedCard?.debit) {
-         methods.push({ value: "DEBIT", text: "Débito" });
+         methods.push({ value: "DEBIT-EXPENSE", text: "Compra no Débito" });
+         methods.push({ value: "DEBIT-INCOME", text: "Receita/Recebimento" });
       }
       if (currentSelectedCard?.credit) {
-         methods.push({ value: "CREDIT", text: "Crédito" });
+         methods.push({ value: "CREDIT-EXPENSE", text: "Compra no Crédito" });
+         methods.push({ value: "CREDIT-INCOME", text: "Pagamento de Fatura" });
       }
       setCardMethods(methods);
    }, [newTransaction.cardId, cards]);
 
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
+      console.log("Handling change for:", name, "with value:", value);
       setNewTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
@@ -149,28 +154,12 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      name="method"
                      label="Método de pagamento"
                      options={cardMethods}
-                     value={newTransaction.method}
-                     onChange={handleChange}
+                     onChange={(e) => {
+                        const [method, type] = (e.target.value ?? "-").split("-");
+                        setNewTransaction((prev) => ({ ...prev, type, method }));
+                     }}
                      rounded
                      disabled={newTransaction.cardId == ""}
-                     required
-                  />
-
-                  <Select
-                     className="w-1/2"
-                     name="type"
-                     label="Tipo"
-                     options={[
-                        {
-                           value: "INCOME",
-                           text: newTransaction.method === "DEBIT" ? "Receita" : "Pagamento de Fatura",
-                        },
-                        { value: "EXPENSE", text: newTransaction.method === "DEBIT" ? "Despesa" : "Compra" },
-                     ]}
-                     value={newTransaction.type}
-                     onChange={handleChange}
-                     rounded
-                     disabled={newTransaction.cardId === ""}
                      required
                   />
                </div>

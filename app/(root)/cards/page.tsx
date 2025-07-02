@@ -38,11 +38,6 @@ export default function Page() {
       setCardData((prev) => ({ ...prev, [name]: value }));
    };
 
-   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, checked } = e.target;
-      setCardData((prev) => ({ ...prev, [name]: checked }));
-   };
-
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
@@ -95,9 +90,39 @@ export default function Page() {
                <div>Tipo do cartão</div>
 
                <div className="flex gap-4">
-                  <Checkbox name="credit" onChange={handleCheckboxChange} label={"Crédito"} />
+                  <Checkbox
+                     name="credit"
+                     onChange={(e) => {
+                        const checked = e.target.checked;
+                        setCardData((prev) => {
+                           const next = { ...prev, credit: checked };
+                           if (checked) {
+                              next.limit = 0;
+                              next.usedLimit = 0;
+                           } else {
+                              delete next.limit;
+                              delete next.usedLimit;
+                           }
+                           return next;
+                        });
+                     }}
+                     label="Crédito"
+                  />
 
-                  <Checkbox name="debit" onChange={handleCheckboxChange} label="Débito" />
+                  <Checkbox
+                     name="debit"
+                     onChange={(e) => {
+                        const checked = e.target.checked;
+                        setCardData((prev) => {
+                           const next = { ...prev, debit: checked };
+                           if (checked) next.balance = 0;
+                           else delete next.balance;
+
+                           return next;
+                        });
+                     }}
+                     label="Débito"
+                  />
                </div>
             </div>
          </div>

@@ -49,8 +49,11 @@ async function handler(req: NextRequest) {
             return NextResponse.json(formattedCards, { status: 200 });
 
          case "POST":
+            console.log("post request received");
             const data = await req.json();
+            console.log("data received:", data);
             const cardData = CreateCardSchema.parse(data);
+            console.log("validated card data:", cardData);
 
             const newCard = await prisma.card.create({
                data: {

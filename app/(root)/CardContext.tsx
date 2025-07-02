@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { CardType, TransactionType } from "@/lib/types";
+import { CardType, CategoryType, TransactionType } from "@/lib/types";
 
 interface CardContextType {
    cards: CardType[];
@@ -11,6 +11,7 @@ interface CardContextType {
    fetchCards: () => Promise<void>;
    transactions: TransactionType[] | null;
    setTransactions: React.Dispatch<React.SetStateAction<TransactionType[] | null>>;
+   categories: CategoryType[];
    isLoading: boolean;
 }
 
@@ -20,6 +21,7 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
    const { data: session } = useSession();
    const [cards, setCards] = useState<CardType[]>([]);
    const [transactions, setTransactions] = useState<TransactionType[] | null>(null);
+   const [categories, setCategories] = useState<CategoryType[]>([]);
    const [isLoading, setIsLoading] = useState<boolean>(false);
 
    const fetchCards = async () => {
@@ -35,12 +37,32 @@ export const CardProvider = ({ children }: { children: React.ReactNode }) => {
       }
    };
 
+   const fetchCategories = async () => {
+      setIsLoading(true);
+
+      try {
+         const response = await axios.get("/api/categories");
+         setCategories(response.data);
+      } catch (error) {
+         console.error("Failed to fetch categories:", error);
+      } finally {
+         setIsLoading(false);
+      }
+   };
+
    useEffect(() => {
-      if (session?.user) fetchCards(); // Fetch user's cards after login
+      if (!session?.user) return;
+
+      fetchCards();
+      fetchCategories();
+
+      setIsLoading(false);
    }, [session]);
 
    return (
-      <CardContext.Provider value={{ cards, setCards, fetchCards, transactions, setTransactions, isLoading }}>
+      <CardContext.Provider
+         value={{ cards, setCards, fetchCards, transactions, setTransactions, categories, isLoading }}
+      >
          {children}
       </CardContext.Provider>
    );

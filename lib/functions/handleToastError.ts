@@ -1,6 +1,6 @@
 import { Id, toast } from "react-toastify";
 
-export function handleToastError(error: unknown, toastId: Id) {
+export function handleToastError(error: unknown, toastId?: Id) {
    let errorMessage = "Ocorreu um erro inesperado.";
 
    if (typeof error === "object" && error !== null) {
@@ -18,5 +18,7 @@ export function handleToastError(error: unknown, toastId: Id) {
       }
    }
 
-   toast.update(toastId, { render: errorMessage, type: "error", isLoading: false, autoClose: 3000 });
+   // If a toastId is provided, update the existing toast; otherwise, show a new error toast
+   if (toastId) toast.update(toastId, { render: errorMessage, type: "error", isLoading: false, autoClose: 2000 });
+   else toast.error(errorMessage, { autoClose: 2000 });
 }

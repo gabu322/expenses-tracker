@@ -1,5 +1,8 @@
 export * from "./handleChange";
 
+import { ZodError } from "zod";
+export type { ZodError };
+
 // Types from the validation
 import { CardType, CreateCardType, UpdateCardType } from "../validation/card";
 import { CategoryType, CreateCategoryType, UpdateCategoryType } from "../validation/category";

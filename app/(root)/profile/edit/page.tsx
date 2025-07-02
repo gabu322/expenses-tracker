@@ -9,6 +9,7 @@ import Input from "@/components/Input";
 import { handleChangeType } from "@/lib/types/handleChange";
 import { toast } from "react-toastify";
 import { UserType } from "@/lib/types";
+import { handleToastError } from "@/lib/functions";
 
 export default function Page() {
    const router = useRouter();
@@ -37,13 +38,7 @@ export default function Page() {
             });
          });
       } catch (error) {
-         console.error(error);
-         toast.update(toastId, {
-            render: "Erro ao buscar informações.",
-            type: "error",
-            isLoading: false,
-            autoClose: 1500,
-         });
+         handleToastError(error, toastId);
       }
    }, []);
 

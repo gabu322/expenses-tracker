@@ -22,9 +22,10 @@ interface TransactionProps {
 }
 
 export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) {
-   const { cards, fetchCards, setTransactions } = useCards();
+   const { cards, fetchCards, setTransactions, categories } = useCards();
    const [newTransaction, setNewTransaction] = useState<CreateTransactionType>({
       cardId: "",
+      categoryId: "",
       type: "",
       method: "",
       amount: 0,
@@ -57,7 +58,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
-      console.log("Handling change for:", name, "with value:", value);
+
       setNewTransaction((prev) => ({ ...prev, [name]: value }));
    };
 
@@ -71,7 +72,11 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
          method: "",
          date: "",
          description: "",
+         categoryId: "",
       });
+
+      // Clear the card methods options as well
+      setCardMethods([]);
    };
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -124,7 +129,6 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
                <div className="flex flex-row gap-4 w-full">
                   <Input
-                     className="w-1/2"
                      name="amount"
                      label="Valor"
                      currency="R$"
@@ -135,7 +139,6 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                   />
 
                   <Select
-                     className="w-1/2"
                      name="cardId"
                      label="Cartão"
                      options={cards
@@ -150,10 +153,10 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
                <div className="flex flex-row gap-4 w-full">
                   <Select
-                     className="w-1/2"
                      name="method"
                      label="Método de pagamento"
                      options={cardMethods}
+                     value={newTransaction.method}
                      onChange={(e) => {
                         const [method, type] = (e.target.value ?? "-").split("-");
                         setNewTransaction((prev) => ({ ...prev, type, method }));
@@ -161,6 +164,18 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      rounded
                      disabled={newTransaction.cardId == ""}
                      required
+                  />
+
+                  <Select
+                     name="categoryId"
+                     label="Categoria"
+                     options={categories.map((category) => ({
+                        value: category.id,
+                        text: category.name,
+                     }))}
+                     onChange={handleChange}
+                     value={newTransaction.categoryId}
+                     rounded
                   />
                </div>
 

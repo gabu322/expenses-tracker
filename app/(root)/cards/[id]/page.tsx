@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { useCards } from "@/app/(root)/CardContext";
 import axios from "axios";
-import { ChevronRight, DollarSign } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { DollarSign } from "lucide-react";
+import Transactions from "./_components/transactions";
 
 interface CurrentValuesType {
    balance: number;
@@ -17,8 +17,7 @@ interface CurrentValuesType {
 
 export default function Page() {
    const { id } = useParams();
-   const router = useRouter();
-   const { cards, transactions, setTransactions } = useCards();
+   const { cards, transactions, setTransactions, categories } = useCards();
    const [monthTotal, setMonthTotal] = useState<number>(0);
    const [currentCardIndex, setCurrentCardIndex] = useState<number>(-1);
    const [currentValues, setCurrentValues] = useState<CurrentValuesType>({
@@ -175,36 +174,12 @@ export default function Page() {
             {transactions
                ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                .map((transaction, index) => (
-                  <div className={`flex flex-row gap-2 pl-3 pr-1 py-2 ${index > 0 ? "border-t-2" : ""}`} key={index}>
-                     <div className="flex-grow flex flex-col gap-1 truncate">
-                        <span className="truncate font-bold">{transaction.description}</span>
-
-                        <span className="text-slate-400 text-[14px]">
-                           {transaction.method === "DEBIT" ? "Débito" : "Crédito"}
-                        </span>
-                     </div>
-
-                     <div className="flex flex-col gap-1 text-right shrink-0">
-                        <span
-                           className={`font-bold ${transaction.type == "EXPENSE" ? "text-red-500" : "text-green-500"}`}
-                        >
-                           {transaction.type == "EXPENSE" && "-"}R${transaction.amount.toFixed(2)}
-                        </span>
-
-                        <span className="text-slate-400 text-[14px]">
-                           {new Date(transaction.date).toLocaleDateString("pt-BR", {
-                              day: "2-digit",
-                              month: "2-digit",
-                              year: "2-digit",
-                           })}
-                        </span>
-                     </div>
-
-                     <ChevronRight
-                        className="h-[34px] w-[34px] cursor-pointer shrink-0 -ml-1.5 -mx-1"
-                        onClick={() => router.push(`/transactions/${transaction.id}`)}
-                     />
-                  </div>
+                  <Transactions
+                     key={transaction.id}
+                     transaction={transaction}
+                     index={index}
+                     categoryName={categories.find((category) => category.id === transaction.categoryId)?.name}
+                  />
                ))}
          </div>
       </div>

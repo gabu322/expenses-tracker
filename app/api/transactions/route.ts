@@ -44,6 +44,7 @@ async function handler(req: NextRequest) {
                   date: new Date(transactionData.date),
                   description: transactionData.description,
                   type: transactionData.type as TransactionType,
+                  categoryId: transactionData.categoryId,
                },
             });
 

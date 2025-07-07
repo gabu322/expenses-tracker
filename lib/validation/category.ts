@@ -15,6 +15,6 @@ export const UpdateCategorySchema = z.object({
    ...base,
 });
 
-export type CategoryType = z.infer<typeof CreateCategorySchema> & { id?: string };
+export type CategoryType = z.infer<typeof CreateCategorySchema> & { id: string };
 export type CreateCategoryType = z.infer<typeof CreateCategorySchema>;
 export type UpdateCategoryType = z.infer<typeof UpdateCategorySchema>;

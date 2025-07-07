@@ -5,6 +5,7 @@ const base = {
    cardId: z.string(),
    userId: z.string().optional(),
    amount: z.number().positive("Amount must be a positive number."),
+   categoryId: z.string().optional(),
    date: z.string().transform((val) => {
       const parsedDate = new Date(val);
       if (isNaN(parsedDate.getTime())) throw new Error("Invalid date format.");

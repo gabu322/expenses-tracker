@@ -68,6 +68,8 @@ export default function Page() {
             <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
                <Input name="name" label="Nome do categoria" onChange={handleChange} required />
 
+               <Input name="description" label="Descrição" onChange={handleChange} />
+
                <Input name="color" label="Cor" type="color" onChange={handleChange} required />
 
                <Input name="icon" label="Ícone" onChange={handleChange} />

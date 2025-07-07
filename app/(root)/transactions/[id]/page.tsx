@@ -18,11 +18,12 @@ interface Option {
 export default function Page() {
    const { id } = useParams<{ id: string }>();
    const router = useRouter();
-   const { cards, transactions } = useCards();
+   const { cards, transactions, categories } = useCards();
 
    const [transaction, setTransaction] = useState<TransactionType>({
       id,
       cardId: "",
+      categoryId: "",
       type: "",
       method: "",
       amount: 0,
@@ -73,7 +74,6 @@ export default function Page() {
    };
 
    const submitHandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      console.log("Submitting transaction:", transaction);
       e.preventDefault();
       try {
          await axios.put(`/api/transactions/${id}`, transaction);
@@ -115,6 +115,18 @@ export default function Page() {
                value={transaction.type}
                onChange={handleChange}
                disabled={transaction.method === ""}
+               required
+            />
+
+            <Select
+               name="categoryId"
+               label="Categoria"
+               options={categories.map((category) => ({
+                  value: category.id,
+                  text: category.name,
+               }))}
+               onChange={handleChange}
+               value={transaction.categoryId}
                required
             />
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import axios from "axios";
 import { handleChangeType, TransactionType } from "@/lib/types";
@@ -14,12 +14,7 @@ interface Option {
    value: string;
    text: string;
 }
-function toLocalDatetimeLocal(input: string): string {
-   const date = new Date(input);
-   const offsetMs = date.getTimezoneOffset() * 60000;
-   const localDate = new Date(date.getTime() - offsetMs);
-   return localDate.toISOString().slice(0, 16); // "YYYY-MM-DDThh:mm"
-}
+
 interface ClientPageProps {
    initialTransaction: TransactionType;
 }

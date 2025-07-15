@@ -188,7 +188,7 @@ export default function Select({
 
          {isFocused && (
             <div
-               className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-60 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+               className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-48 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
             >
                {options
                   .filter((option) => option.text.toLowerCase().includes((internalValue || "").toLowerCase()))

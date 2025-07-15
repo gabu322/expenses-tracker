@@ -58,7 +58,6 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    const handleChange = (e: handleChangeType) => {
       const { name, value } = e.target;
-
       setNewTransaction((prev) => ({ ...prev, [name]: value }));
    };
 

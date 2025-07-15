@@ -26,6 +26,11 @@ const base = {
       .transform((val) => val.toUpperCase()),
 };
 
+export const TransactionSchema = z.object({
+   id: z.string(),
+   ...base,
+});
+
 export const CreateTransactionSchema = z.object(base);
 
 export const UpdateTransactionSchema = z.object({
@@ -40,6 +45,6 @@ export const UpdateTransactionSchema = z.object({
    method: base.method.optional(),
 });
 
-export type TransactionType = z.infer<typeof CreateTransactionSchema> & { id: string };
+export type TransactionType = z.infer<typeof TransactionSchema>;
 export type CreateTransactionType = z.infer<typeof CreateTransactionSchema>;
 export type UpdateTransactionType = z.infer<typeof UpdateTransactionSchema>;

@@ -145,6 +145,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                         .map((card) => ({ value: card.id as string, text: card.nickname }))}
                      value={newTransaction.cardId}
                      onChange={handleChange}
+                     searchable={false}
                      rounded
                      required
                   />
@@ -161,6 +162,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                         setNewTransaction((prev) => ({ ...prev, type, method }));
                      }}
                      rounded
+                     searchable={false}
                      disabled={newTransaction.cardId == ""}
                      required
                   />
@@ -175,6 +177,8 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
                      onChange={handleChange}
                      value={newTransaction.categoryId}
                      rounded
+                     searchable={false}
+                     required
                   />
                </div>
 

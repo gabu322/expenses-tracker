@@ -1,152 +1,152 @@
 generator client {
-   provider = "prisma-client-js"
-   output   = "./generated/client"
+  provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
-   provider = "postgresql"
-   url      = env("PSQL_DATABASE_URL")
+  provider = "postgresql"
+  url      = env("PSQL_DATABASE_URL")
 }
 
 enum TransactionType {
-   INCOME
-   EXPENSE
+  INCOME
+  EXPENSE
 }
 
 enum TransactionMethod {
-   PIX
-   DEBIT
-   CREDIT
+  PIX
+  DEBIT
+  CREDIT
 }
 
 model Card {
-   id         String  @id @default(uuid())
-   nickname   String
-   number     String? @unique
-   expiration String?
-   cvv        String?
-   debit      Boolean @default(false)
-   credit     Boolean @default(false)
-   issuerId   String
-   userId     String
-   currency   String  @default("USD")
+  id         String  @id @default(uuid())
+  nickname   String
+  number     String? @unique
+  expiration String?
+  cvv        String?
+  debit      Boolean @default(false)
+  credit     Boolean @default(false)
+  issuerId   String
+  userId     String
+  currency   String  @default("USD")
 
-   // Foreign keys
-   issuer Issuer @relation(fields: [issuerId], references: [id])
-   user   User   @relation(fields: [userId], references: [id])
+  // Foreign keys
+  issuer Issuer @relation(fields: [issuerId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
-   // Relations
-   debitCard   DebitCard?
-   creditCard  CreditCard?
-   transaction Transaction[]
+  // Relations
+  debitCard   DebitCard?
+  creditCard  CreditCard?
+  transaction Transaction[]
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DebitCard {
-   id             String @id @default(uuid())
-   initialBalance Float  @default(0.0)
-   cardId         String @unique
+  id             String @id @default(uuid())
+  initialBalance Float  @default(0.0)
+  cardId         String @unique
 
-   // Foreign keys
-   card Card @relation(fields: [cardId], references: [id])
+  // Foreign keys
+  card Card @relation(fields: [cardId], references: [id])
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CreditCard {
-   id               String @id @default(uuid())
-   limit            Float
-   initialUsedLimit Float  @default(0.0)
-   cardId           String @unique
+  id               String @id @default(uuid())
+  limit            Float
+  initialUsedLimit Float  @default(0.0)
+  cardId           String @unique
 
-   // Foreign keys
-   card Card @relation(fields: [cardId], references: [id])
+  // Foreign keys
+  card Card @relation(fields: [cardId], references: [id])
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Issuer {
-   id    String  @id @default(uuid())
-   name  String
-   color String
-   icon  String?
+  id    String  @id @default(uuid())
+  name  String
+  color String
+  icon  String?
 
-   // Relations
-   card Card[]
+  // Relations
+  card Card[]
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Transaction {
-   id          String            @id @default(uuid())
-   type        TransactionType
-   method      TransactionMethod
-   amount      Float
-   date        DateTime
-   description String?
-   cardId      String
-   categoryId  String?
+  id          String            @id @default(uuid())
+  type        TransactionType
+  method      TransactionMethod
+  amount      Float
+  date        DateTime
+  description String?
+  cardId      String
+  categoryId  String?
 
-   // Foreign keys
-   card Card @relation(fields: [cardId], references: [id])
+  // Foreign keys
+  card Card @relation(fields: [cardId], references: [id])
 
-   // Timestamps
-   createdAt DateTime  @default(now())
-   updatedAt DateTime  @updatedAt
-   Category  Category? @relation(fields: [categoryId], references: [id])
+  // Timestamps
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Category  Category? @relation(fields: [categoryId], references: [id])
 }
 
 model User {
-   id       String  @id @default(uuid())
-   email    String  @unique
-   password String
-   name     String?
-   cpf      String? @unique
-   phone    String?
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String
+  name     String?
+  cpf      String? @unique
+  phone    String?
 
-   // Relations
-   card     Card[]
-   sessions Session[]
+  // Relations
+  card     Card[]
+  sessions Session[]
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Session {
-   id     String  @id @default(uuid())
-   userId String
-   token  String  @unique
-   active Boolean @default(true)
+  id     String  @id @default(uuid())
+  userId String
+  token  String  @unique
+  active Boolean @default(true)
 
-   // Foreign keys
-   user User @relation(fields: [userId], references: [id])
+  // Foreign keys
+  user User @relation(fields: [userId], references: [id])
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-   id          String  @id @default(uuid())
-   name        String
-   description String?
-   icon        String?
-   color       String?
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  icon        String?
+  color       String?
 
-   // Relations
-   transaction Transaction[]
+  // Relations
+  transaction Transaction[]
 
-   // Timestamps
-   createdAt DateTime @default(now())
-   updatedAt DateTime @updatedAt
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

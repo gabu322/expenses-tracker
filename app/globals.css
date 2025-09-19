@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @config '../tailwind.config.js';
 
@@ -11,21 +11,21 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+   *,
+   ::after,
+   ::before,
+   ::backdrop,
+   ::file-selector-button {
+      border-color: var(--color-gray-200, currentcolor);
+   }
 }
 
 @utility text-balance {
-  text-wrap: balance;
+   text-wrap: balance;
 }
 
 @layer utilities {
-  /* :root {
+   /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -39,14 +39,14 @@
   }
 } */
 
-  body {
-    @apply bg-slate-100 text-slate-700;
-    line-height: 1;
-  }
+   body {
+      @apply bg-slate-100 text-slate-700;
+      line-height: 1;
+   }
 
-  main {
-    @apply min-h-screen p-4 pb-20;
-  }
+   main {
+      @apply min-h-screen p-4 pb-20;
+   }
 }
 
 h1 {

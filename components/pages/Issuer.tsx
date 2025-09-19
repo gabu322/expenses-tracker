@@ -11,7 +11,7 @@ interface IssuerProps {
 export function Issuer({ issuer, handleDelete }: IssuerProps) {
    return (
       <div
-         className="flex flex-row items-center justify-between rounded p-4 text-white font-bold"
+         className="flex flex-row items-center justify-between rounded-sm p-4 text-white font-bold"
          style={{ backgroundColor: issuer.color }}
       >
          <div className="flex-row-3">

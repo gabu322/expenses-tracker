@@ -198,7 +198,7 @@ export default function Input({
 
    return (
       <div
-         className={`flex flex-row gap-2 px-2 relative transition-all text-black box-border outline outline-offset-[-1px] hover:outline-2 hover:outline-blue-500 ${rounded ? "rounded-full" : "rounded"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
+         className={`flex flex-row gap-2 px-2 relative transition-all text-black box-border outline-solid -outline-offset-1 hover:outline-2 hover:outline-blue-500 ${rounded ? "rounded-full" : "rounded-sm"} ${sizes.base} ${className} ${isFocused ? "outline-2" : "outline-1"} ${disabled ? "bg-gray-200 border-gray-500 cursor-not-allowed" : "cursor-text bg-white"}`}
          onFocus={() => setIsFocused(true)}
          onBlur={() => {
             setIsFocused(false);
@@ -209,7 +209,7 @@ export default function Input({
       >
          {type === "color" && (
             <div
-               className="rounded-md h-6 w-6 my-auto overflow-hidden relative cursor-pointer flex-shrink-0"
+               className="rounded-md h-6 w-6 my-auto overflow-hidden relative cursor-pointer shrink-0"
                style={{ backgroundColor: internalValue.toString() }}
                onClick={() => {
                   const colorInput = document.getElementById(`${id || name}-color`);
@@ -231,7 +231,7 @@ export default function Input({
             ref={inputRef}
             id={id || name}
             name={name}
-            className={`outline-none w-full bg-transparent my-auto`}
+            className={`outline-hidden w-full bg-transparent my-auto`}
             type={type == "color" ? "text" : type}
             value={internalValue}
             onChange={handleInputChange}

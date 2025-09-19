@@ -17,7 +17,7 @@ export function Card({ className, card, issuer }: CardProps) {
 
    return (
       <div
-         className={`w-full aspect-[8/5] p-3 rounded-lg flex flex-col shadow-lg ${className || ""} text-white max-w-[400px]`}
+         className={`w-full aspect-8/5 p-3 rounded-lg flex flex-col shadow-lg ${className || ""} text-white max-w-[400px]`}
          style={{ background: `linear-gradient(to bottom, ${darkenedColor}, ${lightenedColor})` }}
       >
          <div className="flex flex-row justify-between mb-2 h-10">
@@ -32,7 +32,7 @@ export function Card({ className, card, issuer }: CardProps) {
             <h4>{card.nickname}</h4>
          </div>
 
-         <div className="flex-grow flex flex-col justify-between">
+         <div className="grow flex flex-col justify-between">
             {card.debit && (
                <CountUp
                   className="text-xl leading-none font-semibold"

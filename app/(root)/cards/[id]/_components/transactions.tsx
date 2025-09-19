@@ -11,7 +11,7 @@ interface TransactionProps {
 export default function Transactions({ transaction, index, categoryName }: TransactionProps) {
    return (
       <div className={`flex flex-row gap-2 pl-3 pr-1 py-2 ${index > 0 ? "border-t-2" : ""}`} key={index}>
-         <div className="flex-grow flex flex-col gap-1 truncate">
+         <div className="grow flex flex-col gap-1 truncate">
             <span className="truncate font-bold">{transaction.description}</span>
 
             <span className="text-slate-400 text-[14px]">

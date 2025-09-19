@@ -1,8 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* :root {
+@config '../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@layer utilities {
+  /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -16,19 +39,14 @@
   }
 } */
 
-body {
-   @apply bg-slate-100 text-slate-700;
-   line-height: 1;
-}
+  body {
+    @apply bg-slate-100 text-slate-700;
+    line-height: 1;
+  }
 
-main {
-   @apply min-h-screen p-4 pb-20;
-}
-
-@layer utilities {
-   .text-balance {
-      text-wrap: balance;
-   }
+  main {
+    @apply min-h-screen p-4 pb-20;
+  }
 }
 
 h1 {
@@ -56,17 +74,17 @@ h6 {
 }
 
 .card {
-   @apply bg-white shadow rounded;
+   @apply bg-white shadow-sm rounded-sm;
 }
 
 /* On mobile */
 @media (max-width: 640px) {
    .Toastify__toast-container {
-      @apply p-4 gap-2 !important;
+      @apply p-4! gap-2!;
    }
 
    .Toastify__toast {
-      @apply overflow-hidden rounded-md !important;
+      @apply overflow-hidden! rounded-md!;
    }
 }
 

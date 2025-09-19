@@ -33,7 +33,7 @@ export default function Page() {
 
                   <p className="text-gray-500">{session?.user.email}</p>
 
-                  <Button text="Editar perfil" className="w-full mt-4 h-9 !text-base" href="/profile/edit" />
+                  <Button text="Editar perfil" className="w-full mt-4 h-9 text-base!" href="/profile/edit" />
                </div>
             </div>
 

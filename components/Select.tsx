@@ -151,7 +151,7 @@ export default function Select({
 
    return (
       <div
-         className={`relative outline outline-offset-[-1px] ${rounded ? "rounded-full" : "rounded"} ${className} ${sizes.base} ${isFocused ? "outline-2" : "outline-1"} hover:outline-2 ${disabled ? "bg-gray-100" : "bg-white"}`}
+         className={`relative outline-solid -outline-offset-1 ${rounded ? "rounded-full" : "rounded-sm"} ${className} ${sizes.base} ${isFocused ? "outline-2" : "outline-1"} hover:outline-2 ${disabled ? "bg-gray-100" : "bg-white"}`}
          onMouseLeave={() => {
             setIsFocused(false);
             setInfoColor({ outline: "#d1d5db", text: "#9ca3af" });
@@ -164,7 +164,7 @@ export default function Select({
          <input
             id={id || name}
             name={name}
-            className={`outline-none w-full ${sizes.inputMargin}`}
+            className={`outline-hidden w-full ${sizes.inputMargin}`}
             type="text"
             value={internalValue}
             onChange={handleInputChange}
@@ -178,7 +178,7 @@ export default function Select({
          {label && (
             <label
                htmlFor={id || name}
-               className={`absolute transition-all rounded whitespace-nowrap font-medium left-2 z-2 ${isFocused || internalValue ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-100" : "bg-white"}`}
+               className={`absolute transition-all rounded-sm whitespace-nowrap font-medium left-2 z-2 ${isFocused || internalValue ? `${sizes.labelSelected} px-1 cursor-default` : `${sizes.labelUnselected} cursor-text`} ${disabled ? "bg-gray-100" : "bg-white"}`}
                style={{ color: infoColor.text }}
             >
                {label}
@@ -188,7 +188,7 @@ export default function Select({
 
          {isFocused && (
             <div
-               className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-48 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+               className={`absolute top-full left-0 w-full bg-white border border-gray-300 max-h-48 overflow-y-auto transition-all z-10 ${rounded ? "rounded-2xl" : "rounded-sm"} ${isFocused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
             >
                {options
                   .filter((option) => option.text.toLowerCase().includes((internalValue || "").toLowerCase()))

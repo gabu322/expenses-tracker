@@ -60,7 +60,7 @@ export default function Button({
    return (
       <button
          type={type}
-         className={`flex items-center justify-center relative h-10 px-3 shadow-sm transition-all duration-200 font-semibold text-sm ${disabled ? "cursor-not-allowed opacity-60" : loading ? "cursor-wait" : "cursor-pointer"} ${textColor} ${className} ${bg_color} ${!loading && hover_color} hover:shadow ${rounded ? "rounded-full" : "rounded"}`}
+         className={`flex items-center justify-center relative h-10 px-3 shadow-xs transition-all duration-200 font-semibold text-sm ${disabled ? "cursor-not-allowed opacity-60" : loading ? "cursor-wait" : "cursor-pointer"} ${textColor} ${className} ${bg_color} ${!loading && hover_color} hover:shadow-sm ${rounded ? "rounded-full" : "rounded-sm"}`}
          onClick={handleClick}
          disabled={disabled}
       >

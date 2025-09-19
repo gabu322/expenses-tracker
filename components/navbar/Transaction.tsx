@@ -112,7 +112,7 @@ export default function Transaction({ isOpen, toggleNavbar }: TransactionProps) 
 
    return (
       <div
-         className={`w-full p-4 absolute bg-white duration-500 z-[33] left-0 bottom-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+         className={`w-full p-4 absolute bg-white duration-500 z-33 left-0 bottom-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}
       >
          {cards.length === 0 ? (
             <div className="flex flex-col gap-4 items-center">

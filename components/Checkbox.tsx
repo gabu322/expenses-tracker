@@ -42,7 +42,7 @@ export default function Checkbox({
       >
          <input
             id={htmlFor}
-            className={`cursor-pointer ${disabled ? "bg-gray-200" : "bg-white"} border-gray-300   rounded-sm mr-2`}
+            className={`cursor-pointer ${disabled ? "bg-gray-200" : "bg-white"} border-gray-300   rounded-xs mr-2`}
             type="checkbox"
             name={name}
             checked={isChecked}

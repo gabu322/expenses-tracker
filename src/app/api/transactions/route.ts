@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
-import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
+import { TransactionMethod, TransactionType } from "@prisma/generated/client";
 import { CreateTransactionSchema } from "@/lib/validation/transaction";
 
 async function handler(req: NextRequest) {

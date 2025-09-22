@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import { prisma } from "@/lib/prisma";
 import { CreateTransactionSchema } from "@/lib/validation/transaction";
-import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
+import { TransactionMethod, TransactionType } from "@prisma/generated/client";
 
 async function handler(req: NextRequest, context: ParamsType) {
    const { id } = await getParams(context);

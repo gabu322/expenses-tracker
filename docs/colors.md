@@ -21,7 +21,7 @@
 - **Hovered action buttons**: `blue-700`
 - **Neutral buttons or cancel actions**: `gray-400`
 - **Graph/chart lines**:
-   - Positive: `green-500`
-   - Negative: `red-500`
-   - Neutral: `amber-400` (for categories like "miscellaneous")
+  - Positive: `green-500`
+  - Negative: `red-500`
+  - Neutral: `amber-400` (for categories like "miscellaneous")
 - **Icon highlights (if needed)**: `amber-500` (adds warmth without being too distracting)

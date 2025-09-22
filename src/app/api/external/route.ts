@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CreateTransactionSchema } from "@/lib/validation/transaction";
-import { TransactionMethod, TransactionType } from "@/prisma/generated/client";
+import { TransactionMethod, TransactionType } from "@prisma/generated/client";
 
 export async function POST(req: NextRequest) {
    try {
